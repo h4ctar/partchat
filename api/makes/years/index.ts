@@ -1,5 +1,4 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { allowCors } from "@lib/utils";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
   if (request.method === "GET") {
@@ -12,4 +11,4 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
   }
 };
 
-export default allowCors(handler);
+export default handler;

@@ -1,7 +1,13 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { MOTORCYCLES } from "@lib/data";
-import { allowCors } from "@lib/utils";
 import _ from "lodash";
+
+const MOTORCYCLES = [
+  {
+    make: "Yamaha",
+    years: [1976],
+    model: "XS750",
+  },
+];
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
   if (request.method === "GET") {
@@ -13,4 +19,4 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
   }
 };
 
-export default allowCors(handler);
+export default handler;
