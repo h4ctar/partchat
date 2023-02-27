@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { MOTORCYCLES } from "../_data";
-import { allowCors } from "../_utils";
+import { MOTORCYCLES } from "@lib/data";
+import { allowCors } from "@lib/utils";
 import _ from "lodash";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
