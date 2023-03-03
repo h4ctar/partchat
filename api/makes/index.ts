@@ -1,13 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import _ from "lodash";
-
-const MOTORCYCLES = [
-  {
-    make: "Yamaha",
-    years: [1976],
-    model: "XS750",
-  },
-];
+import { MOTORCYCLES } from "../_data";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
   if (request.method === "GET") {
