@@ -1,9 +1,7 @@
-module.exports = {
-  MOTORCYCLES: [
-    {
-      make: "Yamaha",
-      years: [1976],
-      model: "XS750",
-    },
-  ],
-};
+export const MOTORCYCLES = [
+  {
+    make: "Yamaha",
+    years: [1976],
+    model: "XS750",
+  },
+];
