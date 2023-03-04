@@ -1,12 +1,9 @@
-import { QueryClient, QueryClientProvider } from "react-query";
 import { Link, Route, Switch } from "wouter";
 import { Home } from "./Home";
 
-const queryClient = new QueryClient();
-
 export const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <nav className="flex gap-10 items-center">
         <h2>
           <Link to="/">PartSwap</Link>
@@ -83,6 +80,6 @@ export const App = () => {
           <Route>404, Not Found!</Route>
         </Switch>
       </section>
-    </QueryClientProvider>
+    </>
   );
 };
