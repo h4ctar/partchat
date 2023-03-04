@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "outDir": "api",
+      "outDir": "public",
       "esModuleInterop": true,
     },
     "include": ["src/api"],
