@@ -4,15 +4,12 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "webpack serve --config webpack.config.dev.js --port $PORT",
-    "build-webpack": "webpack --config webpack.config.prod.js",
-    "build-api": "tsc --project tsconfig.api.json",
-    "build": "yarn build-webpack && yarn build-api"
+    "build": "webpack --config webpack.config.prod.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.7",
     "@tailwindcss/forms": "^0.5.3",
     "@vercel/node": "^2.5.8",
-    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.34.2",
@@ -20,7 +17,6 @@
     "zod": "^3.18.0"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.191",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "autoprefixer": "^10.4.13",
