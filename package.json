@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "webpack serve --config webpack.config.dev.js --port $PORT",
     "build-dev": "webpack --config webpack.config.dev.js",
-    "build": "webpack --config webpack.config.prod.js"
+    "build": "webpack --config webpack.config.prod.js",
+    "vercel-build": "tsc --project tsconfig.api.json"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.7",

@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+      "outDir": "api",
+      "esModuleInterop": true,
+    },
+    "include": ["src/api"],
+  }
+  
