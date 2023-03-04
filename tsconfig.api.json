@@ -1,8 +1,7 @@
 {
-    "compilerOptions": {
-      "outDir": "public",
-      "esModuleInterop": true,
-    },
-    "include": ["src/api"],
-  }
-  
+  "compilerOptions": {
+    "outDir": "api",
+    "esModuleInterop": true
+  },
+  "include": ["src/api"]
+}
