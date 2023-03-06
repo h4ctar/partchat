@@ -26,23 +26,21 @@ export const ModelSelect = ({ make, year, model }: Params) => {
             name="model"
             id="model"
             className="border-gray-300 rounded-lg shadow-sm"
+            defaultValue=""
             value={model}
             onChange={(event) =>
                 setLocation(
                     `/makes/${make}/years/${year}/models/${event.target.value}`
                 )
             }
+            disabled={query.isLoading}
         >
-            {query.isLoading ? (
-                <option>Loading...</option>
-            ) : (
-                <>
-                    <option>Select model</option>
-                    {query.data?.map((model) => (
-                        <option key={model}>{model}</option>
-                    ))}
-                </>
-            )}
+            <option value="" disabled>
+                {query.isLoading ? "Loading..." : "Select model"}
+            </option>
+            {query.data?.map((model) => (
+                <option key={model}>{model}</option>
+            ))}
         </select>
     );
 };

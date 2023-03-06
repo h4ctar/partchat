@@ -25,21 +25,19 @@ export const YearSelect = ({ make, year }: Params) => {
             name="year"
             id="year"
             className="border-gray-300 rounded-lg shadow-sm"
+            defaultValue=""
             value={year}
             onChange={(event) =>
                 setLocation(`/makes/${make}/years/${event.target.value}`)
             }
+            disabled={query.isLoading}
         >
-            {query.isLoading ? (
-                <option>Loading...</option>
-            ) : (
-                <>
-                    <option>Select year</option>
-                    {query.data?.map((year) => (
-                        <option key={year}>{year}</option>
-                    ))}
-                </>
-            )}
+            <option value="" disabled>
+                {query.isLoading ? "Loading..." : "Select year"}
+            </option>
+            {query.data?.map((year) => (
+                <option key={year}>{year}</option>
+            ))}
         </select>
     );
 };

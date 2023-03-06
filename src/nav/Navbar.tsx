@@ -16,7 +16,7 @@ export const Navbar = () => {
     const diagram = (match && match[4]) || undefined;
 
     return (
-        <nav className="flex gap-10 items-center">
+        <nav className="flex gap-5 items-center p-5">
             <h2>
                 <Link to="/">PartSwap</Link>
             </h2>

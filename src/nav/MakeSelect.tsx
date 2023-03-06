@@ -24,21 +24,17 @@ export const MakeSelect = ({ make }: Params) => {
             name="make"
             id="make"
             className="border-gray-300 rounded-lg shadow-sm"
+            defaultValue=""
             value={make}
             onChange={(event) => setLocation(`/makes/${event.target.value}`)}
+            disabled={query.isLoading}
         >
-            {query.isLoading ? (
-                <option>Loading...</option>
-            ) : query.error ? (
-                <></>
-            ) : (
-                <>
-                    <option>Select make</option>
-                    {query.data?.map((make) => (
-                        <option key={make}>{make}</option>
-                    ))}
-                </>
-            )}
+            <option value="" disabled>
+                {query.isLoading ? "Loading..." : "Select make"}
+            </option>
+            {query.data?.map((make) => (
+                <option key={make}>{make}</option>
+            ))}
         </select>
     );
 };
