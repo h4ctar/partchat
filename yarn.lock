@@ -332,6 +332,19 @@
   dependencies:
     mini-svg-data-uri "^1.2.3"
 
+"@tanstack/query-core@4.25.0":
+  version "4.25.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.25.0.tgz#8d8a72d334a390d71ebc4a2d928a6eba15b4e74e"
+  integrity sha512-WernjW54gAgaxd52SdAk+hq5+0oTfiiXjDcMha8jlNb53sgESxwKltpQQuu31xMOKUdcHNHZ8Hb56j5ixHxhQQ==
+
+"@tanstack/react-query@^4.25.0":
+  version "4.25.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.25.0.tgz#c02cfc385e8ea1e14dcd80c6c62d0fc25cb8f8ed"
+  integrity sha512-uEfpBg6Xf3Yoit//V99kTvaC1dQUB/6NFodAV7VnXWs2xL5lms5Nm3PjgfD+rT9rv4s++3riyK+zcOMvO4/7xQ==
+  dependencies:
+    "@tanstack/query-core" "4.25.0"
+    use-sync-external-store "^1.2.0"
+
 "@ts-morph/common@~0.11.0":
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/@ts-morph/common/-/common-0.11.1.tgz#281af2a0642b19354d8aa07a0d50dfdb4aa8164e"
@@ -3592,7 +3605,7 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-use-sync-external-store@^1.0.0:
+use-sync-external-store@^1.0.0, use-sync-external-store@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.2.0.tgz#7dbefd6ef3fe4e767a0cf5d7287aacfb5846928a"
   integrity sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==
