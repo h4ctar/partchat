@@ -1,11 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
-
-const fetchYears = (make: string) => async () => {
-    const response = await fetch(`/api/makes/${make}/years`);
-    const years: number[] = await response.json();
-    return years;
-};
+import { fetchYears } from "../api";
+import { Spinner } from "../Spinner";
 
 type Params = {
     make: string;
@@ -16,24 +12,27 @@ export const YearSelect = ({ make, year }: Params) => {
     const [, setLocation] = useLocation();
 
     const query = useQuery({
-        queryKey: ["makes", make],
+        queryKey: ["makes", make, "years"],
         queryFn: fetchYears(make),
     });
+
+    if (query.isLoading) {
+        return <Spinner />;
+    }
 
     return (
         <select
             name="year"
             id="year"
             className="border-gray-300 rounded-lg shadow-sm"
-            defaultValue=""
-            value={year}
+            value={year || ""}
             onChange={(event) =>
                 setLocation(`/makes/${make}/years/${event.target.value}`)
             }
             disabled={query.isLoading}
         >
             <option value="" disabled>
-                {query.isLoading ? "Loading..." : "Select year"}
+                Select year
             </option>
             {query.data?.map((year) => (
                 <option key={year}>{year}</option>

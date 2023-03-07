@@ -1,4 +1,5 @@
 import { Link, useLocation } from "wouter";
+import { DiagramSelect } from "./DiagramSelect";
 import { MakeSelect } from "./MakeSelect";
 import { ModelSelect } from "./ModelSelect";
 import { YearSelect } from "./YearSelect";
@@ -16,7 +17,7 @@ export const Navbar = () => {
     const diagram = (match && match[4]) || undefined;
 
     return (
-        <nav className="flex gap-5 items-center p-5">
+        <nav className="flex flex-wrap gap-5 items-center p-5">
             <h2>
                 <Link to="/">PartSwap</Link>
             </h2>
@@ -26,28 +27,14 @@ export const Navbar = () => {
             {make && year && (
                 <ModelSelect make={make} year={year} model={model} />
             )}
-
-            {/* <select
-                name="model"
-                id="model"
-                className="border-gray-300 rounded-lg shadow-sm"
-            >
-                <option>XJ650LJ</option>
-            </select>
-            <select
-                name="diagram"
-                id="diagram"
-                className="border-gray-300 rounded-lg shadow-sm"
-            >
-                <option>Carburetor</option>
-            </select>
-            <select
-                name="part-number"
-                id="part-number"
-                className="border-gray-300 rounded-lg shadow-sm"
-            >
-                <option>97801-05010</option>
-            </select> */}
+            {make && year && model && (
+                <DiagramSelect
+                    make={make}
+                    year={year}
+                    model={model}
+                    diagram={diagram}
+                />
+            )}
         </nav>
     );
 };
