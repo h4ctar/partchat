@@ -1,40 +1,29 @@
-import { Link, useLocation } from "wouter";
-import { DiagramSelect } from "./DiagramSelect";
+import { Link, Route, useLocation } from "wouter";
 import { MakeSelect } from "./MakeSelect";
 import { ModelSelect } from "./ModelSelect";
 import { YearSelect } from "./YearSelect";
+import { useSearch } from "wouter/use-location";
 
 export const Navbar = () => {
-    const [location] = useLocation();
+    const search = useSearch();
 
-    const match = location.match(
-        /^\/makes\/([a-zA-Z]+)(?:\/years\/([0-9]+)(?:\/models\/([a-zA-Z0-9]+)(?:\/diagrams\/([a-zA-Z]+))?)?)?$/
-    );
-
-    const make = (match && match[1]) || undefined;
-    const year = (match && Number(match[2])) || undefined;
-    const model = (match && match[3]) || undefined;
-    const diagram = (match && match[4]) || undefined;
+    const searchParams = new URLSearchParams(search);
+    const make = searchParams.get("make") || undefined;
+    const year = parseInt(searchParams.get("year") || "") || undefined;
+    const model = searchParams.get("model") || undefined;
 
     return (
-        <nav className="flex flex-wrap gap-5 items-center p-5">
+        <div className="flex flex-wrap gap-5 items-center p-5 border-b dark:border-slate-50/[0.06]">
             <h2>
                 <Link to="/">PartSwap</Link>
             </h2>
-
-            <MakeSelect make={make} />
-            {make && <YearSelect make={make} year={year} />}
-            {make && year && (
-                <ModelSelect make={make} year={year} model={model} />
-            )}
-            {make && year && model && (
-                <DiagramSelect
-                    make={make}
-                    year={year}
-                    model={model}
-                    diagram={diagram}
-                />
-            )}
-        </nav>
+            <Route path="/motorcycles">
+                <MakeSelect make={make} />
+                {make && <YearSelect make={make} year={year} />}
+                {make && year && (
+                    <ModelSelect make={make} year={year} model={model} />
+                )}
+            </Route>
+        </div>
     );
 };
