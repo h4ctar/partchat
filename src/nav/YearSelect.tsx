@@ -1,6 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
-import { fetchYears } from "../api";
+import { useYears } from "../motorcycles/motorcycle.hook";
 
 type Params = {
     make: string;
@@ -9,11 +8,7 @@ type Params = {
 
 export const YearSelect = ({ make, year }: Params) => {
     const [, setLocation] = useLocation();
-
-    const query = useQuery({
-        queryKey: ["makes", make, "years"],
-        queryFn: fetchYears(make!),
-    });
+    const { query } = useYears(make);
 
     return (
         <select

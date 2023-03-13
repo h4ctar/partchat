@@ -1,6 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
-import { fetchModels } from "../api";
+import { useMotorcycles } from "../motorcycles/motorcycle.hook";
 
 type Params = {
     make: string;
@@ -10,11 +9,7 @@ type Params = {
 
 export const ModelSelect = ({ make, year, model }: Params) => {
     const [, setLocation] = useLocation();
-
-    const query = useQuery({
-        queryKey: ["makes", make, "years", year, "models"],
-        queryFn: fetchModels(make!, Number(year!)),
-    });
+    const { query } = useMotorcycles(make, year);
 
     return (
         <select
@@ -23,17 +18,17 @@ export const ModelSelect = ({ make, year, model }: Params) => {
             className="border-gray-300 rounded-lg dark:bg-slate-400/10 dark:border-slate-50/10"
             value={model || ""}
             onChange={(event) =>
-                setLocation(
-                    `/motorcycles?make=${make}&year=${year}&model=${event.target.value}`
-                )
+                setLocation(`/motorcycles/${event.target.value}`)
             }
             disabled={query.isLoading}
         >
             <option value="" disabled>
-                {query.isLoading ? "Loading..." : "Select year"}
+                {query.isLoading ? "Loading..." : "Select model"}
             </option>
-            {query.data?.map((model) => (
-                <option key={model}>{model}</option>
+            {query.data?.map((motorcycles) => (
+                <option key={motorcycles.id} value={motorcycles.id}>
+                    {motorcycles.model}
+                </option>
             ))}
         </select>
     );

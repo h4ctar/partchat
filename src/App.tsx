@@ -1,8 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Route, Switch } from "wouter";
 import { Home } from "./Home";
-import { Motorcycle } from "./Motorcycle";
-import { Motorcycles } from "./Motorcycles";
+import { Motorcycle } from "./motorcycles/Motorcycle";
+import { Motorcycles } from "./motorcycles/Motorcycles";
 import { Navbar } from "./nav/Navbar";
 import { NotFound } from "./NotFound";
 

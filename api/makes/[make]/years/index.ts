@@ -9,7 +9,11 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
         const years = _.uniq(
             MOTORCYCLES.filter(
                 (motorcycle) => motorcycle.make === make
-            ).flatMap((motorcycle) => motorcycle.years)
+            ).flatMap((motorcycle) =>
+                Array(motorcycle.yearTo - motorcycle.yearFrom + 1)
+                    .fill(0)
+                    .map((_, index) => index + motorcycle.yearFrom)
+            )
         );
         response.status(200).send(years);
     } else {

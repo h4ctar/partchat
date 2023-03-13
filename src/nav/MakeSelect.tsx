@@ -1,6 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
-import { fetchMakes } from "../api";
+import { useMakes } from "../motorcycles/motorcycle.hook";
 
 type Params = {
     make?: string;
@@ -8,11 +7,7 @@ type Params = {
 
 export const MakeSelect = ({ make }: Params) => {
     const [, setLocation] = useLocation();
-
-    const query = useQuery({
-        queryKey: ["makes"],
-        queryFn: fetchMakes,
-    });
+    const { query } = useMakes();
 
     return (
         <select
@@ -26,7 +21,7 @@ export const MakeSelect = ({ make }: Params) => {
             disabled={query.isLoading}
         >
             <option value="" disabled>
-                {query.isLoading ? "Loading..." : "Select year"}
+                {query.isLoading ? "Loading..." : "Select make"}
             </option>
             {query.data?.map((make) => (
                 <option key={make}>{make}</option>
