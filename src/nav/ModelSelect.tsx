@@ -25,9 +25,9 @@ export const ModelSelect = ({ make, year, model }: Params) => {
             <option value="" disabled>
                 {query.isLoading ? "Loading..." : "Select model"}
             </option>
-            {query.data?.map((motorcycles) => (
-                <option key={motorcycles.id} value={motorcycles.id}>
-                    {motorcycles.model}
+            {query.data?.map((motorcycle) => (
+                <option key={motorcycle.id} value={motorcycle.id}>
+                    {motorcycle.model}
                 </option>
             ))}
         </select>

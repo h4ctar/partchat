@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Route, Switch } from "wouter";
+import { Diagram } from "./diagrams/Diagram";
 import { Home } from "./Home";
 import { Motorcycle } from "./motorcycles/Motorcycle";
 import { Motorcycles } from "./motorcycles/Motorcycles";
@@ -23,6 +24,14 @@ export const App = () => {
                     <Route path="/motorcycles/:motorcycleId">
                         {(params) => (
                             <Motorcycle motorcycleId={params.motorcycleId!} />
+                        )}
+                    </Route>
+                    <Route path="/motorcycles/:motorcycleId/diagrams/:diagramId">
+                        {(params) => (
+                            <Diagram
+                                motorcycleId={params.motorcycleId!}
+                                diagramId={params.diagramId!}
+                            />
                         )}
                     </Route>
                     <Route>

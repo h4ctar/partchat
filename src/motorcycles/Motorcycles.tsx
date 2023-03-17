@@ -1,3 +1,4 @@
+import { Link } from "wouter";
 import { useSearch } from "wouter/use-location";
 import { useMotorcycles } from "./motorcycle.hook";
 
@@ -13,7 +14,6 @@ export const Motorcycles = () => {
     if (!query.data) {
         return (
             <div className="p-5">
-                <h1>Motorcycles</h1>
                 <div>Loading...</div>
             </div>
         );
@@ -21,14 +21,16 @@ export const Motorcycles = () => {
 
     return (
         <div className="p-5">
-            <h1>Motorcycles</h1>
-            <ul className="grid grid-cols-2 gap-4">
+            <ul className="grid grid-cols-4 gap-4">
                 {query.data.map((motorcycle) => (
-                    <li
-                        key={motorcycle.id}
-                        className="rounded-md ring-1 ring-slate-200 p-3 bg-white"
-                    >
-                        {motorcycle.model}
+                    <li key={motorcycle.id}>
+                        <Link
+                            href={`/motorcycles/${motorcycle.id}`}
+                            className="flex flex-col rounded-md p-3 dark:bg-slate-800"
+                        >
+                            <img className="h-96" src={motorcycle.image} />
+                            <h2 className="font-semibold">{`${motorcycle.make} ${motorcycle.model} ${motorcycle.yearFrom}-${motorcycle.yearTo}`}</h2>
+                        </Link>
                     </li>
                 ))}
             </ul>

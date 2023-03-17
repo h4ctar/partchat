@@ -2,20 +2,31 @@ import { useEffect, useState } from "react";
 import { Link, useRoute } from "wouter";
 import { useSearch } from "wouter/use-location";
 import { useMotorcycle } from "../motorcycles/motorcycle.hook";
+import { DiagramSelect } from "./DiagramSelect";
 import { MakeSelect } from "./MakeSelect";
 import { ModelSelect } from "./ModelSelect";
 import { YearSelect } from "./YearSelect";
 
 export const Navbar = () => {
-    const [match, params] = useRoute("/motorcycles/:motorcycleId");
     const search = useSearch();
-    const { query } = useMotorcycle(params?.motorcycleId || "");
+
+    const [matchMotorcycle, paramsMotorcycle] = useRoute(
+        "/motorcycles/:motorcycleId"
+    );
+    const [matchDiagram, paramsDiagram] = useRoute(
+        "/motorcycles/:motorcycleId/diagrams/:diagramId"
+    );
+    const motorcycleId =
+        paramsMotorcycle?.motorcycleId || paramsDiagram?.motorcycleId || "";
+
+    const { query: queryMotorcycle } = useMotorcycle(motorcycleId);
+
     const [selectedMake, setSelectedMake] = useState<string>();
     const [selectedYear, setSelectedYear] = useState<number>();
     const [selectedModel, setSelectedModel] = useState<string>();
 
     useEffect(() => {
-        if (!match) {
+        if (!matchMotorcycle && !matchDiagram) {
             const searchParams = new URLSearchParams(search);
             const make = searchParams.get("make");
             const year = searchParams.get("year");
@@ -23,23 +34,33 @@ export const Navbar = () => {
             setSelectedYear(parseInt(year || "") || undefined);
             setSelectedModel(undefined);
         }
-    }, [match, search]);
+    }, [matchMotorcycle, matchDiagram, search]);
 
     useEffect(() => {
-        if (match) {
-            if (query.data) {
-                setSelectedMake(query.data.make);
-                setSelectedYear(selectedYear || query.data.yearFrom);
-                setSelectedModel(query.data.model);
+        if (matchMotorcycle) {
+            if (queryMotorcycle.data) {
+                setSelectedMake(queryMotorcycle.data.make);
+                setSelectedYear(selectedYear || queryMotorcycle.data.yearFrom);
+                setSelectedModel(queryMotorcycle.data.model);
             } else {
                 setSelectedModel(undefined);
             }
         }
-    }, [match, query.data?.make]);
+    }, [matchMotorcycle, queryMotorcycle.data, selectedYear]);
+
+    useEffect(() => {
+        if (matchDiagram) {
+            if (queryMotorcycle.data) {
+                setSelectedMake(queryMotorcycle.data.make);
+                setSelectedYear(selectedYear || queryMotorcycle.data.yearFrom);
+                setSelectedModel(queryMotorcycle.data.model);
+            }
+        }
+    }, [matchDiagram, queryMotorcycle.data, selectedYear]);
 
     return (
         <div className="flex flex-wrap gap-5 items-center p-5 border-b dark:border-slate-50/[0.06]">
-            <h2>
+            <h2 className="font-semibold">
                 <Link to="/">PartSwap</Link>
             </h2>
             <MakeSelect make={selectedMake} />
@@ -51,6 +72,12 @@ export const Navbar = () => {
                     make={selectedMake}
                     year={selectedYear}
                     model={selectedModel}
+                />
+            )}
+            {motorcycleId && (
+                <DiagramSelect
+                    motorcycleId={motorcycleId}
+                    diagramId={paramsDiagram?.diagramId}
                 />
             )}
         </div>
