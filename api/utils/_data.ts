@@ -29,7 +29,7 @@ export const DIAGRAMS = [
     {
         id: "yamaha-cylinder-head-1",
         name: "Cylinder Head",
-        image: "diagrams/yamaha/cylinder-head-1.png",
+        image: "/assets/diagrams/cylinder-head-1.png",
     },
 ];
 
@@ -40,18 +40,19 @@ export const MOTORCYCLE_DIAGRAMS = [
     },
 ];
 
-// export const PARTS = [
-//     {
-//         id: 1,
-//         number: "16H-14900-00",
-//         description: "Carburetor Assy",
-//         qty: 1,
-//     },
-// ];
+export const PARTS = [
+    {
+        id: "16G-11101-00",
+        number: "16G-11101-00",
+        description: "CYLINDER HEAD ASSY",
+        qty: 1,
+    },
+];
 
-// export const DIAGRAM_PARTS = [
-//     {
-//         diagramId: 1,
-//         partId: 1,
-//     },
-// ];
+export const DIAGRAM_PARTS = [
+    {
+        diagramId: "yamaha-cylinder-head-1",
+        partId: "16G-11101-00",
+        refNo: 1,
+    },
+];

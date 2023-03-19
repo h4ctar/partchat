@@ -16,6 +16,14 @@ type Diagram = {
     image: string;
 };
 
+type Part = {
+    id: string;
+    number: string;
+    description: string;
+    qty: number;
+    refNo?: number;
+};
+
 const fetchMakes = async () => {
     const response = await fetch("/api/makes");
     const makes: string[] = await response.json();
@@ -58,6 +66,14 @@ const fetchDiagram = (motorcycleId: string, diagramId: string) => async () => {
         `/api/motorcycles/${motorcycleId}/diagrams/${diagramId}`
     );
     const diagrams: Diagram = await response.json();
+    return diagrams;
+};
+
+const fetchParts = (motorcycleId: string, diagramId: string) => async () => {
+    const response = await fetch(
+        `/api/motorcycles/${motorcycleId}/diagrams/${diagramId}/parts`
+    );
+    const diagrams: Part[] = await response.json();
     return diagrams;
 };
 
@@ -117,6 +133,17 @@ export const useDiagram = (motorcycleId: string, diagramId: string) => {
     const query = useQuery({
         queryKey: ["motorcycles", motorcycleId, "diagrams", diagramId],
         queryFn: fetchDiagram(motorcycleId, diagramId),
+    });
+
+    return {
+        query,
+    };
+};
+
+export const useParts = (motorcycleId: string, diagramId: string) => {
+    const query = useQuery({
+        queryKey: ["motorcycles", motorcycleId, "diagrams", diagramId, "parts"],
+        queryFn: fetchParts(motorcycleId, diagramId),
     });
 
     return {
