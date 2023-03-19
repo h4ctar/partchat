@@ -59,27 +59,29 @@ export const Navbar = () => {
     }, [matchDiagram, queryMotorcycle.data, selectedYear]);
 
     return (
-        <div className="flex flex-wrap gap-5 items-center p-5 border-b dark:border-slate-50/[0.06]">
+        <div className="flex lg:flex-row flex-col gap-5 p-5 border-b dark:border-slate-50/[0.06]">
             <h2 className="font-semibold">
                 <Link to="/">PartSwap</Link>
             </h2>
-            <MakeSelect make={selectedMake} />
-            {selectedMake && (
-                <YearSelect make={selectedMake} year={selectedYear} />
-            )}
-            {selectedMake && selectedYear && (
-                <ModelSelect
-                    make={selectedMake}
-                    year={selectedYear}
-                    model={selectedModel}
-                />
-            )}
-            {motorcycleId && (
-                <DiagramSelect
-                    motorcycleId={motorcycleId}
-                    diagramId={paramsDiagram?.diagramId}
-                />
-            )}
+            <div className="lg:flex-grow lg:flex gap-5 grid grid-cols-2">
+                <MakeSelect make={selectedMake} />
+                {selectedMake && (
+                    <YearSelect make={selectedMake} year={selectedYear} />
+                )}
+                {selectedMake && selectedYear && (
+                    <ModelSelect
+                        make={selectedMake}
+                        year={selectedYear}
+                        model={selectedModel}
+                    />
+                )}
+                {motorcycleId && (
+                    <DiagramSelect
+                        motorcycleId={motorcycleId}
+                        diagramId={paramsDiagram?.diagramId}
+                    />
+                )}
+            </div>
         </div>
     );
 };
