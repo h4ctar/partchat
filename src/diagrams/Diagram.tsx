@@ -18,14 +18,14 @@ export const Diagram = ({ motorcycleId, diagramId }: Params) => {
     }
 
     return (
-        <div className="p-5 flex lg:flex-row flex-col lg:max-h-[calc(100vh-42px-20px-20px)] items-stretch">
+        <div className="p-5 gap-5 flex lg:flex-row flex-col lg:max-h-[calc(100vh-42px-20px-20px)] items-stretch">
             <div className="lg:flex-grow">
                 <img
                     src={queryDiagram.data.image}
                     className="max-h-full max-w-full m-auto"
                 />
             </div>
-            <div>
+            <div className="overflow-auto flex-shrink-0">
                 <table className="table-auto w-full lg:w-auto">
                     <thead>
                         <tr>
