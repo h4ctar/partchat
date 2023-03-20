@@ -17,7 +17,7 @@ export const Motorcycle = ({ motorcycleId }: Params) => {
 
     return (
         <div className="p-5">
-            <h1>{`${query.data.make} ${query.data.model} ${query.data.yearFrom}-${query.data.yearTo}`}</h1>
+            <h1 className="font-bold text-2xl mb-4">{`${query.data.make} ${query.data.model} ${query.data.yearFrom}-${query.data.yearTo}`}</h1>
             <img src={query.data.image} />
         </div>
     );

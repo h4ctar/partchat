@@ -27,7 +27,9 @@ export const Motorcycles = () => {
                     href={`/motorcycles/${motorcycle.id}`}
                     className="rounded-md p-3 dark:bg-slate-800"
                 >
-                    <h2 className="font-semibold">{motorcycle.model}</h2>
+                    <h2 className="font-bold text-xl mb-3">
+                        {motorcycle.model}
+                    </h2>
                     <img src={motorcycle.image} />
                 </Link>
             ))}
