@@ -59,7 +59,7 @@ export const Navbar = () => {
     }, [matchDiagram, queryMotorcycle.data, selectedYear]);
 
     return (
-        <div className="flex lg:flex-row flex-col gap-5 p-5 border-b dark:border-slate-50/[0.06]">
+        <div className="flex lg:items-center lg:flex-row flex-col gap-5 p-5 border-b dark:border-slate-50/[0.06]">
             <h2 className="font-semibold">
                 <Link to="/">PartSwap</Link>
             </h2>

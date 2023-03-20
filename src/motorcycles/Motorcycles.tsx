@@ -20,20 +20,17 @@ export const Motorcycles = () => {
     }
 
     return (
-        <div className="p-5">
-            <ul className="grid grid-cols-4 gap-4">
-                {query.data.map((motorcycle) => (
-                    <li key={motorcycle.id}>
-                        <Link
-                            href={`/motorcycles/${motorcycle.id}`}
-                            className="flex flex-col rounded-md p-3 dark:bg-slate-800"
-                        >
-                            <img className="h-96" src={motorcycle.image} />
-                            <h2 className="font-semibold">{`${motorcycle.make} ${motorcycle.model} ${motorcycle.yearFrom}-${motorcycle.yearTo}`}</h2>
-                        </Link>
-                    </li>
-                ))}
-            </ul>
+        <div className="p-5 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
+            {query.data.map((motorcycle) => (
+                <Link
+                    key={motorcycle.id}
+                    href={`/motorcycles/${motorcycle.id}`}
+                    className="rounded-md p-3 dark:bg-slate-800"
+                >
+                    <h2 className="font-semibold">{motorcycle.model}</h2>
+                    <img src={motorcycle.image} />
+                </Link>
+            ))}
         </div>
     );
 };
