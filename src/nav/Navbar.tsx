@@ -61,7 +61,7 @@ export const Navbar = () => {
     }, [matchDiagram, queryMotorcycle.data, selectedYear]);
 
     return (
-        <div className="grid gap-5 grid-cols-[auto_1fr_auto] items-center p-5 border-b dark:border-slate-50/[0.06]">
+        <div className="grid gap-5 grid-cols-2 lg:grid-cols-[auto_1fr_auto] items-center p-5 border-b dark:border-slate-50/[0.06]">
             <h2 className="text-2xl row-start-1 col-start-1 dark:text-white flex gap-2 items-center">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
