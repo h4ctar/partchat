@@ -2,10 +2,10 @@ export const MOTORCYCLES = [
     {
         id: "yamaha-xs750-1976-1981",
         make: "Yamaha",
-        model: "XS750",
+        model: "XS750D",
         yearFrom: 1976,
-        yearTo: 1981,
-        image: "https://basethree.s3.eu-west-1.amazonaws.com/1539768708718",
+        yearTo: 1977,
+        image: "/assets/motorcycles/xs750d.png",
     },
     {
         id: "yamaha-xj650lj-1982-1984",
@@ -13,7 +13,7 @@ export const MOTORCYCLES = [
         model: "XJ650LJ",
         yearFrom: 1982,
         yearTo: 1984,
-        image: "https://i.pinimg.com/originals/48/1f/04/481f0480e37c7f754e1ba7f7518839c4.jpg",
+        image: "/assets/motorcycles/xj650lj.png",
     },
     {
         id: "honda-cb400f-1975-1977",
@@ -21,7 +21,7 @@ export const MOTORCYCLES = [
         model: "CB400F",
         yearFrom: 1975,
         yearTo: 1977,
-        image: "https://www.bike-urious.com/wp-content/uploads/Honda-CB400F-Super-Sport-Front-Right.jpg",
+        image: "/assets/motorcycles/cb400f.png",
     },
 ];
 

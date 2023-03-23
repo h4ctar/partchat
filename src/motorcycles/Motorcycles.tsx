@@ -25,12 +25,12 @@ export const Motorcycles = () => {
                 <Link
                     key={motorcycle.id}
                     href={`/motorcycles/${motorcycle.id}`}
-                    className="rounded-md p-3 dark:bg-slate-800"
+                    className="rounded-lg dark:bg-slate-800"
                 >
-                    <h2 className="font-bold text-xl mb-3">
-                        {motorcycle.model}
+                    <h2 className="font-medium text-xlg m-3">
+                        {`${motorcycle.make} ${motorcycle.model} ${motorcycle.yearFrom}-${motorcycle.yearTo}`}
                     </h2>
-                    <img src={motorcycle.image} />
+                    <img className="rounded-b-lg" src={motorcycle.image} />
                 </Link>
             ))}
         </div>
