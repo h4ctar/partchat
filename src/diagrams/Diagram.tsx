@@ -1,13 +1,12 @@
 import { useDiagram, useParts } from "../motorcycles/motorcycle.hook";
 
 type Params = {
-    motorcycleId: string;
     diagramId: string;
 };
 
-export const Diagram = ({ motorcycleId, diagramId }: Params) => {
-    const { query: queryDiagram } = useDiagram(motorcycleId, diagramId);
-    const { query: queryParts } = useParts(motorcycleId, diagramId);
+export const Diagram = ({ diagramId }: Params) => {
+    const { query: queryDiagram } = useDiagram(diagramId);
+    const { query: queryParts } = useParts(diagramId);
 
     if (!queryDiagram.data || !queryParts.data) {
         return (

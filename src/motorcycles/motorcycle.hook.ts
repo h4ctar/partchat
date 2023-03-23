@@ -1,28 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-
-// TODO: zod
-type Motorcycle = {
-    id: string;
-    make: string;
-    yearFrom: number;
-    yearTo: number;
-    model: string;
-    image: string;
-};
-
-type Diagram = {
-    id: string;
-    name: string;
-    image: string;
-};
-
-type Part = {
-    id: string;
-    number: string;
-    description: string;
-    qty: number;
-    refNo?: number;
-};
+import {
+    DiagramResource,
+    MotorcycleResource,
+    PartResource,
+} from "../../types/motorcycles";
 
 const fetchConfig = async () => {
     const response = await fetch("/api/config");
@@ -41,35 +22,31 @@ const fetchMotorcycles = (make?: string, year?: number) => async () => {
         search.append("year", year.toFixed());
     }
     const response = await fetch(`/api/motorcycles?${search.toString()}`);
-    const motorcycles: Motorcycle[] = await response.json();
+    const motorcycles: MotorcycleResource[] = await response.json();
     return motorcycles;
 };
 
 const fetchMotorcycle = (motorcycleId: string) => async () => {
     const response = await fetch(`/api/motorcycles/${motorcycleId}`);
-    const motorcycles: Motorcycle = await response.json();
+    const motorcycles: MotorcycleResource = await response.json();
     return motorcycles;
 };
 
 const fetchDiagrams = (motorcycleId: string) => async () => {
-    const response = await fetch(`/api/motorcycles/${motorcycleId}/diagrams`);
-    const diagrams: Diagram[] = await response.json();
+    const response = await fetch(`/api/diagrams?motorcycleId=${motorcycleId}`);
+    const diagrams: DiagramResource[] = await response.json();
     return diagrams;
 };
 
-const fetchDiagram = (motorcycleId: string, diagramId: string) => async () => {
-    const response = await fetch(
-        `/api/motorcycles/${motorcycleId}/diagrams/${diagramId}`
-    );
-    const diagrams: Diagram = await response.json();
+const fetchDiagram = (diagramId: string) => async () => {
+    const response = await fetch(`/api/diagrams/${diagramId}`);
+    const diagrams: DiagramResource = await response.json();
     return diagrams;
 };
 
-const fetchParts = (motorcycleId: string, diagramId: string) => async () => {
-    const response = await fetch(
-        `/api/motorcycles/${motorcycleId}/diagrams/${diagramId}/parts`
-    );
-    const diagrams: Part[] = await response.json();
+const fetchParts = (diagramId: string) => async () => {
+    const response = await fetch(`/api/parts?diagramId=${diagramId}`);
+    const diagrams: PartResource[] = await response.json();
     return diagrams;
 };
 
@@ -107,7 +84,7 @@ export const useMotorcycle = (motorcycleId: string) => {
 
 export const useDiagrams = (motorcycleId: string) => {
     const query = useQuery({
-        queryKey: ["motorcycles", motorcycleId, "diagrams"],
+        queryKey: ["diagrams", motorcycleId],
         queryFn: fetchDiagrams(motorcycleId),
     });
 
@@ -116,10 +93,10 @@ export const useDiagrams = (motorcycleId: string) => {
     };
 };
 
-export const useDiagram = (motorcycleId: string, diagramId: string) => {
+export const useDiagram = (diagramId: string) => {
     const query = useQuery({
-        queryKey: ["motorcycles", motorcycleId, "diagrams", diagramId],
-        queryFn: fetchDiagram(motorcycleId, diagramId),
+        queryKey: ["diagram", diagramId],
+        queryFn: fetchDiagram(diagramId),
     });
 
     return {
@@ -127,10 +104,10 @@ export const useDiagram = (motorcycleId: string, diagramId: string) => {
     };
 };
 
-export const useParts = (motorcycleId: string, diagramId: string) => {
+export const useParts = (diagramId: string) => {
     const query = useQuery({
-        queryKey: ["motorcycles", motorcycleId, "diagrams", diagramId, "parts"],
-        queryFn: fetchParts(motorcycleId, diagramId),
+        queryKey: ["parts", diagramId],
+        queryFn: fetchParts(diagramId),
     });
 
     return {

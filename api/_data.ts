@@ -1,4 +1,10 @@
-export const MOTORCYCLES = [
+import {
+    MotorcycleResource,
+    DiagramResource,
+    PartResource,
+} from "../types/motorcycles";
+
+export const MOTORCYCLES: MotorcycleResource[] = [
     {
         id: "yamaha-xs750-1976-1981",
         make: "Yamaha",
@@ -25,7 +31,7 @@ export const MOTORCYCLES = [
     },
 ];
 
-export const DIAGRAMS = [
+export const DIAGRAMS: DiagramResource[] = [
     {
         id: "yamaha-cylinder-head-1",
         name: "Cylinder Head",
@@ -40,7 +46,7 @@ export const MOTORCYCLE_DIAGRAMS = [
     },
 ];
 
-export const PARTS = [
+export const PARTS: PartResource[] = [
     {
         id: "16G-11101-00",
         number: "16G-11101-00",

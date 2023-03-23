@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import _ from "lodash";
-import { DIAGRAMS, MOTORCYCLES } from "../../../../_data";
+import { MOTORCYCLES } from "../_data";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     const motorcycleId = request.query.motorcycleId;
@@ -9,19 +9,20 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
     );
     if (!motorcycle) {
         response.status(404).send("Motorcycle not found");
+        return;
     }
-
-    const diagramId = request.query.diagramId;
-    const diagram = DIAGRAMS.find((diagram) => diagram.id === diagramId);
-    if (!diagram) {
-        response.status(404).send("Diagram not found");
-    }
-
-    // TODO: check if diagram belongs to motorcycle
 
     if (request.method === "GET") {
-        console.info("Get diagram");
-        response.status(200).send(diagram);
+        console.info("Get motorcycle");
+        response.status(200).send({
+            ...motorcycle,
+            _links: {
+                self: { href: `/api/motorcycles${motorcycle.id}` },
+                diagrams: {
+                    href: `/api/diagrams?motorcycleId=${motorcycle.id}`,
+                },
+            },
+        });
     } else {
         throw new Error("Unsupported method");
     }

@@ -27,12 +27,7 @@ export const App = () => {
                         )}
                     </Route>
                     <Route path="/motorcycles/:motorcycleId/diagrams/:diagramId">
-                        {(params) => (
-                            <Diagram
-                                motorcycleId={params.motorcycleId!}
-                                diagramId={params.diagramId!}
-                            />
-                        )}
+                        {(params) => <Diagram diagramId={params.diagramId!} />}
                     </Route>
                     <Route>
                         <NotFound />
