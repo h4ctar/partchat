@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link, useRoute } from "wouter";
 import { useSearch } from "wouter/use-location";
-import { LoginButton } from "../LoginButton";
-import { LogoutButton } from "../LogoutButton";
+import { LoginButton } from "../auth/LoginButton";
+import { LogoutButton } from "../auth/LogoutButton";
 import { useMotorcycle } from "../motorcycles/motorcycle.hook";
 import { DiagramSelect } from "./DiagramSelect";
 import { MakeSelect } from "./MakeSelect";
