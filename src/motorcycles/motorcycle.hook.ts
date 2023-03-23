@@ -24,16 +24,12 @@ type Part = {
     refNo?: number;
 };
 
-const fetchMakes = async () => {
-    const response = await fetch("/api/makes");
-    const makes: string[] = await response.json();
-    return makes;
-};
-
-const fetchYears = (make: string) => async () => {
-    const response = await fetch(`/api/makes/${make}/years`);
-    const years: number[] = await response.json();
-    return years;
+const fetchConfig = async () => {
+    const response = await fetch("/api/config");
+    const config: {
+        [make: string]: { [year: number]: { [model: string]: string } };
+    } = await response.json();
+    return config;
 };
 
 const fetchMotorcycles = (make?: string, year?: number) => async () => {
@@ -77,19 +73,10 @@ const fetchParts = (motorcycleId: string, diagramId: string) => async () => {
     return diagrams;
 };
 
-export const useMakes = () => {
+export const useConfig = () => {
     const query = useQuery({
-        queryKey: ["makes"],
-        queryFn: fetchMakes,
-    });
-
-    return { query };
-};
-
-export const useYears = (make: string) => {
-    const query = useQuery({
-        queryKey: ["makes", make, "years"],
-        queryFn: fetchYears(make),
+        queryKey: ["config"],
+        queryFn: fetchConfig,
     });
 
     return { query };

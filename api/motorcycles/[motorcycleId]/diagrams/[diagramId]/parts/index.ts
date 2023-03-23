@@ -4,7 +4,7 @@ import {
     DIAGRAM_PARTS,
     MOTORCYCLES,
     PARTS,
-} from "../../../../../utils/_data";
+} from "../../../../../_data";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     const motorcycleId = request.query.motorcycleId;

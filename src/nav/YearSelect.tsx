@@ -1,5 +1,5 @@
 import { useLocation } from "wouter";
-import { useYears } from "../motorcycles/motorcycle.hook";
+import { useConfig } from "../motorcycles/motorcycle.hook";
 
 type Params = {
     make: string;
@@ -8,7 +8,9 @@ type Params = {
 
 export const YearSelect = ({ make, year }: Params) => {
     const [, setLocation] = useLocation();
-    const { query } = useYears(make);
+    const { query } = useConfig();
+
+    const years = Object.keys(query.data?.[make] || {});
 
     return (
         <select
@@ -26,7 +28,7 @@ export const YearSelect = ({ make, year }: Params) => {
             <option value="" disabled>
                 {query.isLoading ? "Loading..." : "Select year"}
             </option>
-            {query.data?.map((year) => (
+            {years.map((year) => (
                 <option key={year}>{year}</option>
             ))}
         </select>

@@ -1,9 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import {
-    DIAGRAMS,
-    MOTORCYCLES,
-    MOTORCYCLE_DIAGRAMS,
-} from "../../../utils/_data";
+import { DIAGRAMS, MOTORCYCLES, MOTORCYCLE_DIAGRAMS } from "../../../_data";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     const motorcycleId = request.query.motorcycleId;
