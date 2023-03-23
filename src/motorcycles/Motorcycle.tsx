@@ -21,19 +21,12 @@ export const Motorcycle = ({ motorcycleId }: Params) => {
         <>
             <div className="p-5 flex flex-col items-center">
                 <h1 className="font-bold text-2xl mb-4">{`${queryMotorcycle.data.make} ${queryMotorcycle.data.model} ${queryMotorcycle.data.yearFrom}-${queryMotorcycle.data.yearTo}`}</h1>
-                <div className="flex flex-row gap-5 items-center">
+                <div className="flex flex-col lg:flex-row gap-5 items-center">
                     <img
                         className="rounded-lg"
                         src={queryMotorcycle.data.image}
                     />
-                    <table>
-                        <thead>
-                            <tr>
-                                <th className="my-th" rowSpan={2}>
-                                    Specifications
-                                </th>
-                            </tr>
-                        </thead>
+                    <table className="w-full">
                         <tbody className="bg-white dark:bg-slate-800">
                             <tr>
                                 <td className="my-td">Capacity</td>
