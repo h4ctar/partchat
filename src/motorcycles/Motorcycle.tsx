@@ -7,9 +7,9 @@ type Params = {
 
 export const Motorcycle = ({ motorcycleId }: Params) => {
     const { query: queryMotorcycle } = useMotorcycle(motorcycleId);
-    const { query } = useDiagrams(motorcycleId);
+    const { query: queryDiagrams } = useDiagrams(motorcycleId);
 
-    if (!queryMotorcycle.data || !query.data) {
+    if (!queryMotorcycle.data || !queryDiagrams.data) {
         return (
             <div className="p-5">
                 <h1>Loading...</h1>
@@ -41,19 +41,23 @@ export const Motorcycle = ({ motorcycleId }: Params) => {
                 </div>
             </div>
             <div className="p-5 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
-                {query.data.map((diagram) => (
+                {queryDiagrams.data.map((diagram) => (
                     <Link
                         key={diagram.id}
                         href={`/motorcycles/${motorcycleId}/diagrams/${diagram.id}`}
-                        className="rounded-lg dark:bg-slate-800 flex flex-row"
                     >
-                        <img
-                            className="rounded-l-lg h-96"
-                            src={diagram.image}
-                        />
-                        <h2 className="font-medium text-xlg m-3">
-                            {diagram.name}
-                        </h2>
+                        <div
+                            style={{
+                                backgroundImage: `url(${diagram.image})`,
+                            }}
+                            className={`rounded-lg aspect-video bg-center bg-cover flex items-start justify-center`}
+                        >
+                            <div className="bg-white p-4">
+                                <h2 className="font-bold text-2xl text-black">
+                                    {diagram.name}
+                                </h2>
+                            </div>
+                        </div>
                     </Link>
                 ))}
             </div>
