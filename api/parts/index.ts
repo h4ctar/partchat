@@ -13,16 +13,21 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
                 (diagramPart) => diagramPart.diagramId === diagramId
             );
 
-            const parts = diagramParts
+            const parts: PartResource[] = diagramParts
                 .map((diagramPart) => {
                     const part = PARTS.find(
                         (part) => part.id === diagramPart.partId
                     );
+                    if (!part) {
+                        throw new Error("Part not found");
+                    }
                     return { ...part, refNo: diagramPart.refNo };
                 })
                 .map((part) => ({
                     ...part,
-                    _links: {},
+                    _links: {
+                        self: { href: `/api/parts${part.id}` },
+                    },
                 }));
 
             response.status(200).send(parts);
