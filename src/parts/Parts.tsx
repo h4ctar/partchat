@@ -22,7 +22,7 @@ export const Parts = ({ diagramId }: Params) => {
                     <th className="my-th">REF NO</th>
                     <th className="my-th">PART NO</th>
                     <th className="my-th">DESCRIPTION</th>
-                    <th className="my-th">Q'TY</th>
+                    <th className="my-th">QTY</th>
                 </tr>
             </thead>
             <tbody className="bg-white dark:bg-slate-800">

@@ -22,19 +22,13 @@ export const Diagrams = ({ motorcycleId }: Props) => {
                 <Link
                     key={diagram.id}
                     href={`/motorcycles/${motorcycleId}/diagrams/${diagram.id}`}
+                    className="rounded-lg dark:bg-slate-800 cursor-pointer"
                 >
-                    <div
-                        style={{
-                            backgroundImage: `url(${diagram.image})`,
-                        }}
-                        className={`rounded-lg aspect-video bg-center bg-cover flex items-start justify-center`}
-                    >
-                        <div className="bg-white p-4">
-                            <h2 className="font-bold text-2xl text-black">
-                                {diagram.name}
-                            </h2>
-                        </div>
-                    </div>
+                    <h2 className="font-bold text-2xl m-3">{diagram.name}</h2>
+                    <img
+                        className="rounded-b-lg object-cover w-full h-96"
+                        src={diagram.image}
+                    />
                 </Link>
             ))}
         </div>

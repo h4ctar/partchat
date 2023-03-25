@@ -19,7 +19,7 @@ export const Motorcycle = ({ motorcycleId }: Params) => {
     return (
         <>
             <div className="p-5 flex flex-col items-center">
-                <h1 className="font-bold text-2xl mb-4">{`${queryMotorcycle.data.make} ${queryMotorcycle.data.model} ${queryMotorcycle.data.yearFrom}-${queryMotorcycle.data.yearTo}`}</h1>
+                <h1 className="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl text-center dark:text-white m-5">{`${queryMotorcycle.data.make} ${queryMotorcycle.data.model} ${queryMotorcycle.data.yearFrom}-${queryMotorcycle.data.yearTo}`}</h1>
                 <div className="flex flex-col lg:flex-row gap-5 items-center">
                     <img
                         className="rounded-lg"
