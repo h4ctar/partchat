@@ -1,5 +1,5 @@
 import { useLocation } from "wouter";
-import { useDiagrams } from "../motorcycles/motorcycle.hook";
+import { useDiagrams } from "../diagrams/diagram.hooks";
 
 type Params = {
     motorcycleId: string;

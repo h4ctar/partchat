@@ -1,9 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import {
-    DiagramResource,
-    MotorcycleResource,
-    PartResource,
-} from "../../types/motorcycles";
+import { MotorcycleResource } from "../../types/motorcycles";
 
 const fetchConfig = async () => {
     const response = await fetch("/api/config");
@@ -32,24 +28,6 @@ const fetchMotorcycle = (motorcycleId: string) => async () => {
     return motorcycles;
 };
 
-const fetchDiagrams = (motorcycleId: string) => async () => {
-    const response = await fetch(`/api/diagrams?motorcycleId=${motorcycleId}`);
-    const diagrams: DiagramResource[] = await response.json();
-    return diagrams;
-};
-
-const fetchDiagram = (diagramId: string) => async () => {
-    const response = await fetch(`/api/diagrams/${diagramId}`);
-    const diagrams: DiagramResource = await response.json();
-    return diagrams;
-};
-
-const fetchParts = (diagramId: string) => async () => {
-    const response = await fetch(`/api/parts?diagramId=${diagramId}`);
-    const diagrams: PartResource[] = await response.json();
-    return diagrams;
-};
-
 export const useConfig = () => {
     const query = useQuery({
         queryKey: ["config"],
@@ -75,39 +53,6 @@ export const useMotorcycle = (motorcycleId: string) => {
     const query = useQuery({
         queryKey: ["motorcycle", motorcycleId],
         queryFn: fetchMotorcycle(motorcycleId),
-    });
-
-    return {
-        query,
-    };
-};
-
-export const useDiagrams = (motorcycleId: string) => {
-    const query = useQuery({
-        queryKey: ["diagrams", motorcycleId],
-        queryFn: fetchDiagrams(motorcycleId),
-    });
-
-    return {
-        query,
-    };
-};
-
-export const useDiagram = (diagramId: string) => {
-    const query = useQuery({
-        queryKey: ["diagram", diagramId],
-        queryFn: fetchDiagram(diagramId),
-    });
-
-    return {
-        query,
-    };
-};
-
-export const useParts = (diagramId: string) => {
-    const query = useQuery({
-        queryKey: ["parts", diagramId],
-        queryFn: fetchParts(diagramId),
     });
 
     return {
