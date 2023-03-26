@@ -36,6 +36,7 @@ export const DIAGRAMS: DiagramResource[] = [
         id: "yamaha-cylinder-head-1",
         name: "Cylinder Head",
         image: "/assets/diagrams/cylinder-head-1.png",
+        size: [1146, 1670],
     },
 ];
 
@@ -60,5 +61,6 @@ export const DIAGRAM_PARTS = [
         diagramId: "yamaha-cylinder-head-1",
         partId: "16G-11101-00",
         refNo: 1,
+        bbox: [725, 825, 40, 40],
     },
 ];

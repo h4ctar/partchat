@@ -2,9 +2,10 @@ import { useParts } from "./part.hook";
 
 type Params = {
     diagramId: string;
+    setSelectedPartId: (selectedPartId: string) => void;
 };
 
-export const Parts = ({ diagramId }: Params) => {
+export const Parts = ({ diagramId, setSelectedPartId }: Params) => {
     const { query } = useParts(diagramId);
 
     if (!query.data) {
@@ -14,6 +15,8 @@ export const Parts = ({ diagramId }: Params) => {
             </div>
         );
     }
+
+    const parts = query.data;
 
     return (
         <table className="table-auto w-full lg:w-auto">
@@ -26,8 +29,11 @@ export const Parts = ({ diagramId }: Params) => {
                 </tr>
             </thead>
             <tbody className="bg-white dark:bg-slate-800">
-                {query.data.map((part) => (
-                    <tr key={part.id}>
+                {parts.map((part) => (
+                    <tr
+                        key={part.id}
+                        onMouseEnter={() => setSelectedPartId(part.id)}
+                    >
                         <td className="my-td">{part.refNo}</td>
                         <td className="my-td">{part.number}</td>
                         <td className="my-td">{part.description}</td>

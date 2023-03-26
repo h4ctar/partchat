@@ -21,7 +21,11 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
                     if (!part) {
                         throw new Error("Part not found");
                     }
-                    return { ...part, refNo: diagramPart.refNo };
+                    return {
+                        ...part,
+                        refNo: diagramPart.refNo,
+                        bbox: diagramPart.bbox,
+                    };
                 })
                 .map((part) => ({
                     ...part,

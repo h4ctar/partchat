@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Parts } from "../parts/Parts";
 import { useDiagram } from "./diagram.hooks";
+import { PartHotspots } from "./PartHotspots";
 
 type Params = {
     diagramId: string;
@@ -7,6 +9,7 @@ type Params = {
 
 export const Diagram = ({ diagramId }: Params) => {
     const { query } = useDiagram(diagramId);
+    const [selectedPartId, setSelectedPartId] = useState<string>();
 
     if (!query.data) {
         return (
@@ -16,16 +19,22 @@ export const Diagram = ({ diagramId }: Params) => {
         );
     }
 
+    const diagram = query.data;
+
     return (
-        <div className="p-5 gap-5 flex lg:flex-row flex-col lg:max-h-[calc(100vh-42px-20px-20px)] items-stretch">
-            <div className="lg:flex-grow">
-                <img
-                    src={query.data.image}
-                    className="max-h-full max-w-full m-auto"
+        <div className="p-5 gap-5 flex lg:flex-row flex-col lg:h-[calc(100vh-42px-20px-20px)] items-stretch lg:justify-center">
+            <div className="h-full relative">
+                <img src={diagram.image} className="max-h-full" />
+                <PartHotspots
+                    diagram={diagram}
+                    selectedPartId={selectedPartId}
                 />
             </div>
             <div className="overflow-auto flex-shrink-0">
-                <Parts diagramId={diagramId} />
+                <Parts
+                    diagramId={diagramId}
+                    setSelectedPartId={setSelectedPartId}
+                />
             </div>
         </div>
     );

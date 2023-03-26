@@ -17,6 +17,7 @@ export type DiagramResource = {
     id: string;
     name: string;
     image: string;
+    size: number[];
     _links?: {
         self: { href: string };
         parts: {
@@ -31,6 +32,7 @@ export type PartResource = {
     description: string;
     qty: number;
     refNo?: number;
+    bbox?: number[];
     _links?: {
         self: { href: string };
     };
