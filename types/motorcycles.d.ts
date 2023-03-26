@@ -32,6 +32,7 @@ export type PartResource = {
     description: string;
     qty?: number;
     refNo?: number;
+    // TODO: this needs to support multiple bounding boxes
     bbox?: number[];
     _links?: {
         self: { href: string };
