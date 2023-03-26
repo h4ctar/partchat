@@ -30,7 +30,7 @@ export type PartResource = {
     id: string;
     number: string;
     description: string;
-    qty: number;
+    qty?: number;
     refNo?: number;
     bbox?: number[];
     _links?: {

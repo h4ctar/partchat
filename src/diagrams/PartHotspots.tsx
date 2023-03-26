@@ -4,13 +4,13 @@ import { useParts } from "../parts/part.hook";
 
 type Props = {
     diagram: DiagramResource;
-    selectedPartId?: string;
+    selectedRefNo?: number;
 };
 
 const NORMAL_COLOR = "bg-blue-600/40";
 const HIGHLIGHTED_COLOR = "bg-pink-600/40";
 
-export const PartHotspots = ({ diagram, selectedPartId }: Props) => {
+export const PartHotspots = ({ diagram, selectedRefNo }: Props) => {
     const { query } = useParts(diagram.id);
     const containerRef = useRef<HTMLDivElement>(null);
     const [scale, setScale] = useState(1);
@@ -45,7 +45,7 @@ export const PartHotspots = ({ diagram, selectedPartId }: Props) => {
                 (part) =>
                     part.bbox && (
                         <div
-                            key={part.id}
+                            key={part.refNo}
                             style={{
                                 left: part.bbox[0] * scale,
                                 top: part.bbox[1] * scale,
@@ -53,7 +53,7 @@ export const PartHotspots = ({ diagram, selectedPartId }: Props) => {
                                 height: part.bbox[3] * scale,
                             }}
                             className={`absolute ${
-                                part.id === selectedPartId
+                                part.refNo === selectedRefNo
                                     ? HIGHLIGHTED_COLOR
                                     : NORMAL_COLOR
                             }`}

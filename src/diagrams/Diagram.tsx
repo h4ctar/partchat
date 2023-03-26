@@ -9,7 +9,7 @@ type Params = {
 
 export const Diagram = ({ diagramId }: Params) => {
     const { query } = useDiagram(diagramId);
-    const [selectedPartId, setSelectedPartId] = useState<string>();
+    const [selectedRefNo, setSelectedRefNo] = useState<number>();
 
     if (!query.data) {
         return (
@@ -25,15 +25,12 @@ export const Diagram = ({ diagramId }: Params) => {
         <div className="p-5 gap-5 flex lg:flex-row flex-col lg:h-[calc(100vh-42px-20px-20px)] items-stretch lg:justify-center">
             <div className="h-full relative">
                 <img src={diagram.image} className="max-h-full" />
-                <PartHotspots
-                    diagram={diagram}
-                    selectedPartId={selectedPartId}
-                />
+                <PartHotspots diagram={diagram} selectedRefNo={selectedRefNo} />
             </div>
             <div className="overflow-auto flex-shrink-0">
                 <Parts
                     diagramId={diagramId}
-                    setSelectedPartId={setSelectedPartId}
+                    setSelectedRefNo={setSelectedRefNo}
                 />
             </div>
         </div>
