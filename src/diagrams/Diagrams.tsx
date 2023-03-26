@@ -16,9 +16,11 @@ export const Diagrams = ({ motorcycleId }: Props) => {
         );
     }
 
+    const diagrams = query.data;
+
     return (
         <div className="p-5 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
-            {query.data.map((diagram) => (
+            {diagrams.map((diagram) => (
                 <Link
                     key={diagram.id}
                     href={`/motorcycles/${motorcycleId}/diagrams/${diagram.id}`}

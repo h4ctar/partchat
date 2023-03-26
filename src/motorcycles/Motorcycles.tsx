@@ -19,9 +19,11 @@ export const Motorcycles = () => {
         );
     }
 
+    const motorcycles = query.data;
+
     return (
         <div className="p-5 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4">
-            {query.data.map((motorcycle) => (
+            {motorcycles.map((motorcycle) => (
                 <Link
                     key={motorcycle.id}
                     href={`/motorcycles/${motorcycle.id}`}
