@@ -21,7 +21,10 @@ export const Comments = ({ diagramId }: Params) => {
     return (
         <div className="p-5 flex flex-col gap-4 max-w-7xl mx-auto">
             {comments.map((comment) => (
-                <div className="rounded-lg dark:bg-slate-800 p-5 flex flex-row gap-6">
+                <div
+                    key={comment.id}
+                    className="rounded-lg dark:bg-slate-800 p-5 flex flex-row gap-6"
+                >
                     <div className="flex flex-col items-center gap-4">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -72,9 +75,3 @@ export const Comments = ({ diagramId }: Params) => {
         </div>
     );
 };
-
-// const Comment = ({ commentId }: { commentId: string }) => {
-//     return (
-//         <div className="rounded-lg dark:bg-slate-800 p-5">{comment.text}</div>
-//     );
-// };
