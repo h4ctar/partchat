@@ -7,8 +7,8 @@ import "./input.css";
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
         <Auth0Provider
-            domain="partswap.au.auth0.com"
-            clientId="rOi3h9hOjCGd9LCCaTOoQqLR4rQHyjdY"
+            domain={process.env.AUTH0_DOMAIN || ""}
+            clientId={process.env.AUTH0_CLIENT_ID || ""}
             authorizationParams={{
                 redirect_uri: window.location.origin,
             }}
