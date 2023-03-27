@@ -17,7 +17,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
                 .map((motorcycle) => ({
                     ...motorcycle,
                     _links: {
-                        self: { href: `/api/motorcycles${motorcycle.id}` },
+                        self: { href: `/api/motorcycles/${motorcycle.id}` },
                         diagrams: {
                             href: `/api/diagrams?motorcycleId=${motorcycle.id}`,
                         },

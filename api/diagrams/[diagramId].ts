@@ -14,7 +14,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
         response.status(200).send({
             ...diagram,
             _links: {
-                self: { href: `/api/diagrams${diagram.id}` },
+                self: { href: `/api/diagrams/${diagram.id}` },
                 parts: { href: `/api/parts?diagramId=${diagram.id}` },
             },
         });

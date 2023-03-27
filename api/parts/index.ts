@@ -31,7 +31,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
                 .map((part) => ({
                     ...part,
                     _links: {
-                        self: { href: `/api/parts${part.id}` },
+                        self: { href: `/api/parts/${part.id}` },
                     },
                 }))
                 .sort((a, b) => a.refNo - b.refNo);
@@ -41,7 +41,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
             const parts: PartResource[] = PARTS.map((part) => ({
                 ...part,
                 _links: {
-                    self: { href: `/api/parts${part.id}` },
+                    self: { href: `/api/parts/${part.id}` },
                 },
             }));
             response.status(200).send(parts);
