@@ -38,3 +38,13 @@ export type PartResource = {
         self: { href: string };
     };
 };
+
+export type CommentResource = {
+    id: string;
+    username: string;
+    postedDate: string;
+    text: string;
+    _links?: {
+        self: { href: string };
+    };
+} & ({ diagramId: string } | { commentId: string });
