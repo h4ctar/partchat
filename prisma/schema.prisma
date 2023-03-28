@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model Motorcycle {
+  id       String    @id
+  make     String
+  model    String
+  yearFrom Int
+  yearTo   Int
+  image    String
+  diagrams Diagram[]
+}
+
+model Diagram {
+  id              String            @id
+  name            String
+  image           String
+  width           Int
+  Height          Int
+  motorcycles     Motorcycle[]
+  DiagramsOnParts DiagramsOnParts[]
+}
+
+model Part {
+  id              String            @id
+  partNumber      String
+  description     String
+  DiagramsOnParts DiagramsOnParts[]
+}
+
+model DiagramsOnParts {
+  id        Int     @id @default(autoincrement())
+  refNo     Int
+  hotspot   Json
+  qty       Int
+  part      Part    @relation(fields: [partId], references: [id])
+  diagram   Diagram @relation(fields: [diagramId], references: [id])
+  partId    String
+  diagramId String
+
+  @@index([partId])
+  @@index([diagramId])
+}
