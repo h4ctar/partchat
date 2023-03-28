@@ -48,10 +48,3 @@ const getMotorcycles = (make: string, year: number) =>
     );
 
 export default handler;
-
-const a = {
-    Honda: {
-        1976: { CB400f: "cb400f" },
-    },
-    Yamaha: {},
-};

@@ -77,7 +77,7 @@ export const Navbar = () => {
                     />
                 </svg>
 
-                <Link to="/">Part Swap</Link>
+                <Link to="/">Part Chat</Link>
             </h2>
             <div className="lg:flex-grow lg:flex grid gap-5 grid-cols-2 row-start-2 col-start-1 col-span-2 lg:row-start-1 lg:col-start-2 lg:col-span-1">
                 <MakeSelect make={selectedMake} />
