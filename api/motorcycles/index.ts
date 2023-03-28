@@ -1,29 +1,31 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import _ from "lodash";
-import { MotorcycleResource } from "../../types/motorcycles";
-import { MOTORCYCLES } from "../_data";
+import { prisma } from "../_prisma";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     if (request.method === "GET") {
         console.info("Get all motorcycles");
-        const make = request.query.make;
+
+        const make = request.query.make as string;
         const year = parseInt(request.query.year as string);
-        const motorcycles: MotorcycleResource[] = _.uniq(
-            MOTORCYCLES.filter(
-                (motorcycle) => !make || motorcycle.make === make
-            )
-                .filter((motorcycle) => !year || motorcycle.yearFrom <= year)
-                .filter((motorcycle) => !year || motorcycle.yearTo >= year)
-                .map((motorcycle) => ({
-                    ...motorcycle,
-                    _links: {
-                        self: { href: `/api/motorcycles/${motorcycle.id}` },
-                        diagrams: {
-                            href: `/api/diagrams?motorcycleId=${motorcycle.id}`,
-                        },
-                    },
-                }))
-        );
+
+        const motorcycleModels = await prisma.motorcycle.findMany({
+            where: {
+                ...(make ? { make } : {}),
+                ...(year
+                    ? { yearFrom: { lte: year }, yearTo: { gte: year } }
+                    : {}),
+            },
+        });
+
+        const motorcycles = motorcycleModels.map((motorcycleModel) => ({
+            ...motorcycleModel,
+            _links: {
+                self: { href: `/api/motorcycles/${motorcycleModel.id}` },
+                diagrams: {
+                    href: `/api/diagrams?motorcycleId=${motorcycleModel.id}`,
+                },
+            },
+        }));
         response.status(200).send(motorcycles);
     } else {
         throw new Error("Unsupported method");
