@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { PartResource } from "../../types/motorcycles";
-import { DIAGRAM_PARTS, PARTS } from "../_data";
+import { DIAGRAM_TO_PARTS, PARTS } from "../../prisma/_data";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     const diagramId = request.query.diagramId;
@@ -9,23 +9,23 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
         console.info("Get all parts");
 
         if (diagramId) {
-            const diagramParts = DIAGRAM_PARTS.filter(
-                (diagramPart) => diagramPart.diagramId === diagramId
+            const diagramParts = DIAGRAM_TO_PARTS.filter(
+                (diagramToPart) => diagramToPart.diagramId === diagramId
             );
 
             const parts: PartResource[] = diagramParts
-                .map((diagramPart) => {
+                .map((diagramToPart) => {
                     const part = PARTS.find(
-                        (part) => part.id === diagramPart.partId
+                        (part) => part.id === diagramToPart.partId
                     );
                     if (!part) {
                         throw new Error("Part not found");
                     }
                     return {
                         ...part,
-                        refNo: diagramPart.refNo,
-                        bbox: diagramPart.bbox,
-                        qty: diagramPart.qty,
+                        refNo: diagramToPart.refNo,
+                        hotspot: diagramToPart.hotspot as number[],
+                        qty: diagramToPart.qty,
                     };
                 })
                 .map((part) => ({

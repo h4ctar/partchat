@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import _ from "lodash";
-import { MOTORCYCLES } from "../_data";
+import { MOTORCYCLES } from "../../prisma/_data";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     const motorcycleId = request.query.motorcycleId;

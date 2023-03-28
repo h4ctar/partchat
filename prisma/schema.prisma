@@ -23,7 +23,7 @@ model Diagram {
   name            String
   image           String
   width           Int
-  Height          Int
+  height          Int
   motorcycles     Motorcycle[]
   DiagramsOnParts DiagramToPart[]
 }
@@ -36,7 +36,6 @@ model Part {
 }
 
 model DiagramToPart {
-  id        Int     @id @default(autoincrement())
   refNo     Int
   hotspot   Json
   qty       Int
@@ -45,6 +44,7 @@ model DiagramToPart {
   partId    String
   diagramId String
 
+  @@unique([partId, diagramId])
   @@index([partId])
   @@index([diagramId])
 }

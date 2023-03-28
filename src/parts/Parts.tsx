@@ -35,7 +35,7 @@ export const Parts = ({ diagramId, setSelectedRefNo }: Params) => {
                         onMouseEnter={() => setSelectedRefNo(part.refNo)}
                     >
                         <td className="my-td">{part.refNo}</td>
-                        <td className="my-td">{part.number}</td>
+                        <td className="my-td">{part.partNumber}</td>
                         <td className="my-td">{part.description}</td>
                         <td className="my-td">{part.qty}</td>
                     </tr>

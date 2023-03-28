@@ -17,7 +17,8 @@ export type DiagramResource = {
     id: string;
     name: string;
     image: string;
-    size: number[];
+    width: number;
+    height: number;
     _links?: {
         self: { href: string };
         parts: {
@@ -28,12 +29,12 @@ export type DiagramResource = {
 
 export type PartResource = {
     id: string;
-    number: string;
+    partNumber: string;
     description: string;
     qty?: number;
     refNo?: number;
     // TODO: this needs to support multiple bounding boxes
-    bbox?: number[];
+    hotspot?: number[];
     _links?: {
         self: { href: string };
     };

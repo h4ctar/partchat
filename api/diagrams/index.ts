@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { DiagramResource } from "../../types/motorcycles";
-import { DIAGRAMS, MOTORCYCLE_DIAGRAMS } from "../_data";
+import { DIAGRAMS, MOTORCYCLE_TO_DIAGRAMS } from "../../prisma/_data";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     const motorcycleId = request.query.motorcycleId;
@@ -8,15 +8,16 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
     if (request.method === "GET") {
         console.info("Get all diagrams");
 
-        const motorcycleDiagrams = MOTORCYCLE_DIAGRAMS.filter(
-            (motorcycleDiagram) =>
-                !motorcycleId || motorcycleDiagram.motorcycleId === motorcycleId
+        const motorcycleToDiagrams = MOTORCYCLE_TO_DIAGRAMS.filter(
+            (motorcycleToDiagram) =>
+                !motorcycleId ||
+                motorcycleToDiagram.motorcycleId === motorcycleId
         );
 
         const diagrams: DiagramResource[] = DIAGRAMS.filter((diagram) =>
-            motorcycleDiagrams.some(
-                (motorcycleDiagram) =>
-                    motorcycleDiagram.diagramId === diagram.id
+            motorcycleToDiagrams.some(
+                (motorcycleToDiagram) =>
+                    motorcycleToDiagram.diagramId === diagram.id
             )
         ).map((diagram) => ({
             ...diagram,

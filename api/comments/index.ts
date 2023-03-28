@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { CommentResource } from "../../types/motorcycles";
-import { COMMENTS } from "../_data";
+import { COMMENTS } from "../../prisma/_data";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     const diagramId = request.query.diagramId;

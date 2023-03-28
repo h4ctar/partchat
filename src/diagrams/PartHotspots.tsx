@@ -32,9 +32,9 @@ export const PartHotspots = ({ diagram, selectedRefNo }: Props) => {
             const container = containerRef.current;
             // If the large breakpoint is used the height will be set, otherwise the width will be set
             if (container.clientWidth) {
-                setScale(containerRef.current.clientWidth / diagram.size[0]);
+                setScale(containerRef.current.clientWidth / diagram.width);
             } else if (container.clientHeight) {
-                setScale(containerRef.current.clientHeight / diagram.size[1]);
+                setScale(containerRef.current.clientHeight / diagram.height);
             }
         }
     };
@@ -43,14 +43,14 @@ export const PartHotspots = ({ diagram, selectedRefNo }: Props) => {
         <div ref={containerRef} className="absolute top-0 w-full h-full">
             {query.data?.map(
                 (part) =>
-                    part.bbox && (
+                    part.hotspot && (
                         <div
                             key={part.refNo}
                             style={{
-                                left: part.bbox[0] * scale,
-                                top: part.bbox[1] * scale,
-                                width: part.bbox[2] * scale,
-                                height: part.bbox[3] * scale,
+                                left: part.hotspot[0] * scale,
+                                top: part.hotspot[1] * scale,
+                                width: part.hotspot[2] * scale,
+                                height: part.hotspot[3] * scale,
                             }}
                             className={`absolute ${
                                 part.refNo === selectedRefNo

@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { DIAGRAMS } from "../_data";
+import { DIAGRAMS } from "../../prisma/_data";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     const diagramId = request.query.diagramId;
