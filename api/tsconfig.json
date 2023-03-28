@@ -3,6 +3,7 @@
         "esModuleInterop": true,
         "lib": ["ES2019"],
         "noImplicitAny": true,
+        "skipLibCheck": true,
         "strict": true
     }
 }
