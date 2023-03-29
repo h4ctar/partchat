@@ -2,23 +2,30 @@ import { useQuery } from "@tanstack/react-query";
 import { CommentResource } from "../../types/motorcycles";
 
 const fetchComments =
-    ({ diagramId, commentId }: { diagramId?: string; commentId?: string }) =>
+    ({
+        motorcycleId,
+        diagramId,
+        partId,
+    }: {
+        motorcycleId?: string;
+        diagramId?: string;
+        partId?: string;
+    }) =>
     async () => {
-        if (diagramId) {
-            const response = await fetch(
-                `/api/comments?diagramId=${diagramId}`
-            );
-            const comments: CommentResource[] = await response.json();
-            return comments;
-        } else if (commentId) {
-            const response = await fetch(
-                `/api/comments?commentId=${commentId}`
-            );
-            const comments: CommentResource[] = await response.json();
-            return comments;
-        } else {
-            return [];
+        const search = new URLSearchParams();
+        if (motorcycleId) {
+            search.append("motorcycleId", motorcycleId);
         }
+        if (diagramId) {
+            search.append("diagramId", diagramId);
+        }
+        if (partId) {
+            search.append("partId", partId);
+        }
+
+        const response = await fetch(`/api/comments?${search.toString()}`);
+        const comments: CommentResource[] = await response.json();
+        return comments;
     };
 
 const fetchComment = (commentId: string) => async () => {
@@ -27,13 +34,22 @@ const fetchComment = (commentId: string) => async () => {
     return comments;
 };
 
-export const useComments = (params: {
+export const useComments = ({
+    motorcycleId,
+    diagramId,
+    partId,
+}: {
+    motorcycleId?: string;
     diagramId?: string;
-    commentId?: string;
+    partId?: string;
 }) => {
     const query = useQuery({
-        queryKey: ["comments", params.diagramId || params.commentId],
-        queryFn: fetchComments(params),
+        queryKey: ["comments", motorcycleId, diagramId, partId],
+        queryFn: fetchComments({
+            motorcycleId,
+            diagramId,
+            partId,
+        }),
     });
 
     return {

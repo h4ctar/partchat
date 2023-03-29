@@ -2,11 +2,13 @@ import { useComments } from "./comment.hooks";
 import Avatar from "boring-avatars";
 
 type Params = {
-    diagramId: string;
+    motorcycleId?: string;
+    diagramId?: string;
+    partId?: string;
 };
 
-export const Comments = ({ diagramId }: Params) => {
-    const { query } = useComments({ diagramId });
+export const Comments = ({ motorcycleId, diagramId, partId }: Params) => {
+    const { query } = useComments({ motorcycleId, diagramId, partId });
 
     if (!query.data) {
         return (

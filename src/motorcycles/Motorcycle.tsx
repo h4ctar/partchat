@@ -1,3 +1,4 @@
+import { Comments } from "../comments/Comments";
 import { Diagrams } from "../diagrams/Diagrams";
 import { useMotorcycle } from "./motorcycle.hook";
 
@@ -40,6 +41,7 @@ export const Motorcycle = ({ motorcycleId }: Params) => {
                 </div>
             </div>
             <Diagrams motorcycleId={motorcycleId} />
+            <Comments motorcycleId={motorcycleId} />
         </>
     );
 };
