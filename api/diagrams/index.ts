@@ -1,33 +1,34 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { DiagramResource } from "../../types/motorcycles";
-import { DIAGRAMS, MOTORCYCLE_TO_DIAGRAMS } from "../../prisma/_data";
+import { prisma } from "../_prisma";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
-    const motorcycleId = request.query.motorcycleId;
-
     if (request.method === "GET") {
         console.info("Get all diagrams");
 
-        const motorcycleToDiagrams = MOTORCYCLE_TO_DIAGRAMS.filter(
-            (motorcycleToDiagram) =>
-                !motorcycleId ||
-                motorcycleToDiagram.motorcycleId === motorcycleId
+        const motorcycleId = request.query.motorcycleId as string | undefined;
+
+        const diagramModels = await prisma.diagram.findMany({
+            where: {
+                motorcycles: {
+                    some: {
+                        id: motorcycleId,
+                    },
+                },
+            },
+        });
+
+        const diagramResources: DiagramResource[] = diagramModels.map(
+            (diagramModel) => ({
+                ...diagramModel,
+                _links: {
+                    self: { href: `/api/diagrams/${diagramModel.id}` },
+                    parts: { href: `/api/parts?diagramId=${diagramModel.id}` },
+                },
+            })
         );
 
-        const diagrams: DiagramResource[] = DIAGRAMS.filter((diagram) =>
-            motorcycleToDiagrams.some(
-                (motorcycleToDiagram) =>
-                    motorcycleToDiagram.diagramId === diagram.id
-            )
-        ).map((diagram) => ({
-            ...diagram,
-            _links: {
-                self: { href: `/api/diagrams/${diagram.id}` },
-                parts: { href: `/api/parts?diagramId=${diagram.id}` },
-            },
-        }));
-
-        response.status(200).send(diagrams);
+        response.status(200).send(diagramResources);
     } else {
         throw new Error("Unsupported method");
     }
