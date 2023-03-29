@@ -28,6 +28,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
                 },
             },
         };
+
         response.status(200).send(motorcycleResource);
     } else {
         throw new Error("Unsupported method");
