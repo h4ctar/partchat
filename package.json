@@ -6,6 +6,7 @@
         "dev": "vite",
         "build": "tsc && vite build",
         "preview": "vite preview",
+        "postinstall": "prisma generate",
         "db_generate": "prisma generate",
         "db_push": "prisma db push",
         "db_seed": "prisma db seed"
