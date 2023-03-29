@@ -19,23 +19,23 @@ model Motorcycle {
 }
 
 model Diagram {
-  id              String          @id
-  name            String
-  image           String
-  width           Int
-  height          Int
-  motorcycles     Motorcycle[]
-  DiagramsOnParts DiagramToPart[]
+  id            String          @id
+  name          String
+  image         String
+  width         Int
+  height        Int
+  motorcycles   Motorcycle[]
+  partOnDiagram PartToDiagram[]
 }
 
 model Part {
-  id              String          @id
-  partNumber      String
-  description     String
-  DiagramsOnParts DiagramToPart[]
+  id            String          @id
+  partNumber    String
+  description   String
+  partOnDiagram PartToDiagram[]
 }
 
-model DiagramToPart {
+model PartToDiagram {
   refNo     Int
   hotspot   Json
   qty       Int

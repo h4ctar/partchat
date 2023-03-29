@@ -1,51 +1,38 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { PartResource } from "../../types/motorcycles";
-import { DIAGRAM_TO_PARTS, PARTS } from "../../prisma/_data";
+import { prisma } from "../_prisma";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
-    const diagramId = request.query.diagramId;
+    const diagramId = (request.query.diagramId as string) || undefined;
 
     if (request.method === "GET") {
         console.info("Get all parts");
 
-        if (diagramId) {
-            const diagramParts = DIAGRAM_TO_PARTS.filter(
-                (diagramToPart) => diagramToPart.diagramId === diagramId
-            );
-
-            const parts: PartResource[] = diagramParts
-                .map((diagramToPart) => {
-                    const part = PARTS.find(
-                        (part) => part.id === diagramToPart.partId
-                    );
-                    if (!part) {
-                        throw new Error("Part not found");
-                    }
-                    return {
-                        ...part,
-                        refNo: diagramToPart.refNo,
-                        hotspot: diagramToPart.hotspot as number[],
-                        qty: diagramToPart.qty,
-                    };
-                })
-                .map((part) => ({
-                    ...part,
-                    _links: {
-                        self: { href: `/api/parts/${part.id}` },
-                    },
-                }))
-                .sort((a, b) => a.refNo - b.refNo);
-
-            response.status(200).send(parts);
-        } else {
-            const parts: PartResource[] = PARTS.map((part) => ({
-                ...part,
-                _links: {
-                    self: { href: `/api/parts/${part.id}` },
+        const partModels = await prisma.part.findMany({
+            where: {
+                partOnDiagram: {
+                    some: { diagramId },
                 },
-            }));
-            response.status(200).send(parts);
-        }
+            },
+            include: {
+                partOnDiagram: true,
+            },
+        });
+
+        const partResources: PartResource[] = partModels.map((partModel) => {
+            const { partOnDiagram, ...partResources } = {
+                ...partModel,
+                refNo: partModel.partOnDiagram[0].refNo,
+                hotspot: partModel.partOnDiagram[0].hotspot as number[],
+                qty: partModel.partOnDiagram[0].qty,
+                _links: {
+                    self: { href: `/api/parts/${partModel.id}` },
+                },
+            };
+            return partResources;
+        });
+
+        response.status(200).send(partResources);
     } else {
         throw new Error("Unsupported method");
     }

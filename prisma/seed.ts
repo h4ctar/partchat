@@ -22,7 +22,7 @@ async function main() {
     for (const diagram of DIAGRAMS) {
         const motorcycle = MOTORCYCLE_TO_DIAGRAMS.find(
             (motorcycleToDiagram) =>
-                motorcycleToDiagram.diagramId === diagram.id
+                motorcycleToDiagram.diagramId === diagram.id,
         );
         await prisma.diagram.upsert({
             where: { id: diagram.id },
@@ -49,7 +49,7 @@ async function main() {
     }
 
     for (const diagramToPart of DIAGRAM_TO_PARTS) {
-        await prisma.diagramToPart.upsert({
+        await prisma.partToDiagram.upsert({
             where: {
                 partId_diagramId: {
                     diagramId: diagramToPart.diagramId,
