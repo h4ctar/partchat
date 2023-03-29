@@ -3,7 +3,7 @@ import { MotorcycleResource } from "../../types/motorcycles";
 import { prisma } from "../_prisma";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
-    const motorcycleId = request.query.motorcycleId as string;
+    const motorcycleId = (request.query.motorcycleId as string) || undefined;
 
     if (request.method === "GET") {
         console.info("Get motorcycle");

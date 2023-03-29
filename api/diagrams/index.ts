@@ -6,7 +6,8 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
     if (request.method === "GET") {
         console.info("Get all diagrams");
 
-        const motorcycleId = request.query.motorcycleId as string | undefined;
+        const motorcycleId =
+            (request.query.motorcycleId as string) || undefined;
 
         const diagramModels = await prisma.diagram.findMany({
             where: {
