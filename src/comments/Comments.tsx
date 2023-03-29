@@ -64,7 +64,7 @@ export const Comments = ({ diagramId }: Params) => {
                             </div>
                             <div>
                                 {new Date(
-                                    comment.postedDate
+                                    comment.createdAt,
                                 ).toLocaleDateString()}
                             </div>
                         </div>

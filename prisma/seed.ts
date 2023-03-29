@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import { create } from "lodash";
 import {
     COMMENTS,
     DIAGRAMS,
@@ -6,7 +7,7 @@ import {
     MOTORCYCLES,
     MOTORCYCLE_TO_DIAGRAMS,
     PARTS,
-} from "./_data";
+} from "./seed-data";
 
 const prisma = new PrismaClient();
 
@@ -58,6 +59,16 @@ async function main() {
             },
             update: {},
             create: diagramToPart,
+        });
+    }
+
+    for (const comment of COMMENTS) {
+        await prisma.comment.upsert({
+            where: {
+                id: comment.id,
+            },
+            update: {},
+            create: comment,
         });
     }
 }

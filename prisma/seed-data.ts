@@ -265,29 +265,19 @@ export const COMMENTS = [
     {
         id: "comment-1",
         username: "Ben",
-        postedDate: "2023-03-27T07:57:11.331Z",
         diagramId: "yamaha-cylinder-head-1",
         text: "First!",
     },
     {
         id: "comment-2",
         username: "Ben",
-        postedDate: "2023-03-27T07:57:11.331Z",
         diagramId: "yamaha-cylinder-head-1",
         text: "Second",
     },
     {
         id: "comment-3",
         username: "Ben",
-        postedDate: "2023-03-27T07:57:11.331Z",
         diagramId: "yamaha-cylinder-head-1",
         text: "Third :(",
-    },
-    {
-        id: "comment-4",
-        username: "Ben",
-        postedDate: "2023-03-27T07:57:11.331Z",
-        commentId: "comment-1",
-        text: "First Reply :)",
     },
 ];

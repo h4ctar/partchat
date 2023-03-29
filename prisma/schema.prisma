@@ -9,42 +9,70 @@ datasource db {
 }
 
 model Motorcycle {
-  id       String    @id
+  id       String @id
   make     String
   model    String
   yearFrom Int
   yearTo   Int
   image    String
+
   diagrams Diagram[]
+  comments Comment[]
 }
 
 model Diagram {
-  id            String          @id
-  name          String
-  image         String
-  width         Int
-  height        Int
-  motorcycles   Motorcycle[]
-  partOnDiagram PartToDiagram[]
+  id     String @id
+  name   String
+  image  String
+  width  Int
+  height Int
+
+  motorcycles    Motorcycle[]
+  partOnDiagrams PartToDiagram[]
+  comments       Comment[]
 }
 
 model Part {
-  id            String          @id
-  partNumber    String
-  description   String
-  partOnDiagram PartToDiagram[]
+  id          String @id
+  partNumber  String
+  description String
+
+  partOnDiagrams PartToDiagram[]
+  comments       Comment[]
 }
 
 model PartToDiagram {
-  refNo     Int
-  hotspot   Json
-  qty       Int
-  part      Part    @relation(fields: [partId], references: [id])
-  diagram   Diagram @relation(fields: [diagramId], references: [id])
-  partId    String
+  refNo   Int
+  hotspot Json
+  qty     Int
+
+  partId String
+  part   Part   @relation(fields: [partId], references: [id])
+
   diagramId String
+  diagram   Diagram @relation(fields: [diagramId], references: [id])
 
   @@unique([partId, diagramId])
   @@index([partId])
   @@index([diagramId])
+}
+
+model Comment {
+  id        String   @id
+  username  String
+  createdAt DateTime @default(now())
+  text      String
+
+  diagramId String?
+  diagram   Diagram? @relation(fields: [diagramId], references: [id])
+
+  motorcycleId String?
+  motorcycle   Motorcycle? @relation(fields: [motorcycleId], references: [id])
+
+  partId String?
+  part   Part?   @relation(fields: [partId], references: [id])
+
+  @@index([diagramId])
+  @@index([motorcycleId])
+  @@index([partId])
 }

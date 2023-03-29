@@ -10,22 +10,23 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
 
         const partModels = await prisma.part.findMany({
             where: {
-                partOnDiagram: {
+                partOnDiagrams: {
                     some: { diagramId },
                 },
             },
             include: {
-                partOnDiagram: true,
+                partOnDiagrams: true,
             },
         });
 
         const partResources: PartResource[] = partModels
             .map((partModel) => {
-                const { partOnDiagram, ...partResources } = {
+                // Do this destructure so that the partOnDiagrams is not included in the response resources
+                const { partOnDiagrams: _, ...partResources } = {
                     ...partModel,
-                    refNo: partModel.partOnDiagram[0].refNo,
-                    hotspot: partModel.partOnDiagram[0].hotspot as number[],
-                    qty: partModel.partOnDiagram[0].qty,
+                    refNo: partModel.partOnDiagrams[0].refNo,
+                    hotspot: partModel.partOnDiagrams[0].hotspot as number[],
+                    qty: partModel.partOnDiagrams[0].qty,
                     _links: {
                         self: { href: `/api/parts/${partModel.id}` },
                     },

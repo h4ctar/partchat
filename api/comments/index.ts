@@ -1,45 +1,34 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { CommentResource } from "../../types/motorcycles";
-import { COMMENTS } from "../../prisma/_data";
+import { prisma } from "../_prisma";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
+    const motorcycleId = (request.query.motorcycleId as string) || undefined;
     const diagramId = (request.query.diagramId as string) || undefined;
-    const commentId = (request.query.commentId as string) || undefined;
+    const partId = (request.query.partId as string) || undefined;
 
     if (request.method === "GET") {
         console.info("Get all comments");
 
-        if (diagramId) {
-            const comments: CommentResource[] = COMMENTS.filter(
-                (comment) => comment.diagramId === diagramId,
-            ).map((comment) => ({
-                ...comment,
-                _links: {
-                    self: { href: `/api/comments/${comment.id}` },
-                },
-            }));
+        const commentModels = await prisma.comment.findMany({
+            where: {
+                motorcycleId,
+                diagramId,
+                partId,
+            },
+        });
 
-            response.status(200).send(comments);
-        } else if (commentId) {
-            const comments: CommentResource[] = COMMENTS.filter(
-                (comment) => comment.commentId === commentId,
-            ).map((comment) => ({
-                ...comment,
+        const commentResources: CommentResource[] = commentModels.map(
+            (commentModel) => ({
+                ...commentModel,
+                createdAt: commentModel.createdAt.toISOString(),
                 _links: {
-                    self: { href: `/api/comments/${comment.id}` },
+                    self: { href: `/api/comments/${commentModel.id}` },
                 },
-            }));
+            }),
+        );
 
-            response.status(200).send(comments);
-        } else {
-            const comments: CommentResource[] = COMMENTS.map((comment) => ({
-                ...comment,
-                _links: {
-                    self: { href: `/api/comments/${comment.id}` },
-                },
-            }));
-            response.status(200).send(comments);
-        }
+        response.status(200).send(commentResources);
     } else {
         throw new Error("Unsupported method");
     }
