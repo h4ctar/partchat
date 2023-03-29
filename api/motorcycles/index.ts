@@ -11,10 +11,9 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
 
         const motorcycleModels = await prisma.motorcycle.findMany({
             where: {
-                ...(make ? { make } : {}),
-                ...(year
-                    ? { yearFrom: { lte: year }, yearTo: { gte: year } }
-                    : {}),
+                make,
+                yearFrom: { lte: year },
+                yearTo: { gte: year },
             },
         });
 
