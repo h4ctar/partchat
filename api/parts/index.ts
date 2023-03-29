@@ -19,18 +19,20 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
             },
         });
 
-        const partResources: PartResource[] = partModels.map((partModel) => {
-            const { partOnDiagram, ...partResources } = {
-                ...partModel,
-                refNo: partModel.partOnDiagram[0].refNo,
-                hotspot: partModel.partOnDiagram[0].hotspot as number[],
-                qty: partModel.partOnDiagram[0].qty,
-                _links: {
-                    self: { href: `/api/parts/${partModel.id}` },
-                },
-            };
-            return partResources;
-        });
+        const partResources: PartResource[] = partModels
+            .map((partModel) => {
+                const { partOnDiagram, ...partResources } = {
+                    ...partModel,
+                    refNo: partModel.partOnDiagram[0].refNo,
+                    hotspot: partModel.partOnDiagram[0].hotspot as number[],
+                    qty: partModel.partOnDiagram[0].qty,
+                    _links: {
+                        self: { href: `/api/parts/${partModel.id}` },
+                    },
+                };
+                return partResources;
+            })
+            .sort((a, b) => a.refNo - b.refNo);
 
         response.status(200).send(partResources);
     } else {
