@@ -1,4 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { MotorcycleResource } from "../../types/motorcycles";
 import { prisma } from "../_prisma";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
@@ -17,16 +18,18 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
             },
         });
 
-        const motorcycles = motorcycleModels.map((motorcycleModel) => ({
-            ...motorcycleModel,
-            _links: {
-                self: { href: `/api/motorcycles/${motorcycleModel.id}` },
-                diagrams: {
-                    href: `/api/diagrams?motorcycleId=${motorcycleModel.id}`,
+        const motorcycleResources: MotorcycleResource[] = motorcycleModels.map(
+            (motorcycleModel) => ({
+                ...motorcycleModel,
+                _links: {
+                    self: { href: `/api/motorcycles/${motorcycleModel.id}` },
+                    diagrams: {
+                        href: `/api/diagrams?motorcycleId=${motorcycleModel.id}`,
+                    },
                 },
-            },
-        }));
-        response.status(200).send(motorcycles);
+            })
+        );
+        response.status(200).send(motorcycleResources);
     } else {
         throw new Error("Unsupported method");
     }
