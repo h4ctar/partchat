@@ -25,7 +25,8 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
                 const { partOnDiagrams: _, ...partResources } = {
                     ...partModel,
                     refNo: partModel.partOnDiagrams[0].refNo,
-                    hotspot: partModel.partOnDiagrams[0].hotspot as number[],
+                    hotspots: partModel.partOnDiagrams[0]
+                        .hotspots as number[][],
                     qty: partModel.partOnDiagrams[0].qty,
                     _links: {
                         self: { href: `/api/parts/${partModel.id}` },

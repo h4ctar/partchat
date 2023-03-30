@@ -33,8 +33,7 @@ export type PartResource = {
     description: string;
     qty?: number;
     refNo?: number;
-    // TODO: this needs to support multiple bounding boxes
-    hotspot?: number[];
+    hotspots?: number[][];
     _links?: {
         self: { href: string };
     };

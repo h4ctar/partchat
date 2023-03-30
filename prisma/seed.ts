@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { create } from "lodash";
 import {
     COMMENTS,
     DIAGRAMS,
@@ -57,7 +56,7 @@ async function main() {
                     partId: diagramToPart.partId,
                 },
             },
-            update: {},
+            update: diagramToPart,
             create: diagramToPart,
         });
     }

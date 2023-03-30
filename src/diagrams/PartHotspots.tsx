@@ -41,24 +41,23 @@ export const PartHotspots = ({ diagram, selectedRefNo }: Props) => {
 
     return (
         <div ref={containerRef} className="absolute top-0 w-full h-full">
-            {query.data?.map(
-                (part) =>
-                    part.hotspot && (
-                        <div
-                            key={part.refNo}
-                            style={{
-                                left: part.hotspot[0] * scale,
-                                top: part.hotspot[1] * scale,
-                                width: part.hotspot[2] * scale,
-                                height: part.hotspot[3] * scale,
-                            }}
-                            className={`absolute ${
-                                part.refNo === selectedRefNo
-                                    ? HIGHLIGHTED_COLOR
-                                    : NORMAL_COLOR
-                            }`}
-                        ></div>
-                    )
+            {query.data?.map((part) =>
+                part.hotspots?.map((hotspot) => (
+                    <div
+                        key={part.refNo}
+                        style={{
+                            left: hotspot[0] * scale,
+                            top: hotspot[1] * scale,
+                            width: hotspot[2] * scale,
+                            height: hotspot[3] * scale,
+                        }}
+                        className={`absolute ${
+                            part.refNo === selectedRefNo
+                                ? HIGHLIGHTED_COLOR
+                                : NORMAL_COLOR
+                        }`}
+                    ></div>
+                )),
             )}
         </div>
     );

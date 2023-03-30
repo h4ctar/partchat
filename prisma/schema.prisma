@@ -42,9 +42,9 @@ model Part {
 }
 
 model PartToDiagram {
-  refNo   Int
-  hotspot Json
-  qty     Int
+  refNo    Int
+  hotspots Json
+  qty      Int
 
   partId String
   part   Part   @relation(fields: [partId], references: [id])
