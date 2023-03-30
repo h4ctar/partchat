@@ -14,7 +14,7 @@ export const Diagram = ({ diagramId }: Params) => {
 
     if (!query.data) {
         return (
-            <div className="p-5">
+            <div className="p-5 max-w-7xl mx-auto">
                 <h1>Loading...</h1>
             </div>
         );
@@ -26,7 +26,7 @@ export const Diagram = ({ diagramId }: Params) => {
         <div>
             <div className="p-5 gap-5 flex lg:flex-row flex-col lg:h-[calc(100vh-42px-20px-20px)] items-stretch lg:justify-center">
                 <div className="h-full relative">
-                    <img src={diagram.image} className="max-h-full" />
+                    <img src={diagram.image} className="h-full" />
                     <PartHotspots
                         diagram={diagram}
                         selectedRefNo={selectedRefNo}
