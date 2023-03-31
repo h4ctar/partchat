@@ -7,12 +7,17 @@
         "build": "tsc && vite build",
         "preview": "vite preview",
         "postinstall": "prisma generate",
+        "prettier": "prettier --write src api",
         "db_generate": "prisma generate",
         "db_push": "prisma db push",
         "db_seed": "prisma db seed"
     },
     "prisma": {
         "seed": "ts-node prisma/seed.ts"
+    },
+    "prettier": {
+        "tabWidth": 4,
+        "trailingComma": "all"
     },
     "dependencies": {
         "@auth0/auth0-react": "^2.0.1",

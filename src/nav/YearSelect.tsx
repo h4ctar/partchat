@@ -20,7 +20,7 @@ export const YearSelect = ({ make, year }: Params) => {
             value={year || ""}
             onChange={(event) =>
                 setLocation(
-                    `/motorcycles?make=${make}&year=${event.target.value}`
+                    `/motorcycles?make=${make}&year=${event.target.value}`,
                 )
             }
             disabled={query.isLoading}

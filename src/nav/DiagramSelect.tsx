@@ -18,7 +18,7 @@ export const DiagramSelect = ({ motorcycleId, diagramId }: Params) => {
             value={diagramId || ""}
             onChange={(event) =>
                 setLocation(
-                    `/motorcycles/${motorcycleId}/diagrams/${event.target.value}`
+                    `/motorcycles/${motorcycleId}/diagrams/${event.target.value}`,
                 )
             }
             disabled={query.isLoading}

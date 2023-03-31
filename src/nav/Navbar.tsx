@@ -13,10 +13,10 @@ export const Navbar = () => {
     const search = useSearch();
 
     const [matchMotorcycle, paramsMotorcycle] = useRoute(
-        "/motorcycles/:motorcycleId"
+        "/motorcycles/:motorcycleId",
     );
     const [matchDiagram, paramsDiagram] = useRoute(
-        "/motorcycles/:motorcycleId/diagrams/:diagramId"
+        "/motorcycles/:motorcycleId/diagrams/:diagramId",
     );
     const motorcycleId =
         paramsMotorcycle?.motorcycleId || paramsDiagram?.motorcycleId || "";
