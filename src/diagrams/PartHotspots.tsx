@@ -42,9 +42,9 @@ export const PartHotspots = ({ diagram, selectedRefNo }: Props) => {
     return (
         <div ref={containerRef} className="absolute top-0 w-full h-full">
             {query.data?.map((part) =>
-                part.hotspots?.map((hotspot) => (
+                part.hotspots?.map((hotspot, index) => (
                     <div
-                        key={part.refNo}
+                        key={`${part.refNo}-${index}`}
                         style={{
                             left: hotspot[0] * scale,
                             top: hotspot[1] * scale,
