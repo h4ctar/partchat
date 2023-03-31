@@ -1,5 +1,7 @@
 import { useComments } from "./comment.hooks";
 import Avatar from "boring-avatars";
+import { useState } from "react";
+import { postComment } from "./comment.api";
 
 type Params = {
     motorcycleId?: string;
@@ -9,10 +11,11 @@ type Params = {
 
 export const Comments = ({ motorcycleId, diagramId, partId }: Params) => {
     const { query } = useComments({ motorcycleId, diagramId, partId });
+    const [newCommentText, setNewCommentText] = useState("");
 
     if (!query.data) {
         return (
-            <div className="p-5">
+            <div className="p-5 max-w-7xl mx-auto">
                 <h1>Loading...</h1>
             </div>
         );
@@ -20,8 +23,36 @@ export const Comments = ({ motorcycleId, diagramId, partId }: Params) => {
 
     const comments = query.data;
 
+    const handlePostComment = () => {
+        // TODO: handle errors
+        postComment(
+            { motorcycleId, diagramId, partId },
+            {
+                text: newCommentText,
+                motorcycleId,
+                diagramId,
+                partId,
+            },
+        );
+    };
+
     return (
         <div className="p-5 flex flex-col gap-4 max-w-7xl mx-auto">
+            <div className="flex flex-col gap-4">
+                <textarea
+                    value={newCommentText}
+                    onChange={(event) => setNewCommentText(event.target.value)}
+                    className="w-full rounded-lg dark:bg-slate-800"
+                    rows={4}
+                    placeholder="Write comment"
+                />
+                <button
+                    onClick={handlePostComment}
+                    className="font-semibold px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:text-white dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400 self-end"
+                >
+                    Post Comment
+                </button>
+            </div>
             {comments.map((comment) => (
                 <div
                     key={comment.id}
@@ -70,7 +101,7 @@ export const Comments = ({ motorcycleId, diagramId, partId }: Params) => {
                                 ).toLocaleDateString()}
                             </div>
                         </div>
-                        <div className="font-bold text-xl">{comment.text}</div>
+                        <div>{comment.text}</div>
                     </div>
                 </div>
             ))}

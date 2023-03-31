@@ -411,19 +411,19 @@ export const DIAGRAM_TO_PARTS = [
 
 export const COMMENTS = [
     {
-        id: "comment-1",
+        id: 1,
         username: "Ben",
         diagramId: "yamaha-cylinder-head-1",
         text: "First!",
     },
     {
-        id: "comment-2",
+        id: 2,
         username: "Ben",
         diagramId: "yamaha-cylinder-head-1",
         text: "Second",
     },
     {
-        id: "comment-3",
+        id: 3,
         username: "Ben",
         diagramId: "yamaha-cylinder-head-1",
         text: "Third :(",

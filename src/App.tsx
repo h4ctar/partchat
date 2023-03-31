@@ -6,8 +6,7 @@ import { Motorcycle } from "./motorcycles/Motorcycle";
 import { Motorcycles } from "./motorcycles/Motorcycles";
 import { Navbar } from "./nav/Navbar";
 import { NotFound } from "./NotFound";
-
-const queryClient = new QueryClient();
+import { queryClient } from "./query";
 
 export const App = () => {
     return (

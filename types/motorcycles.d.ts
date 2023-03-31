@@ -40,17 +40,24 @@ export type PartResource = {
 };
 
 export type CommentResource = {
-    id: string;
+    id: number;
     username: string;
     createdAt: string;
     text: string;
 
-    // TODO: should these be _links instead?
-    motorcycleId: string | null;
-    diagramId: string | null;
-    partId: string | null;
+    motorcycleId?: string;
+    diagramId?: string;
+    partId?: string;
 
     _links?: {
         self: { href: string };
     };
+};
+
+export type PostComment = {
+    text: string;
+
+    motorcycleId?: string;
+    diagramId?: string;
+    partId?: string;
 };
