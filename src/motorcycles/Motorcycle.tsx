@@ -11,7 +11,7 @@ export const Motorcycle = ({ motorcycleId }: Params) => {
 
     if (!queryMotorcycle.data) {
         return (
-            <div className="p-5">
+            <div className="p-5 max-w-7xl mx-auto">
                 <h1>Loading...</h1>
             </div>
         );

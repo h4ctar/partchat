@@ -13,7 +13,7 @@ export const Motorcycles = () => {
 
     if (!query.data) {
         return (
-            <div className="p-5">
+            <div className="p-5 max-w-7xl mx-auto">
                 <div>Loading...</div>
             </div>
         );

@@ -26,7 +26,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
                     self: { href: `/api/diagrams/${diagramModel.id}` },
                     parts: { href: `/api/parts?diagramId=${diagramModel.id}` },
                 },
-            })
+            }),
         );
 
         response.status(200).send(diagramResources);
