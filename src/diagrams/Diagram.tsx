@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Comments } from "../comments/Comments";
-import { Parts } from "../parts/Parts";
+import { PartsTable } from "../parts/PartsTable";
 import { useDiagram } from "./diagram.hooks";
 import { PartHotspots } from "./PartHotspots";
 
@@ -33,7 +33,7 @@ export const Diagram = ({ diagramId }: Params) => {
                     />
                 </div>
                 <div className="overflow-auto flex-shrink-0">
-                    <Parts
+                    <PartsTable
                         diagramId={diagramId}
                         setSelectedRefNo={setSelectedRefNo}
                     />

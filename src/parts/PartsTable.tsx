@@ -5,7 +5,7 @@ type Params = {
     setSelectedRefNo: (selectedRefNo?: number) => void;
 };
 
-export const Parts = ({ diagramId, setSelectedRefNo }: Params) => {
+export const PartsTable = ({ diagramId, setSelectedRefNo }: Params) => {
     const { query } = useParts(diagramId);
 
     if (!query.data) {
