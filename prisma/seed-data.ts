@@ -116,8 +116,8 @@ export const PARTS = [
         description: "GASKET, cylinder head 1",
     },
     {
-        id: "16G\u201411191-01",
-        partNumber: "16G\u201411191-01",
+        id: "16G-11191-01",
+        partNumber: "16G-11191-01",
         description: "COVER, cylinder head 1",
     },
     {
@@ -131,8 +131,8 @@ export const PARTS = [
         description: "COVER, cylinder head 3",
     },
     {
-        id: "16G\u201411142-00",
-        partNumber: "16G\u201411142-00",
+        id: "16G-11142-00",
+        partNumber: "16G-11142-00",
         description: "BRACKET, cylinder head cover 2",
     },
     {
@@ -225,7 +225,7 @@ export const DIAGRAM_TO_PARTS = [
     },
     {
         diagramId: "yamaha-cylinder-head-1",
-        partId: "16G\u201411142-00",
+        partId: "16G-11142-00",
         refNo: 22,
         hotspots: [
             [858, 348, 42, 32],
@@ -388,7 +388,7 @@ export const DIAGRAM_TO_PARTS = [
     },
     {
         diagramId: "yamaha-cylinder-head-1",
-        partId: "16G\u201411191-01",
+        partId: "16G-11191-01",
         refNo: 19,
         hotspots: [[0, 0, 30, 30]],
         qty: 1,
