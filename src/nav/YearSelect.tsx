@@ -16,7 +16,7 @@ export const YearSelect = ({ make, year }: Props) => {
         <select
             name="year"
             id="year"
-            className="border-gray-300 rounded-lg dark:bg-slate-400/10 dark:border-slate-50/10"
+            className="rounded-lg border-gray-300 dark:border-slate-50/10 dark:bg-slate-400/10"
             value={year || ""}
             onChange={(event) =>
                 setLocation(

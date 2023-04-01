@@ -10,7 +10,7 @@ export const Diagrams = ({ motorcycleId }: Props) => {
 
     if (!query.data) {
         return (
-            <div className="p-5 max-w-7xl mx-auto">
+            <div className="mx-auto max-w-7xl p-5">
                 <h1>Loading...</h1>
             </div>
         );
@@ -19,16 +19,16 @@ export const Diagrams = ({ motorcycleId }: Props) => {
     const diagrams = query.data;
 
     return (
-        <div className="p-5 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 max-w-7xl mx-auto">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 p-5 sm:grid-cols-2 lg:grid-cols-4">
             {diagrams.map((diagram) => (
                 <Link
                     key={diagram.id}
                     href={`/motorcycles/${motorcycleId}/diagrams/${diagram.id}`}
-                    className="rounded-lg dark:bg-slate-800 cursor-pointer"
+                    className="cursor-pointer rounded-lg dark:bg-slate-800"
                 >
-                    <h2 className="font-bold text-2xl m-3">{diagram.name}</h2>
+                    <h2 className="m-3 text-2xl font-bold">{diagram.name}</h2>
                     <img
-                        className="rounded-b-lg object-cover w-full aspect-video"
+                        className="aspect-video w-full rounded-b-lg object-cover"
                         src={diagram.image}
                     />
                 </Link>

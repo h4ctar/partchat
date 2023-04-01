@@ -19,7 +19,7 @@ export const PartsTable = ({ diagramId, setSelectedRefNo }: Props) => {
     const parts = query.data;
 
     return (
-        <table className="table-auto w-full lg:w-auto">
+        <table className="w-full table-auto lg:w-auto">
             <thead>
                 <tr>
                     <th className="my-th">REF NO</th>

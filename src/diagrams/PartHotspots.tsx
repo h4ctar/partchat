@@ -40,7 +40,7 @@ export const PartHotspots = ({ diagram, selectedRefNo }: Props) => {
     };
 
     return (
-        <div ref={containerRef} className="absolute top-0 w-full h-full">
+        <div ref={containerRef} className="absolute top-0 h-full w-full">
             {query.data?.map((part) =>
                 part.hotspots?.map((hotspot, index) => (
                     <div

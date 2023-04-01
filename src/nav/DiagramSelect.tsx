@@ -14,7 +14,7 @@ export const DiagramSelect = ({ motorcycleId, diagramId }: Props) => {
         <select
             name="diagram"
             id="diagram"
-            className="border-gray-300 rounded-lg dark:bg-slate-400/10 dark:border-slate-50/10"
+            className="rounded-lg border-gray-300 dark:border-slate-50/10 dark:bg-slate-400/10"
             value={diagramId || ""}
             onChange={(event) =>
                 setLocation(

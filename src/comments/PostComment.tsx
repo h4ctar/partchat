@@ -50,11 +50,11 @@ export const PostComment = ({ motorcycleId, diagramId, partId }: Props) => {
                 }
                 disabled={disabled || !isAuthenticated}
             />
-            <div className="flex flex-row-reverse justify-between items-center">
+            <div className="flex flex-row-reverse items-center justify-between">
                 <button
                     onClick={handlePostComment}
                     disabled={disabled || !isAuthenticated}
-                    className="font-semibold px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:text-white dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400 disabled:dark:bg-slate-500 disabled:dark:text-slate-700"
+                    className="dark:highlight-white/20 rounded-lg px-3 py-2 font-semibold focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:bg-sky-500 dark:text-white dark:hover:bg-sky-400 disabled:dark:bg-slate-500 disabled:dark:text-slate-700"
                 >
                     {isAuthenticated ? "Post comment" : "Log in to comment"}
                 </button>

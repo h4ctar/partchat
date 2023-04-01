@@ -61,14 +61,14 @@ export const Navbar = () => {
     }, [matchDiagram, queryMotorcycle.data, selectedYear]);
 
     return (
-        <div className="grid gap-5 grid-cols-2 lg:grid-cols-[auto_1fr_auto] items-center p-5 border-b dark:border-slate-50/[0.06]">
-            <h2 className="text-2xl row-start-1 col-start-1 dark:text-white flex gap-2 items-center">
+        <div className="grid grid-cols-2 items-center gap-5 border-b p-5 dark:border-slate-50/[0.06] lg:grid-cols-[auto_1fr_auto]">
+            <h2 className="col-start-1 row-start-1 flex items-center gap-2 text-2xl dark:text-white">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
-                    className="w-8 h-8 stroke-sky-400"
+                    className="h-8 w-8 stroke-sky-400"
                 >
                     <path
                         strokeLinecap="round"
@@ -79,7 +79,7 @@ export const Navbar = () => {
 
                 <Link to="/">Part Chat</Link>
             </h2>
-            <div className="lg:flex-grow lg:flex grid gap-5 grid-cols-2 row-start-2 col-start-1 col-span-2 lg:row-start-1 lg:col-start-2 lg:col-span-1">
+            <div className="col-span-2 col-start-1 row-start-2 grid grid-cols-2 gap-5 lg:col-span-1 lg:col-start-2 lg:row-start-1 lg:flex lg:flex-grow">
                 <MakeSelect make={selectedMake} />
                 {selectedMake && (
                     <YearSelect make={selectedMake} year={selectedYear} />
@@ -98,7 +98,7 @@ export const Navbar = () => {
                     />
                 )}
             </div>
-            <div className="row-start-1 col-start-2 lg:col-start-3 justify-self-end">
+            <div className="col-start-2 row-start-1 justify-self-end lg:col-start-3">
                 <LoginButton />
                 <LogoutButton />
             </div>

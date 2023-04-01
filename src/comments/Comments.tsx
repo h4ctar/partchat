@@ -13,7 +13,7 @@ export const Comments = ({ motorcycleId, diagramId, partId }: Props) => {
 
     if (!query.data) {
         return (
-            <div className="p-5 max-w-7xl mx-auto">
+            <div className="mx-auto max-w-7xl p-5">
                 <h1>Loading...</h1>
             </div>
         );
@@ -22,7 +22,7 @@ export const Comments = ({ motorcycleId, diagramId, partId }: Props) => {
     const comments = query.data;
 
     return (
-        <div className="p-5 flex flex-col gap-4 max-w-7xl mx-auto">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 p-5">
             <PostComment
                 motorcycleId={motorcycleId}
                 diagramId={diagramId}

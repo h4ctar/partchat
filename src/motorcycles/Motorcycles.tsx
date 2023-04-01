@@ -13,7 +13,7 @@ export const Motorcycles = () => {
 
     if (!query.data) {
         return (
-            <div className="p-5 max-w-7xl mx-auto">
+            <div className="mx-auto max-w-7xl p-5">
                 <div>Loading...</div>
             </div>
         );
@@ -22,14 +22,14 @@ export const Motorcycles = () => {
     const motorcycles = query.data;
 
     return (
-        <div className="p-5 grid lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-4 max-w-7xl mx-auto">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 p-5 sm:grid-cols-2 lg:grid-cols-4">
             {motorcycles.map((motorcycle) => (
                 <Link
                     key={motorcycle.id}
                     href={`/motorcycles/${motorcycle.id}`}
-                    className="rounded-lg dark:bg-slate-800 cursor-pointer"
+                    className="cursor-pointer rounded-lg dark:bg-slate-800"
                 >
-                    <h2 className="font-bold text-2xl m-3">
+                    <h2 className="m-3 text-2xl font-bold">
                         {`${motorcycle.make} ${motorcycle.model} ${motorcycle.yearFrom}-${motorcycle.yearTo}`}
                     </h2>
                     <img className="rounded-b-lg" src={motorcycle.image} />

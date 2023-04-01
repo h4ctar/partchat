@@ -11,7 +11,7 @@ export const Motorcycle = ({ motorcycleId }: Props) => {
 
     if (!queryMotorcycle.data) {
         return (
-            <div className="p-5 max-w-7xl mx-auto">
+            <div className="mx-auto max-w-7xl p-5">
                 <h1>Loading...</h1>
             </div>
         );
@@ -19,9 +19,9 @@ export const Motorcycle = ({ motorcycleId }: Props) => {
 
     return (
         <>
-            <div className="p-5 flex flex-col items-center">
-                <h1 className="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl text-center dark:text-white m-5">{`${queryMotorcycle.data.make} ${queryMotorcycle.data.model} ${queryMotorcycle.data.yearFrom}-${queryMotorcycle.data.yearTo}`}</h1>
-                <div className="flex flex-col lg:flex-row gap-5 items-center">
+            <div className="flex flex-col items-center p-5">
+                <h1 className="m-5 text-center text-4xl font-extrabold text-slate-900 dark:text-white sm:text-5xl lg:text-6xl">{`${queryMotorcycle.data.make} ${queryMotorcycle.data.model} ${queryMotorcycle.data.yearFrom}-${queryMotorcycle.data.yearTo}`}</h1>
+                <div className="flex flex-col items-center gap-5 lg:flex-row">
                     <img
                         className="rounded-lg"
                         src={queryMotorcycle.data.image}
