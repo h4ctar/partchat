@@ -12,13 +12,11 @@ export const PostComment = ({ motorcycleId, diagramId, partId }: Props) => {
     const [text, setText] = useState("");
     const { isAuthenticated, getAccessTokenSilently } = useAuth0();
     const [errorMessage, setErrorMessage] = useState("");
-    const [statusMessage, setStatusMessage] = useState("");
-    const [disabled, setDisabled] = useState(false);
+    const [pending, setPending] = useState(false);
 
     const handlePostComment = () => {
         setErrorMessage("");
-        setStatusMessage("Posting comment...");
-        setDisabled(true);
+        setPending(true);
 
         postComment(
             { motorcycleId, diagramId, partId },
@@ -32,10 +30,7 @@ export const PostComment = ({ motorcycleId, diagramId, partId }: Props) => {
         )
             .then(() => setText(""))
             .catch(() => setErrorMessage("Failed to post new comment"))
-            .finally(() => {
-                setStatusMessage("");
-                setDisabled(false);
-            });
+            .finally(() => setPending(false));
     };
 
     return (
@@ -48,18 +43,18 @@ export const PostComment = ({ motorcycleId, diagramId, partId }: Props) => {
                 placeholder={
                     isAuthenticated ? "Write comment" : "Log in to comment"
                 }
-                disabled={disabled || !isAuthenticated}
+                disabled={!isAuthenticated || pending}
             />
             <div className="flex flex-row-reverse items-center justify-between">
                 <button
                     onClick={handlePostComment}
-                    disabled={disabled || !isAuthenticated}
+                    disabled={!isAuthenticated || pending || !text}
                     className="dark:highlight-white/20 rounded-lg px-3 py-2 font-semibold focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:bg-sky-500 dark:text-white dark:hover:bg-sky-400 disabled:dark:bg-slate-500 disabled:dark:text-slate-700"
                 >
                     {isAuthenticated ? "Post comment" : "Log in to comment"}
                 </button>
-                {statusMessage && (
-                    <div className="text-slate-300">{statusMessage}</div>
+                {pending && (
+                    <div className="text-slate-300">Posting comment...</div>
                 )}
                 {errorMessage && (
                     <div className="text-red-500">{errorMessage}</div>
