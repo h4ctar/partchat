@@ -10,7 +10,13 @@ export const LoginButton = () => {
     return (
         <button
             className="dark:highlight-white/20 rounded-lg px-3 py-2 font-semibold focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:bg-sky-500 dark:text-white dark:hover:bg-sky-400"
-            onClick={() => loginWithRedirect()}
+            onClick={() =>
+                loginWithRedirect({
+                    appState: {
+                        returnTo: window.location.pathname,
+                    },
+                })
+            }
         >
             Log in
         </button>
