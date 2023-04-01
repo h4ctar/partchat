@@ -28,10 +28,15 @@ export const fetchComments =
 export const postComment = async (
     searchParams: CommentSearchParams,
     comment: PostComment,
+    getAccessTokenSilently: () => Promise<string>,
 ) => {
+    const token = await getAccessTokenSilently();
     const search = new URLSearchParams(searchParams).toString();
     await fetch(`/api/comments?${search}`, {
         method: "POST",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(comment),
     });
     await queryClient.invalidateQueries({

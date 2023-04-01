@@ -1,5 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { CommentResource, PostComment } from "../../types/motorcycles";
+import { checkToken } from "../_auth";
+import { errorHandler } from "../_error-handler";
 import { prisma } from "../_prisma";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
@@ -42,6 +44,8 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
             `Post new comments - motorcycleId: ${motorcycleId}, diagramId: ${diagramId}, partId: ${partId}`,
         );
 
+        await checkToken(request, "post:comments");
+
         const postComment: PostComment = JSON.parse(request.body);
 
         const commentModel = await prisma.comment.create({
@@ -72,4 +76,4 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
     }
 };
 
-export default handler;
+export default errorHandler(handler);

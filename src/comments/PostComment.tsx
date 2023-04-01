@@ -10,7 +10,7 @@ type Props = {
 
 export const PostComment = ({ motorcycleId, diagramId, partId }: Props) => {
     const [newCommentText, setNewCommentText] = useState("");
-    const { isAuthenticated } = useAuth0();
+    const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
     const handlePostComment = () => {
         postComment(
@@ -21,6 +21,7 @@ export const PostComment = ({ motorcycleId, diagramId, partId }: Props) => {
                 diagramId,
                 partId,
             },
+            getAccessTokenSilently,
         );
     };
 
