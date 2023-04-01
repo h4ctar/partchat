@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { Route, Switch } from "wouter";
 import { Diagram } from "./diagrams/Diagram";
 import { Home } from "./Home";
