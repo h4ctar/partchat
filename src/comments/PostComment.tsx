@@ -11,8 +11,10 @@ type Props = {
 export const PostComment = ({ motorcycleId, diagramId, partId }: Props) => {
     const [newCommentText, setNewCommentText] = useState("");
     const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handlePostComment = () => {
+        setErrorMessage("");
         postComment(
             { motorcycleId, diagramId, partId },
             {
@@ -22,7 +24,7 @@ export const PostComment = ({ motorcycleId, diagramId, partId }: Props) => {
                 partId,
             },
             getAccessTokenSilently,
-        );
+        ).catch(() => setErrorMessage("Failed to post new comment"));
     };
 
     return (
@@ -37,13 +39,18 @@ export const PostComment = ({ motorcycleId, diagramId, partId }: Props) => {
                 }
                 disabled={!isAuthenticated}
             />
-            <button
-                onClick={handlePostComment}
-                disabled={!isAuthenticated}
-                className="font-semibold px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:text-white dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400 self-end"
-            >
-                {isAuthenticated ? "Post comment" : "Log in to comment"}
-            </button>
+            <div className="flex flex-row-reverse justify-between items-center">
+                <button
+                    onClick={handlePostComment}
+                    disabled={!isAuthenticated}
+                    className="font-semibold px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:text-white dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400"
+                >
+                    {isAuthenticated ? "Post comment" : "Log in to comment"}
+                </button>
+                {errorMessage && (
+                    <div className="text-red-500">{errorMessage}</div>
+                )}
+            </div>
         </div>
     );
 };

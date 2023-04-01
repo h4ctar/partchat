@@ -32,13 +32,16 @@ export const postComment = async (
 ) => {
     const token = await getAccessTokenSilently();
     const search = new URLSearchParams(searchParams).toString();
-    await fetch(`/api/comments?${search}`, {
+    const response = await fetch(`/api/comments?${search}`, {
         method: "POST",
         headers: {
             Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(comment),
     });
+    if (!response.ok) {
+        throw new Error("Failed to post comment");
+    }
     await queryClient.invalidateQueries({
         queryKey: ["comments"],
     });
