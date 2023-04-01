@@ -2,11 +2,11 @@ import { Comments } from "../comments/Comments";
 import { Diagrams } from "../diagrams/Diagrams";
 import { useMotorcycle } from "./motorcycle.hook";
 
-type Params = {
+type Props = {
     motorcycleId: string;
 };
 
-export const Motorcycle = ({ motorcycleId }: Params) => {
+export const Motorcycle = ({ motorcycleId }: Props) => {
     const { query: queryMotorcycle } = useMotorcycle(motorcycleId);
 
     if (!queryMotorcycle.data) {

@@ -1,11 +1,11 @@
 import { useLocation } from "wouter";
 import { useConfig } from "../motorcycles/motorcycle.hook";
 
-type Params = {
+type Props = {
     make?: string;
 };
 
-export const MakeSelect = ({ make }: Params) => {
+export const MakeSelect = ({ make }: Props) => {
     const [, setLocation] = useLocation();
     const { query } = useConfig();
 

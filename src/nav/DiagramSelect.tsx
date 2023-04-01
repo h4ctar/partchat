@@ -1,12 +1,12 @@
 import { useLocation } from "wouter";
 import { useDiagrams } from "../diagrams/diagram.hooks";
 
-type Params = {
+type Props = {
     motorcycleId: string;
     diagramId?: string;
 };
 
-export const DiagramSelect = ({ motorcycleId, diagramId }: Params) => {
+export const DiagramSelect = ({ motorcycleId, diagramId }: Props) => {
     const [, setLocation] = useLocation();
     const { query } = useDiagrams(motorcycleId);
 

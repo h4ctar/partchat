@@ -4,11 +4,11 @@ import { PartsTable } from "../parts/PartsTable";
 import { useDiagram } from "./diagram.hooks";
 import { PartHotspots } from "./PartHotspots";
 
-type Params = {
+type Props = {
     diagramId: string;
 };
 
-export const Diagram = ({ diagramId }: Params) => {
+export const Diagram = ({ diagramId }: Props) => {
     const { query } = useDiagram(diagramId);
     const [selectedRefNo, setSelectedRefNo] = useState<number>();
 

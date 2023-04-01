@@ -1,11 +1,11 @@
 import { useParts } from "./part.hook";
 
-type Params = {
+type Props = {
     diagramId: string;
     setSelectedRefNo: (selectedRefNo?: number) => void;
 };
 
-export const PartsTable = ({ diagramId, setSelectedRefNo }: Params) => {
+export const PartsTable = ({ diagramId, setSelectedRefNo }: Props) => {
     const { query } = useParts(diagramId);
 
     if (!query.data) {
