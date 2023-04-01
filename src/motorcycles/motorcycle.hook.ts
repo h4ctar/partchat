@@ -41,7 +41,6 @@ export const useMotorcycles = (make?: string, year?: number) => {
     const query = useQuery({
         queryKey: ["motorcycles", make, year],
         queryFn: fetchMotorcycles(make, year),
-        keepPreviousData: true,
     });
 
     return {

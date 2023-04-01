@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Comments } from "../comments/Comments";
+import { Spinner } from "../icons/Spinner";
 import { PartsTable } from "../parts/PartsTable";
 import { useDiagram } from "./diagram.hooks";
 import { PartHotspots } from "./PartHotspots";
@@ -15,7 +16,7 @@ export const Diagram = ({ diagramId }: Props) => {
     if (!query.data) {
         return (
             <div className="mx-auto max-w-7xl p-5">
-                <h1>Loading...</h1>
+                <Spinner />
             </div>
         );
     }

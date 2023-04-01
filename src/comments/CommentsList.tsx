@@ -1,3 +1,4 @@
+import { Spinner } from "../icons/Spinner";
 import { Comment } from "./Comment";
 import { useComments } from "./comment.hooks";
 
@@ -13,7 +14,7 @@ export const CommentsList = ({ motorcycleId, diagramId, partId }: Props) => {
     if (!query.data) {
         return (
             <div className="mx-auto max-w-7xl p-5">
-                <h1>Loading...</h1>
+                <Spinner />
             </div>
         );
     }

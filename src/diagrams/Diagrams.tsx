@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { Spinner } from "../icons/Spinner";
 import { useDiagrams } from "./diagram.hooks";
 
 type Props = {
@@ -11,7 +12,7 @@ export const Diagrams = ({ motorcycleId }: Props) => {
     if (!query.data) {
         return (
             <div className="mx-auto max-w-7xl p-5">
-                <h1>Loading...</h1>
+                <Spinner />
             </div>
         );
     }

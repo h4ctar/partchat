@@ -1,5 +1,6 @@
 import { Link } from "wouter";
 import { useSearch } from "wouter/use-location";
+import { Spinner } from "../icons/Spinner";
 import { useMotorcycles } from "./motorcycle.hook";
 
 export const Motorcycles = () => {
@@ -14,7 +15,7 @@ export const Motorcycles = () => {
     if (!query.data) {
         return (
             <div className="mx-auto max-w-7xl p-5">
-                <div>Loading...</div>
+                <Spinner />
             </div>
         );
     }

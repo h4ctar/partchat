@@ -1,3 +1,4 @@
+import { Spinner } from "../icons/Spinner";
 import { useParts } from "./part.hook";
 
 type Props = {
@@ -10,8 +11,8 @@ export const PartsTable = ({ diagramId, setSelectedRefNo }: Props) => {
 
     if (!query.data) {
         return (
-            <div className="p-5">
-                <h1>Loading...</h1>
+            <div className="w-full p-5">
+                <Spinner />
             </div>
         );
     }
