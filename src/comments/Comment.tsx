@@ -7,10 +7,7 @@ type Props = {
 
 export const Comment = ({ comment }: Props) => {
     return (
-        <div
-            key={comment.id}
-            className="rounded-lg dark:bg-slate-800 p-5 flex flex-row gap-6"
-        >
+        <div className="rounded-lg dark:bg-slate-800 p-5 flex flex-row gap-6">
             <div className="flex flex-col items-center gap-4">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"

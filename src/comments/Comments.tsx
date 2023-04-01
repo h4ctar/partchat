@@ -29,7 +29,7 @@ export const Comments = ({ motorcycleId, diagramId, partId }: Props) => {
                 partId={partId}
             />
             {comments.map((comment) => (
-                <Comment comment={comment} />
+                <Comment key={comment.id} comment={comment} />
             ))}
         </div>
     );
