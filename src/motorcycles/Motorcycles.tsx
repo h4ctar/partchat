@@ -28,7 +28,7 @@ export const Motorcycles = () => {
                 <Link
                     key={motorcycle.id}
                     href={`/motorcycles/${motorcycle.id}`}
-                    className="cursor-pointer rounded-lg dark:bg-slate-800"
+                    className="dark:highlight-white/10 relative z-10 rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5 dark:bg-slate-800"
                 >
                     <h2 className="m-3 text-2xl font-bold">
                         {`${motorcycle.make} ${motorcycle.model} ${motorcycle.yearFrom}-${motorcycle.yearTo}`}

@@ -25,7 +25,7 @@ export const Diagrams = ({ motorcycleId }: Props) => {
                 <Link
                     key={diagram.id}
                     href={`/motorcycles/${motorcycleId}/diagrams/${diagram.id}`}
-                    className="cursor-pointer rounded-lg dark:bg-slate-800"
+                    className="dark:highlight-white/10 relative z-10 rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5 dark:bg-slate-800"
                 >
                     <h2 className="m-3 text-2xl font-bold">{diagram.name}</h2>
                     <img

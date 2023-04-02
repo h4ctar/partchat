@@ -9,7 +9,7 @@ type Props = {
 
 export const Comment = ({ comment }: Props) => {
     return (
-        <div className="flex flex-row gap-6 rounded-lg p-5 dark:bg-slate-800">
+        <div className="dark:highlight-white/10 relative z-10 flex flex-row gap-6 rounded-lg bg-white p-5 shadow-xl ring-1 ring-slate-900/5 dark:bg-slate-800">
             <div className="flex flex-col items-center gap-4">
                 <UpArrow />
                 <div className="text-lg font-bold">0</div>

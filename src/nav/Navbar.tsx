@@ -8,9 +8,14 @@ import { useMotorcycle } from "../motorcycles/motorcycle.hook";
 import { DiagramSelect } from "./DiagramSelect";
 import { MakeSelect } from "./MakeSelect";
 import { ModelSelect } from "./ModelSelect";
+import { ThemeButton } from "./ThemeButton";
 import { YearSelect } from "./YearSelect";
 
-export const Navbar = () => {
+type Props = {
+    toggleTheme: () => void;
+};
+
+export const Navbar = ({ toggleTheme }: Props) => {
     const search = useSearch();
 
     const [matchMotorcycle, paramsMotorcycle] = useRoute(
@@ -86,9 +91,10 @@ export const Navbar = () => {
                     />
                 )}
             </div>
-            <div className="col-start-2 row-start-1 justify-self-end lg:col-start-3">
+            <div className="col-start-2 row-start-1 flex flex-row items-center gap-5 justify-self-end lg:col-start-3">
                 <LoginButton />
                 <LogoutButton />
+                <ThemeButton toggleTheme={toggleTheme} />
             </div>
         </div>
     );

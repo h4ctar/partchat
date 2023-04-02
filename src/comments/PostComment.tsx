@@ -38,7 +38,7 @@ export const PostComment = ({ motorcycleId, diagramId, partId }: Props) => {
             <textarea
                 value={text}
                 onChange={(event) => setText(event.target.value)}
-                className="w-full rounded-lg dark:bg-slate-800"
+                className="w-full rounded-lg border-gray-300 dark:border-slate-50/10 dark:bg-slate-400/10 dark:bg-slate-800"
                 rows={4}
                 placeholder={
                     isAuthenticated ? "Write comment" : "Log in to comment"
@@ -49,7 +49,8 @@ export const PostComment = ({ motorcycleId, diagramId, partId }: Props) => {
                 <button
                     onClick={handlePostComment}
                     disabled={!isAuthenticated || pending || !text}
-                    className="dark:highlight-white/20 rounded-lg px-3 py-2 font-semibold focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:bg-sky-500 dark:text-white dark:hover:bg-sky-400 disabled:dark:bg-slate-500 disabled:dark:text-slate-700"
+                    className="dark:highlight-white/20 flex h-12 w-full items-center justify-center rounded-lg bg-slate-900 px-6 font-semibold text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 disabled:bg-slate-300 disabled:text-slate-400 dark:bg-sky-500 dark:hover:bg-sky-400 disabled:dark:bg-slate-600 disabled:dark:text-slate-500 sm:w-auto"
+                    // className="dark:highlight-white/20 rounded-lg px-3 py-2 font-semibold focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 dark:bg-sky-500 dark:text-white dark:hover:bg-sky-400 disabled:dark:bg-slate-500 disabled:dark:text-slate-700"
                 >
                     {isAuthenticated ? "Post comment" : "Log in to comment"}
                 </button>

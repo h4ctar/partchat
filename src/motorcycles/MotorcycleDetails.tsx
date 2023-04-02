@@ -22,8 +22,11 @@ export const MotorcycleDetails = ({ motorcycleId }: Props) => {
         <div className="flex flex-col items-center p-5">
             <h1 className="m-5 text-center text-4xl font-extrabold text-slate-900 dark:text-white sm:text-5xl lg:text-6xl">{`${motorcycle.make} ${motorcycle.model} ${motorcycle.yearFrom}-${motorcycle.yearTo}`}</h1>
             <div className="flex flex-col items-center gap-5 lg:flex-row">
-                <img className="rounded-lg" src={motorcycle.image} />
-                <table className="w-full">
+                <img
+                    className="rounded-lg shadow-xl ring-1 ring-slate-900/5"
+                    src={motorcycle.image}
+                />
+                <table className="w-full rounded-lg shadow-xl ring-1 ring-slate-900/5">
                     <tbody className="bg-white dark:bg-slate-800">
                         <tr>
                             <td className="my-td">Capacity</td>
