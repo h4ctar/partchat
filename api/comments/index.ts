@@ -41,10 +41,10 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
         response.status(200).send(commentResources);
     } else if (request.method === "POST") {
         console.info(
-            `Post new comments - motorcycleId: ${motorcycleId}, diagramId: ${diagramId}, partId: ${partId}`,
+            `Post new comment - motorcycleId: ${motorcycleId}, diagramId: ${diagramId}, partId: ${partId}`,
         );
 
-        await checkToken(request, "post:comments");
+        const jwtPayload = await checkToken(request, "post:comments");
 
         const postComment: PostComment = JSON.parse(request.body);
 
@@ -54,8 +54,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
                 motorcycleId: postComment.motorcycleId || null,
                 diagramId: postComment.diagramId || null,
                 partId: postComment.partId || null,
-                // TODO: get username from token
-                username: "Ben",
+                username: jwtPayload.username,
             },
         });
 

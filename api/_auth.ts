@@ -17,9 +17,10 @@ export class UnauthorizedError extends Error {
     }
 }
 
-type ScopePayload = {
+type Payload = {
     scope: string;
-};
+    username: string;
+} & JwtPayload;
 
 export const checkToken = async (
     request: VercelRequest,
@@ -49,15 +50,17 @@ export const checkToken = async (
         throw new UnauthorizedError("Could not verify token");
     }
 
+    if (!isPayload(jwtPayload)) {
+        throw new UnauthorizedError("Invalid token payload");
+    }
+
     for (const scope of scopes) {
-        if (hasScope(jwtPayload)) {
-            if (!jwtPayload.scope.includes(scope)) {
-                throw new ForbiddenError("Incorrect token scope");
-            }
-        } else {
+        if (!jwtPayload.scope.includes(scope)) {
             throw new ForbiddenError("Incorrect token scope");
         }
     }
+
+    return jwtPayload;
 };
 
 const verify = util.promisify<
@@ -66,8 +69,11 @@ const verify = util.promisify<
     JwtPayload | string | undefined
 >(jwt.verify);
 
-function hasScope(
-    pet: ScopePayload | string | jwt.JwtPayload | undefined,
-): pet is ScopePayload {
-    return (pet as ScopePayload).scope !== undefined;
+function isPayload(
+    jwtPayload: Payload | string | jwt.JwtPayload | undefined,
+): jwtPayload is Payload {
+    return (
+        typeof (jwtPayload as Payload).scope === "string" &&
+        typeof (jwtPayload as Payload).username === "string"
+    );
 }
