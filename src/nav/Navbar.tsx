@@ -3,6 +3,7 @@ import { Link, useRoute } from "wouter";
 import { useSearch } from "wouter/use-location";
 import { LoginButton } from "../auth/LoginButton";
 import { LogoutButton } from "../auth/LogoutButton";
+import { Bars } from "../icons/Bars";
 import { Tool } from "../icons/Tool";
 import { useMotorcycle } from "../motorcycles/motorcycle.hook";
 import { DiagramSelect } from "./DiagramSelect";
@@ -32,6 +33,7 @@ export const Navbar = ({ toggleTheme }: Props) => {
     const [selectedMake, setSelectedMake] = useState<string>();
     const [selectedYear, setSelectedYear] = useState<number>();
     const [selectedModel, setSelectedModel] = useState<string>();
+    const [nav, setNav] = useState(false);
 
     useEffect(() => {
         if (!matchMotorcycle && !matchDiagram) {
@@ -66,13 +68,35 @@ export const Navbar = ({ toggleTheme }: Props) => {
         }
     }, [matchDiagram, queryMotorcycle.data, selectedYear]);
 
+    const toggleNav = () => setNav(!nav);
+    const hideNav = () => setNav(false);
+
     return (
-        <div className="grid grid-cols-2 items-center gap-5 border-b p-5 dark:border-slate-50/[0.06] lg:grid-cols-[auto_1fr_auto]">
-            <h2 className="col-start-1 row-start-1 flex items-center gap-2 text-2xl dark:text-white">
-                <Tool className="h-8 w-8 stroke-sky-400" />
-                <Link to="/">Part Chat</Link>
+        <div className="flex flex-row flex-wrap items-center justify-between gap-5 border-b p-5 dark:border-slate-50/[0.06]">
+            <h2 className="order-1 flex items-center gap-2 text-2xl dark:text-white">
+                <Tool className="h-8 w-8 flex-shrink-0 stroke-sky-400" />
+                <Link to="/" className="flex-shrink-0">
+                    Part Chat
+                </Link>
             </h2>
-            <div className="col-span-2 col-start-1 row-start-2 grid grid-cols-2 gap-5 lg:col-span-1 lg:col-start-2 lg:row-start-1 lg:flex lg:flex-grow">
+            <button className="order-3 sm:hidden" onClick={toggleNav}>
+                <Bars />
+            </button>
+            <div
+                className={`${
+                    nav ? "" : "hidden"
+                } order-3 flex w-screen flex-col gap-5 sm:flex sm:w-auto sm:flex-row sm:items-center`}
+            >
+                <Link to="/motorcycles" onClick={hideNav}>
+                    Motorcycles
+                </Link>
+                {/* <Link to="/diagrams">Diagrams</Link>
+                <Link to="/parts">Parts</Link> */}
+                <LoginButton />
+                <LogoutButton />
+                <ThemeButton toggleTheme={toggleTheme} />
+            </div>
+            <div className="order-4 grid w-screen grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 xl:order-2 xl:flex xl:w-auto xl:flex-grow">
                 <MakeSelect make={selectedMake} />
                 {selectedMake && (
                     <YearSelect make={selectedMake} year={selectedYear} />
@@ -90,11 +114,6 @@ export const Navbar = ({ toggleTheme }: Props) => {
                         diagramId={paramsDiagram?.diagramId}
                     />
                 )}
-            </div>
-            <div className="col-start-2 row-start-1 flex flex-row items-center gap-5 justify-self-end lg:col-start-3">
-                <LoginButton />
-                <LogoutButton />
-                <ThemeButton toggleTheme={toggleTheme} />
             </div>
         </div>
     );
