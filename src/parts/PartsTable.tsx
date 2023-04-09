@@ -1,4 +1,6 @@
+import { useMemo } from "react";
 import { Spinner } from "../icons/Spinner";
+import { Table } from "../ui/Table";
 import { useParts } from "./part.hook";
 
 type Props = {
@@ -6,8 +8,21 @@ type Props = {
     setSelectedRefNo: (selectedRefNo?: number) => void;
 };
 
+const HEADINGS = ["REF NO", "PART NO", "DESCRIPTION", "QTY"];
+
 export const PartsTable = ({ diagramId, setSelectedRefNo }: Props) => {
     const { query } = useParts(diagramId);
+
+    const rows = useMemo(
+        () =>
+            query.data?.map((part) => [
+                part.refNo,
+                part.partNumber,
+                part.description,
+                part.qty,
+            ]) || [],
+        [query.data],
+    );
 
     if (!query.data) {
         return (
@@ -17,31 +32,5 @@ export const PartsTable = ({ diagramId, setSelectedRefNo }: Props) => {
         );
     }
 
-    const parts = query.data;
-
-    return (
-        <table className="w-full table-auto lg:w-auto">
-            <thead>
-                <tr>
-                    <th className="my-th">REF NO</th>
-                    <th className="my-th">PART NO</th>
-                    <th className="my-th">DESCRIPTION</th>
-                    <th className="my-th">QTY</th>
-                </tr>
-            </thead>
-            <tbody className="bg-white dark:bg-slate-800">
-                {parts.map((part) => (
-                    <tr
-                        key={part.refNo}
-                        onMouseEnter={() => setSelectedRefNo(part.refNo)}
-                    >
-                        <td className="my-td">{part.refNo}</td>
-                        <td className="my-td">{part.partNumber}</td>
-                        <td className="my-td">{part.description}</td>
-                        <td className="my-td">{part.qty}</td>
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-    );
+    return <Table headings={HEADINGS} rows={rows} />;
 };

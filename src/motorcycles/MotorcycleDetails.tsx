@@ -1,4 +1,5 @@
 import { Spinner } from "../icons/Spinner";
+import { Table } from "../ui/Table";
 import { useMotorcycle } from "./motorcycle.hook";
 
 type Props = {
@@ -26,18 +27,7 @@ export const MotorcycleDetails = ({ motorcycleId }: Props) => {
                     className="rounded-lg shadow-xl ring-1 ring-slate-900/5"
                     src={motorcycle.image}
                 />
-                <table className="w-full rounded-lg shadow-xl ring-1 ring-slate-900/5">
-                    <tbody className="bg-white dark:bg-slate-800">
-                        <tr>
-                            <td className="my-td">Capacity</td>
-                            <td className="my-td">653 cc</td>
-                        </tr>
-                        <tr>
-                            <td className="my-td">Bore x Stroke</td>
-                            <td className="my-td">63 x 52.4 mm</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <Table rows={[["Hello", "World"]]} />
             </div>
         </div>
     );

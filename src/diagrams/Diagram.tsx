@@ -36,7 +36,7 @@ export const Diagram = ({ diagramId }: Props) => {
                         selectedRefNo={selectedRefNo}
                     />
                 </div>
-                <div className="flex-shrink-0 overflow-auto">
+                <div className="flex-shrink-0">
                     <PartsTable
                         diagramId={diagramId}
                         setSelectedRefNo={setSelectedRefNo}
