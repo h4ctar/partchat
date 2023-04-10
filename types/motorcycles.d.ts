@@ -4,6 +4,13 @@ export type MotorcycleResource = {
     yearFrom: number;
     yearTo: number;
     model: string;
+    engineType: string;
+    displacement: number;
+    valvesPerCylinder: number;
+    power: number;
+    compression: number;
+    topSpeed: number;
+    weight: number;
     image: string;
     _links?: {
         self: { href: string };

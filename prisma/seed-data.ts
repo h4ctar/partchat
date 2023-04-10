@@ -1,5 +1,3 @@
-import { Prisma } from "@prisma/client";
-
 export const MOTORCYCLES = [
     {
         id: "yamaha-xs750-1976-1981",
@@ -7,6 +5,13 @@ export const MOTORCYCLES = [
         model: "XS750D",
         yearFrom: 1976,
         yearTo: 1977,
+        engineType: "In-line three, four-stroke",
+        displacement: 747,
+        valvesPerCylinder: 2,
+        power: 46.7,
+        compression: 8.5,
+        topSpeed: 189,
+        weight: 256,
         image: "/assets/motorcycles/xs750d.png",
     },
     {
@@ -15,6 +20,13 @@ export const MOTORCYCLES = [
         model: "XJ650LJ",
         yearFrom: 1982,
         yearTo: 1984,
+        engineType: "In-line four, four-stroke",
+        displacement: 653,
+        valvesPerCylinder: 2,
+        power: 65.7,
+        compression: 8.5,
+        topSpeed: 203,
+        weight: 262,
         image: "/assets/motorcycles/xj650lj.png",
     },
     {
@@ -23,6 +35,13 @@ export const MOTORCYCLES = [
         model: "CB400F",
         yearFrom: 1975,
         yearTo: 1977,
+        engineType: "In-line four, four-stroke",
+        displacement: 408,
+        valvesPerCylinder: 2,
+        power: 27,
+        compression: 9.4,
+        topSpeed: 158,
+        weight: 184,
         image: "/assets/motorcycles/cb400f.png",
     },
 ];

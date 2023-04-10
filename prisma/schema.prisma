@@ -16,6 +16,14 @@ model Motorcycle {
   yearTo   Int
   image    String
 
+  engineType        String
+  displacement      Float // Engine displacement in ccm
+  valvesPerCylinder Int
+  power             Float // Engine power in kW
+  compression       Float // Engine compression x:1
+  topSpeed          Float // Top speed in km/h
+  weight            Float // Weight in kg
+
   diagrams Diagram[]
   comments Comment[]
 }

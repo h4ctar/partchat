@@ -14,7 +14,7 @@ async function main() {
     for (const motorcycle of MOTORCYCLES) {
         await prisma.motorcycle.upsert({
             where: { id: motorcycle.id },
-            update: {},
+            update: motorcycle,
             create: motorcycle,
         });
     }
@@ -24,26 +24,27 @@ async function main() {
             (motorcycleToDiagram) =>
                 motorcycleToDiagram.diagramId === diagram.id,
         );
+        const diagramModel = {
+            ...diagram,
+            ...(motorcycle
+                ? {
+                      motorcycles: {
+                          connect: { id: motorcycle?.motorcycleId },
+                      },
+                  }
+                : {}),
+        };
         await prisma.diagram.upsert({
             where: { id: diagram.id },
-            update: {},
-            create: {
-                ...diagram,
-                ...(motorcycle
-                    ? {
-                          motorcycles: {
-                              connect: { id: motorcycle?.motorcycleId },
-                          },
-                      }
-                    : {}),
-            },
+            update: diagramModel,
+            create: diagramModel,
         });
     }
 
     for (const part of PARTS) {
         await prisma.part.upsert({
             where: { id: part.id },
-            update: {},
+            update: part,
             create: part,
         });
     }
@@ -66,7 +67,7 @@ async function main() {
             where: {
                 id: comment.id,
             },
-            update: {},
+            update: comment,
             create: comment,
         });
     }
