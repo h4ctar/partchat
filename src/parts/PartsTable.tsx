@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Spinner } from "../icons/Spinner";
+import { Loading } from "../Loading";
 import { Table } from "../ui/Table";
 import { useParts } from "./part.hook";
 
@@ -25,11 +25,7 @@ export const PartsTable = ({ diagramId, setSelectedRefNo }: Props) => {
     );
 
     if (!query.data) {
-        return (
-            <div className="w-full p-5">
-                <Spinner />
-            </div>
-        );
+        return <Loading />;
     }
 
     return <Table headings={HEADINGS} rows={rows} />;

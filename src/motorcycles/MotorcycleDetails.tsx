@@ -1,4 +1,4 @@
-import { Spinner } from "../icons/Spinner";
+import { Loading } from "../Loading";
 import { Table } from "../ui/Table";
 import { useMotorcycle } from "./motorcycle.hook";
 
@@ -10,11 +10,7 @@ export const MotorcycleDetails = ({ motorcycleId }: Props) => {
     const { query } = useMotorcycle(motorcycleId);
 
     if (!query.data) {
-        return (
-            <div className="mx-auto max-w-7xl p-5">
-                <Spinner />
-            </div>
-        );
+        return <Loading />;
     }
 
     const motorcycle = query.data;

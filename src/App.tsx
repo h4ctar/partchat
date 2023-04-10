@@ -1,13 +1,16 @@
 import { QueryClientProvider } from "@tanstack/react-query";
+import { lazy, Suspense } from "react";
 import { Route, Switch } from "wouter";
-import { Diagram } from "./diagrams/Diagram";
-import { Home } from "./Home";
-import { Motorcycle } from "./motorcycles/Motorcycle";
-import { Motorcycles } from "./motorcycles/Motorcycles";
+import { Loading } from "./Loading";
 import { Navbar } from "./nav/Navbar";
-import { NotFound } from "./NotFound";
 import { queryClient } from "./query";
 import { SettingsContext, useSettings } from "./settings";
+
+const Home = lazy(() => import("./Home"));
+const Motorcycles = lazy(() => import("./motorcycles/Motorcycles"));
+const Motorcycle = lazy(() => import("./motorcycles/Motorcycle"));
+const Diagram = lazy(() => import("./diagrams/Diagram"));
+const NotFound = lazy(() => import("./NotFound"));
 
 export const App = () => {
     const { settings, toggleTheme } = useSettings();
@@ -19,25 +22,35 @@ export const App = () => {
                 <div>
                     <Switch>
                         <Route path="/">
-                            <Home />
+                            <Suspense fallback={<Loading />}>
+                                <Home />
+                            </Suspense>
                         </Route>
                         <Route path="/motorcycles">
-                            <Motorcycles />
+                            <Suspense fallback={<Loading />}>
+                                <Motorcycles />
+                            </Suspense>
                         </Route>
                         <Route path="/motorcycles/:motorcycleId">
                             {(params) => (
-                                <Motorcycle
-                                    motorcycleId={params.motorcycleId!}
-                                />
+                                <Suspense fallback={<Loading />}>
+                                    <Motorcycle
+                                        motorcycleId={params.motorcycleId!}
+                                    />
+                                </Suspense>
                             )}
                         </Route>
                         <Route path="/motorcycles/:motorcycleId/diagrams/:diagramId">
                             {(params) => (
-                                <Diagram diagramId={params.diagramId!} />
+                                <Suspense fallback={<Loading />}>
+                                    <Diagram diagramId={params.diagramId!} />
+                                </Suspense>
                             )}
                         </Route>
                         <Route>
-                            <NotFound />
+                            <Suspense fallback={<Loading />}>
+                                <NotFound />
+                            </Suspense>
                         </Route>
                     </Switch>
                 </div>

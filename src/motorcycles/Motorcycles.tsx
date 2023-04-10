@@ -1,9 +1,9 @@
 import { Link } from "wouter";
 import { useSearch } from "wouter/use-location";
-import { Spinner } from "../icons/Spinner";
+import { Loading } from "../Loading";
 import { useMotorcycles } from "./motorcycle.hook";
 
-export const Motorcycles = () => {
+const Motorcycles = () => {
     const search = useSearch();
 
     const searchParams = new URLSearchParams(search);
@@ -13,11 +13,7 @@ export const Motorcycles = () => {
     const { query } = useMotorcycles(make, year);
 
     if (!query.data) {
-        return (
-            <div className="mx-auto max-w-7xl p-5">
-                <Spinner />
-            </div>
-        );
+        return <Loading />;
     }
 
     const motorcycles = query.data;
@@ -42,3 +38,5 @@ export const Motorcycles = () => {
         </div>
     );
 };
+
+export default Motorcycles;

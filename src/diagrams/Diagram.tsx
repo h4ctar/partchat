@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Comments } from "../comments/Comments";
-import { Spinner } from "../icons/Spinner";
+import { Loading } from "../Loading";
 import { PartsTable } from "../parts/PartsTable";
 import { useDiagram } from "./diagram.hooks";
 import { PartHotspots } from "./PartHotspots";
@@ -9,16 +9,12 @@ type Props = {
     diagramId: string;
 };
 
-export const Diagram = ({ diagramId }: Props) => {
+const Diagram = ({ diagramId }: Props) => {
     const { query } = useDiagram(diagramId);
     const [selectedRefNo, setSelectedRefNo] = useState<number>();
 
     if (!query.data) {
-        return (
-            <div className="mx-auto max-w-7xl p-5">
-                <Spinner />
-            </div>
-        );
+        return <Loading />;
     }
 
     const diagram = query.data;
@@ -47,3 +43,5 @@ export const Diagram = ({ diagramId }: Props) => {
         </div>
     );
 };
+
+export default Diagram;

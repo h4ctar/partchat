@@ -1,6 +1,4 @@
-import { LoginButton } from "./auth/LoginButton";
-
-export const Home = () => {
+const Home = () => {
     return (
         <div className="p-5">
             <div className="relative mx-auto max-w-7xl pt-20 sm:pt-24 lg:pt-32">
@@ -39,3 +37,5 @@ export const Home = () => {
         </div>
     );
 };
+
+export default Home;

@@ -6,7 +6,7 @@ type Props = {
     motorcycleId: string;
 };
 
-export const Motorcycle = ({ motorcycleId }: Props) => {
+const Motorcycle = ({ motorcycleId }: Props) => {
     return (
         <>
             <MotorcycleDetails motorcycleId={motorcycleId} />
@@ -15,3 +15,5 @@ export const Motorcycle = ({ motorcycleId }: Props) => {
         </>
     );
 };
+
+export default Motorcycle;
