@@ -9,13 +9,8 @@ type Props = {
 
 export const Comment = ({ comment }: Props) => {
     return (
-        <div className="dark:highlight-white/10 relative z-10 flex flex-row gap-6 rounded-lg bg-white p-5 shadow-xl ring-1 ring-slate-900/5 dark:bg-slate-800">
-            <div className="flex flex-col items-center gap-4">
-                <UpArrow />
-                <div className="text-lg font-bold">0</div>
-                <DownArrow />
-            </div>
-            <div className="flex flex-col gap-4">
+        <div className="dark:highlight-white/10 relative z-10 flex flex-col gap-6 rounded-lg bg-white p-5 shadow-xl ring-1 ring-slate-900/5 dark:bg-slate-800 md:flex-row">
+            <div className="flex flex-col gap-4 md:order-2">
                 <div className="flex flex-row items-center gap-4">
                     <Avatar name={comment.username} />
                     <div className="text-lg font-bold">{comment.username}</div>
@@ -24,6 +19,11 @@ export const Comment = ({ comment }: Props) => {
                     </div>
                 </div>
                 <div>{comment.text}</div>
+            </div>
+            <div className="flex flex-row items-center gap-4 md:flex-col">
+                <UpArrow />
+                <div className="text-lg font-bold">0</div>
+                <DownArrow />
             </div>
         </div>
     );
