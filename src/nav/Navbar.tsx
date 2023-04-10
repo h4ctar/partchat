@@ -73,9 +73,12 @@ export const Navbar = ({ toggleTheme }: Props) => {
 
     return (
         <div className="flex flex-row flex-wrap items-center justify-between gap-5 border-b p-5 shadow-lg ring-1 ring-slate-900/5 dark:border-slate-50/[0.06]">
-            <h2 className="order-1 flex items-center gap-2 text-2xl dark:text-white">
-                <Tool className="h-8 w-8 flex-shrink-0 stroke-sky-400" />
-                <Link to="/" className="flex-shrink-0">
+            <h2 className="order-1 ">
+                <Link
+                    to="/"
+                    className="flex items-center gap-2 text-2xl dark:text-white"
+                >
+                    <Tool className="h-8 w-8 stroke-sky-400" />
                     Part Chat
                 </Link>
             </h2>
