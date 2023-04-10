@@ -11,7 +11,11 @@ export const LogoutButton = () => {
         <a
             href=""
             onClick={(event) => {
-                logout();
+                logout({
+                    logoutParams: {
+                        returnTo: window.location.origin,
+                    },
+                });
                 event.preventDefault();
             }}
         >
