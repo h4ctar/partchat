@@ -1,5 +1,4 @@
 import { CommentResource, PostComment } from "../../types/motorcycles";
-import { queryClient } from "../query";
 
 export type CommentSearchParams = {
     motorcycleId?: string;
@@ -42,7 +41,4 @@ export const postComment = async (
     if (!response.ok) {
         throw new Error("Failed to post comment");
     }
-    await queryClient.invalidateQueries({
-        queryKey: ["comments"],
-    });
 };
