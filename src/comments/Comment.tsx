@@ -1,7 +1,7 @@
 import Avatar from "boring-avatars";
 import { CommentResource } from "../../types/motorcycles";
-import { DownArrow } from "../icons/DownArrow";
-import { UpArrow } from "../icons/UpArrow";
+import { DownArrowIcon } from "../icons/DownArrowIcon";
+import { UpArrowIcon } from "../icons/UpArrowIcon";
 
 type Props = {
     comment: CommentResource;
@@ -21,9 +21,9 @@ export const Comment = ({ comment }: Props) => {
                 <div>{comment.text}</div>
             </div>
             <div className="flex flex-row items-center gap-4 md:flex-col">
-                <UpArrow />
+                <UpArrowIcon />
                 <div className="text-lg font-bold">0</div>
-                <DownArrow />
+                <DownArrowIcon />
             </div>
         </div>
     );

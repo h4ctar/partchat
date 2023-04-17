@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { Moon } from "../icons/Moon";
-import { Sun } from "../icons/Sun";
+import { MoonIcon } from "../icons/MoonIcon";
+import { SunIcon } from "../icons/SunIcon";
 import { SettingsContext } from "../settings";
 
 type Props = {
@@ -13,9 +13,9 @@ export const ThemeButton = ({ toggleTheme }: Props) => {
     return (
         <button onClick={toggleTheme}>
             {settings.theme === "dark" ? (
-                <Moon className="h-8 w-8 stroke-sky-400" />
+                <MoonIcon className="h-8 w-8 stroke-sky-400" />
             ) : (
-                <Sun className="h-8 w-8 stroke-sky-400" />
+                <SunIcon className="h-8 w-8 stroke-sky-400" />
             )}
         </button>
     );
