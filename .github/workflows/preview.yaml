@@ -18,14 +18,8 @@ jobs:
               run: yarn global add vercel@latest
             - name: Pull Vercel project settings
               run: vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
-            - name: Install dependencies
-              run: yarn
-            - name: Prisma generate
-              run: yarn db_generate
-            - name: Build project
-              run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
             - name: Deploy project to Vercel
-              run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+              run: vercel --token=${{ secrets.VERCEL_TOKEN }}
     end-2-end-test:
         needs: [deploy]
         timeout-minutes: 60
