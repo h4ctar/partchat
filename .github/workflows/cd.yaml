@@ -8,7 +8,11 @@ on: push
 jobs:
     preview-deploy:
         runs-on: ubuntu-latest
-        environment: preview
+        environment:
+            name: preview
+            url: ${{ steps.deploy.outputs.url }}
+        outputs:
+            url: ${{ steps.deploy.outputs.url }}
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
@@ -18,14 +22,17 @@ jobs:
             - name: Install Vercel CLI
               run: yarn global add vercel@latest
             - name: Deploy project to Vercel
-              run: vercel --token=${{ secrets.VERCEL_TOKEN }} > preview-url
-            - name: Save deployment URL to env
-              run: echo "PREVIEW_URL=$(cat preview-url)" >> $GITHUB_ENV
+              id: deploy
+              run: |
+                  --token=${{ secrets.VERCEL_TOKEN }} > preview-url
+                  echo "url=$(cat preview-url)" >> $GITHUB_OUTPUT
 
     end-2-end-test:
         needs: [preview-deploy]
         timeout-minutes: 60
         runs-on: ubuntu-latest
+        env:
+            DEPLOYMENT_URL: ${{needs.preview-deploy.outputs.url}}
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
@@ -48,7 +55,7 @@ jobs:
               run: yarn playwright install --with-deps
               if: steps.playwright-cache.outputs.cache-hit != 'true'
             - name: Run Playwright tests
-              run: DEPLOYMENT_URL=$PREVIEW_URL yarn playwright test
+              run: yarn playwright test
 
     prod-deploy:
         needs: [end-2-end-test]
