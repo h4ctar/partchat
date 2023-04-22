@@ -1,0 +1,59 @@
+name: Continuous Deployment
+env:
+    VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+    VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    preview-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+            - name: Install Vercel CLI
+              run: yarn global add vercel@latest
+            - name: Deploy project to Vercel
+              run: vercel --token=${{ secrets.VERCEL_TOKEN }} > preview-url
+            - name: Save deployment URL
+              uses: actions/upload-artifact@v3
+              with:
+                  name: preview-url
+                  path: preview-url
+
+    end-2-end-test:
+        needs: [preview-deploy]
+        timeout-minutes: 60
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+            - name: Retrieve deployment URL
+              uses: actions/download-artifact@v3
+              with:
+                  name: preview-url
+            - name: Install dependencies
+              run: yarn
+            - name: Install Playwright browsers
+              run: yarn playwright install --with-deps
+            - name: Run Playwright tests
+              run: DEPLOYMENT_URL=$(cat preview-url) yarn playwright test
+
+    prod-deploy:
+        needs: [end-2-end-test]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 16
+            - name: Install Vercel CLI
+              run: yarn global add vercel@latest
+            - name: Deploy project to Vercel
+              run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
