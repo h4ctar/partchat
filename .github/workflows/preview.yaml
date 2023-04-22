@@ -19,7 +19,12 @@ jobs:
             - name: Pull Vercel project settings
               run: vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
             - name: Deploy project to Vercel
-              run: vercel --token=${{ secrets.VERCEL_TOKEN }}
+              run: vercel --token=${{ secrets.VERCEL_TOKEN }} > deployment-url
+            - name: Save deployment URL
+              uses: actions/upload-artifact@v3
+              with:
+                  name: deployment-url
+                  path: deployment-url
     end-2-end-test:
         needs: [deploy]
         timeout-minutes: 60
@@ -29,9 +34,13 @@ jobs:
             - uses: actions/setup-node@v3
               with:
                   node-version: 16
+            - name: Retrieve deployment URL
+              uses: actions/download-artifact@v3
+              with:
+                  name: deployment-url
             - name: Install dependencies
               run: yarn
             - name: Install Playwright browsers
               run: yarn playwright install --with-deps
             - name: Run Playwright tests
-              run: yarn playwright test
+              run: DEPLOYMENT_URL=$(cat deployment-url) yarn playwright test
