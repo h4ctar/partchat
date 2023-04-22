@@ -19,6 +19,12 @@
         "tabWidth": 4,
         "trailingComma": "all"
     },
+    "postcss": {
+        "plugins": {
+            "tailwindcss": {},
+            "autoprefixer": {}
+        }
+    },
     "dependencies": {
         "@auth0/auth0-react": "^2.0.1",
         "@prisma/client": "4.12.0",
