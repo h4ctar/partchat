@@ -17,8 +17,6 @@ jobs:
                   node-version: 16
             - name: Install Vercel CLI
               run: yarn global add vercel@latest
-            - name: Pull Vercel project settings
-              run: vercel pull --yes --token=${{ secrets.VERCEL_TOKEN }}
             - name: Deploy project to Vercel
               run: vercel --token=${{ secrets.VERCEL_TOKEN }} > preview-url
             - name: Save deployment URL
@@ -57,7 +55,5 @@ jobs:
                   node-version: 16
             - name: Install Vercel CLI
               run: yarn global add vercel@latest
-            - name: Pull Vercel project settings
-              run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
             - name: Deploy project to Vercel
               run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
