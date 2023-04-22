@@ -1,6 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import {
-    COMMENTS,
     DIAGRAMS,
     DIAGRAM_TO_PARTS,
     MOTORCYCLES,
@@ -59,16 +58,6 @@ async function main() {
             },
             update: diagramToPart,
             create: diagramToPart,
-        });
-    }
-
-    for (const comment of COMMENTS) {
-        await prisma.comment.upsert({
-            where: {
-                id: comment.id,
-            },
-            update: comment,
-            create: comment,
         });
     }
 }

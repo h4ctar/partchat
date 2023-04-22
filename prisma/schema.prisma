@@ -69,7 +69,7 @@ model Comment {
   id        Int      @id @default(autoincrement())
   username  String
   createdAt DateTime @default(now())
-  text      String
+  nodes     Json
 
   diagramId String?
   diagram   Diagram? @relation(fields: [diagramId], references: [id])

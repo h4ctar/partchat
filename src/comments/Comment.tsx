@@ -2,6 +2,7 @@ import Avatar from "boring-avatars";
 import { CommentResource } from "../../types/motorcycles";
 import { DownArrowIcon } from "../icons/DownArrowIcon";
 import { UpArrowIcon } from "../icons/UpArrowIcon";
+import { RichHtml } from "../ui/rich-editor/RichHtml";
 
 type Props = {
     comment: CommentResource;
@@ -18,7 +19,11 @@ export const Comment = ({ comment }: Props) => {
                         {new Date(comment.createdAt).toLocaleDateString()}
                     </div>
                 </div>
-                <div>{comment.text}</div>
+                <div className="prose">
+                    {comment.nodes.map((node) => (
+                        <RichHtml node={node} />
+                    ))}
+                </div>
             </div>
             <div className="flex flex-row items-center gap-4 md:flex-col">
                 <UpArrowIcon />

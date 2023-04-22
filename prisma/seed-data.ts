@@ -427,24 +427,3 @@ export const DIAGRAM_TO_PARTS = [
         qty: 1,
     },
 ];
-
-export const COMMENTS = [
-    {
-        id: 1,
-        username: "Ben",
-        diagramId: "yamaha-cylinder-head-1",
-        text: "First!",
-    },
-    {
-        id: 2,
-        username: "Ben",
-        diagramId: "yamaha-cylinder-head-1",
-        text: "Second",
-    },
-    {
-        id: 3,
-        username: "Ben",
-        diagramId: "yamaha-cylinder-head-1",
-        text: "Third :(",
-    },
-];

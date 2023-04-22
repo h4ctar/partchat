@@ -52,7 +52,7 @@ export type CommentResource = {
     id: number;
     username: string;
     createdAt: string;
-    text: string;
+    nodes: Descendant[];
 
     motorcycleId?: string;
     diagramId?: string;
@@ -64,7 +64,7 @@ export type CommentResource = {
 };
 
 export type PostComment = {
-    text: Descendant[];
+    nodes: Descendant[];
 
     motorcycleId?: string;
     diagramId?: string;

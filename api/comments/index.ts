@@ -3,6 +3,8 @@ import { CommentResource, PostComment } from "../../types/motorcycles";
 import { checkToken } from "../_auth";
 import { errorHandler } from "../_error-handler";
 import { prisma } from "../_prisma";
+import { Descendant } from "slate";
+import { Prisma } from "@prisma/client";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     const motorcycleId = (request.query.motorcycleId as string) || undefined;
@@ -28,6 +30,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
         const commentResources: CommentResource[] = commentModels.map(
             (commentModel) => ({
                 ...commentModel,
+                nodes: commentModel.nodes as unknown as Descendant[],
                 motorcycleId: commentModel.motorcycleId || undefined,
                 diagramId: commentModel.diagramId || undefined,
                 partId: commentModel.partId || undefined,
@@ -51,6 +54,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
         const commentModel = await prisma.comment.create({
             data: {
                 ...postComment,
+                nodes: postComment.nodes as unknown as Prisma.JsonArray,
                 motorcycleId: postComment.motorcycleId || null,
                 diagramId: postComment.diagramId || null,
                 partId: postComment.partId || null,
@@ -60,6 +64,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
 
         const commentResource: CommentResource = {
             ...commentModel,
+            nodes: commentModel.nodes as unknown as Descendant[],
             motorcycleId: commentModel.motorcycleId || undefined,
             diagramId: commentModel.diagramId || undefined,
             partId: commentModel.partId || undefined,
