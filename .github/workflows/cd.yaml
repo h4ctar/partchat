@@ -60,7 +60,7 @@ jobs:
         needs: [end-2-end-test]
         environment:
             name: production
-            url: ${{ steps.deploy.outputs.url }}
+            url: https://partchat.vercel.app
         if: github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         steps:
@@ -73,6 +73,4 @@ jobs:
               run: yarn global add vercel@latest
             - name: Deploy project to Vercel
               id: deploy
-              run: |
-                  vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
-                  echo "url=$(cat url)" >> $GITHUB_OUTPUT
+              run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
