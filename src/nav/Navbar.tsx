@@ -3,8 +3,8 @@ import { Link, useRoute } from "wouter";
 import { useSearch } from "wouter/use-location";
 import { LoginButton } from "../auth/LoginButton";
 import { LogoutButton } from "../auth/LogoutButton";
-import { Bars } from "../icons/Bars";
-import { Tool } from "../icons/Tool";
+import { BarsIcon } from "../icons/BarsIcon";
+import { ToolIcon } from "../icons/ToolIcon";
 import { useMotorcycle } from "../motorcycles/motorcycle.hook";
 import { DiagramSelect } from "./DiagramSelect";
 import { MakeSelect } from "./MakeSelect";
@@ -78,12 +78,12 @@ export const Navbar = ({ toggleTheme }: Props) => {
                     to="/"
                     className="flex items-center gap-2 text-2xl dark:text-white"
                 >
-                    <Tool className="h-8 w-8 stroke-sky-400" />
+                    <ToolIcon className="h-8 w-8 stroke-sky-400" />
                     Part Chat
                 </Link>
             </h2>
             <button className="order-3 sm:hidden" onClick={toggleNav}>
-                <Bars />
+                <BarsIcon />
             </button>
             <div
                 className={`${

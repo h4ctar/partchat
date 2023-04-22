@@ -1,9 +1,9 @@
-import { Spinner } from "./icons/Spinner";
+import { SpinnerIcon } from "./icons/SpinnerIcon";
 
 export const Loading = () => {
     return (
         <div className="w-full p-5">
-            <Spinner />
+            <SpinnerIcon />
         </div>
     );
 };

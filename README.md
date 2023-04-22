@@ -11,8 +11,14 @@ It runs on all pushes to the main branch, deploys to a preview environment where
 
 End-2-end tests use Playwright and should test all nominal flows.
 
-## Cache Control
+## Database Entities
 
-## Auth
+## API Resources
 
-## Database
+## API Deployment
+
+## API Cache Control
+
+## Authentication/Authorisation
+
+## Responsive Layouts

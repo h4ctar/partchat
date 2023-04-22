@@ -2,7 +2,7 @@ type Props = {
     className?: string;
 };
 
-export const Tool = ({ className }: Props) => {
+export const ToolIcon = ({ className }: Props) => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -1,4 +1,4 @@
-export const Spinner = () => {
+export const SpinnerIcon = () => {
     return (
         <svg
             className="-ml-1 mr-3 h-5 w-full animate-spin"

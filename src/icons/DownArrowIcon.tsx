@@ -1,4 +1,4 @@
-export const Bars = () => {
+export const DownArrowIcon = () => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -6,12 +6,12 @@ export const Bars = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="h-8 w-8"
+            className="h-6 w-6"
         >
             <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                d="M12 4.5v15m0 0l6.75-6.75M12 19.5l-6.75-6.75"
             />
         </svg>
     );
