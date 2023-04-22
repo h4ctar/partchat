@@ -34,8 +34,6 @@ jobs:
               with:
                   node-version: 18
                   cache: yarn
-            - name: Install dependencies
-              run: yarn
             - name: Get installed Playwright version
               id: playwright-version
               run: echo "PLAYWRIGHT_VERSION=$(jq -r .devDependencies.\"@playwright/test\" package.json)" >> $GITHUB_ENV
@@ -46,6 +44,8 @@ jobs:
                   path: |
                       ~/.cache/ms-playwright
                   key: $RUNNER_OS-playwright-$PLAYWRIGHT_VERSION
+            - name: Install dependencies
+              run: yarn
             - name: Install Playwright browsers
               run: yarn playwright install --with-deps
               if: steps.playwright-cache.outputs.cache-hit != 'true'
