@@ -24,7 +24,7 @@ jobs:
             - name: Deploy project to Vercel
               id: deploy
               run: |
-                  --token=${{ secrets.VERCEL_TOKEN }} > preview-url
+                  vercel --token=${{ secrets.VERCEL_TOKEN }} > preview-url
                   echo "url=$(cat preview-url)" >> $GITHUB_OUTPUT
 
     end-2-end-test:
@@ -32,7 +32,7 @@ jobs:
         timeout-minutes: 60
         runs-on: ubuntu-latest
         env:
-            DEPLOYMENT_URL: ${{needs.preview-deploy.outputs.url}}
+            DEPLOYMENT_URL: ${{ needs.preview-deploy.outputs.url }}
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
