@@ -4,9 +4,8 @@
 
 ## Pipelines
 
-There are two GitHub workflows; prod and preview.
-Prod runs on all pushes to the main branch and just deploys the project to Vercel prod.
-Preview runs on pushes to all other branches, it deploys to a preview environment and runs end-2-end tests.
+There is one continuous deployment GitHub workflows.
+It runs on all pushes to the main branch, deploys to a preview environment where it runs the end-2-end tests and if they pass it deploys to prod.
 
 ## End-2-End Tests
 
