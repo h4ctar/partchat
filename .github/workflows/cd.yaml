@@ -24,8 +24,8 @@ jobs:
             - name: Deploy project to Vercel
               id: deploy
               run: |
-                  vercel --token=${{ secrets.VERCEL_TOKEN }} > preview-url
-                  echo "url=$(cat preview-url)" >> $GITHUB_OUTPUT
+                  vercel --token=${{ secrets.VERCEL_TOKEN }} > url
+                  echo "url=$(cat url)" >> $GITHUB_OUTPUT
 
     end-2-end-test:
         needs: [preview-deploy]
@@ -41,14 +41,14 @@ jobs:
                   cache: yarn
             - name: Get installed Playwright version
               id: playwright-version
-              run: echo "PLAYWRIGHT_VERSION=$(jq -r .devDependencies.\"@playwright/test\" package.json)" >> $GITHUB_ENV
+              run: echo "playwright_version=$(jq -r .devDependencies.\"@playwright/test\" package.json)" >> $GITHUB_OUTPUT
             - name: Cache Playwright binaries
               uses: actions/cache@v3
               id: playwright-cache
               with:
                   path: |
                       ~/.cache/ms-playwright
-                  key: $RUNNER_OS-playwright-$PLAYWRIGHT_VERSION
+                  key: $RUNNER_OS-playwright-${{ steps.playwright-version.outputs.playwright_version }}
             - name: Install dependencies
               run: yarn
             - name: Install Playwright browsers
