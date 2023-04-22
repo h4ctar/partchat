@@ -59,7 +59,7 @@ jobs:
     prod-deploy:
         needs: [end-2-end-test]
         environment:
-          name: production
+            name: production
             url: ${{ steps.deploy.outputs.url }}
         if: github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
