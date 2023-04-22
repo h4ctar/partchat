@@ -19,6 +19,7 @@ jobs:
               run: yarn global add vercel@latest
             - name: Deploy project to Vercel
               run: vercel --token=${{ secrets.VERCEL_TOKEN }} > preview-url
+            - name: Save deployment URL to env
               run: echo "PREVIEW_URL=$(cat preview-url)" >> $GITHUB_ENV
 
     end-2-end-test:
