@@ -1,9 +1,14 @@
+import { Key } from "react";
+
+export type RowData = [Key, (string | number | undefined)[]];
+
 type Props = {
     headings?: string[];
-    rows: (string | number | undefined)[][];
+    rows: RowData[];
+    setSelectedRowKey?: (selectedRowKey?: Key) => void;
 };
 
-export const Table = ({ headings, rows }: Props) => {
+export const Table = ({ headings, rows, setSelectedRowKey }: Props) => {
     return (
         <div className="max-h-full overflow-auto rounded-lg shadow-xl ring-1 ring-slate-900/5">
             <table className="border-separate border-spacing-0">
@@ -20,12 +25,18 @@ export const Table = ({ headings, rows }: Props) => {
                             ))}
                         </tr>
                     )}
-                    {rows.map((row, rowIndex) => (
-                        <tr key={rowIndex} className="group">
+                    {rows.map(([key, row]) => (
+                        <tr
+                            key={key}
+                            onMouseEnter={() =>
+                                setSelectedRowKey && setSelectedRowKey(key)
+                            }
+                            className="group text-slate-500 hover:bg-slate-800 hover:text-slate-100 dark:text-slate-400 hover:dark:bg-slate-100 hover:dark:text-slate-800"
+                        >
                             {row.map((data, colIndex) => (
                                 <td
                                     key={colIndex}
-                                    className="border-b border-slate-100 p-4 text-slate-500 group-first:first:rounded-tl-lg group-first:last:rounded-tr-lg group-last:first:rounded-bl-lg group-last:last:rounded-br-lg dark:border-slate-700 dark:text-slate-400"
+                                    className="border-b border-slate-100 p-4 group-first:first:rounded-tl-lg group-first:last:rounded-tr-lg group-last:first:rounded-bl-lg group-last:last:rounded-br-lg dark:border-slate-700"
                                 >
                                     {data}
                                 </td>

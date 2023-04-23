@@ -1,5 +1,5 @@
 import { Loading } from "../Loading";
-import { Table } from "../ui/Table";
+import { RowData, Table } from "../ui/Table";
 import { useMotorcycle } from "./motorcycle.hook";
 
 type Props = {
@@ -23,7 +23,7 @@ export const MotorcycleDetails = ({ motorcycleId }: Props) => {
         ["Compression", `${motorcycle.compression.toFixed(1)}:1`],
         ["Top Speed", `${motorcycle.topSpeed.toFixed(1)} km/h`],
         ["Weight", `${motorcycle.weight.toFixed(1)} kg`],
-    ];
+    ].map((row, index) => [index, row] as RowData);
 
     return (
         <div className="flex flex-col items-center p-5">

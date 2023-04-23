@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { Loading } from "../Loading";
-import { Table } from "../ui/Table";
+import { RowData, Table } from "../ui/Table";
 import { useParts } from "./part.hook";
 
 type Props = {
@@ -15,12 +15,18 @@ export const PartsTable = ({ diagramId, setSelectedRefNo }: Props) => {
 
     const rows = useMemo(
         () =>
-            query.data?.map((part) => [
-                part.refNo,
-                part.partNumber,
-                part.description,
-                part.qty,
-            ]) || [],
+            query.data?.map(
+                (part) =>
+                    [
+                        part.refNo,
+                        [
+                            part.refNo,
+                            part.partNumber,
+                            part.description,
+                            part.qty,
+                        ],
+                    ] as RowData,
+            ) || [],
         [query.data],
     );
 
@@ -28,5 +34,11 @@ export const PartsTable = ({ diagramId, setSelectedRefNo }: Props) => {
         return <Loading />;
     }
 
-    return <Table headings={HEADINGS} rows={rows} />;
+    return (
+        <Table
+            headings={HEADINGS}
+            rows={rows}
+            setSelectedRowKey={(key) => setSelectedRefNo(key as number)}
+        />
+    );
 };
