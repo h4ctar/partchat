@@ -12,6 +12,8 @@ A cache is also created for the playwright binaries; it uses the playwright vers
 
 The deployment URL is stored in the `url` output of the `preview-deploy` job and retrieved in the `end-2-end-test` job.
 
+![Continuous Deploy Workflow](docs/continuous-deploy-workflow.png)
+
 ## End-2-End Tests
 
 End-2-end tests use Playwright and should test all nominal flows.
@@ -20,7 +22,7 @@ End-2-end tests use Playwright and should test all nominal flows.
 
 The data is persisted in a PlanetScale SQL database using the Prisma ORM.
 
-![asf](docs/prisma-erd.svg)
+![Entity Relationship Diagram](docs/prisma-erd.svg)
 
 There are two branches of the database, one for production and one for preview.
 
