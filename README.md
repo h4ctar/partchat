@@ -37,3 +37,23 @@ There are two branches of the database, one for production and one for preview.
 ## Responsive Layouts
 
 ## Comment Editor
+
+## Dev Environment
+
+1. Install Vercel CLI globally
+
+    ```
+    yarn global add vercel@latest
+    ```
+
+2. Pull Vercel environment
+
+    ```zsh
+    vercel pull
+    ```
+
+3. Run Vercel dev
+
+    ```zsh
+    vercel dev
+    ```
