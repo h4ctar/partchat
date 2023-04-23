@@ -1,6 +1,10 @@
 import { useAuth0 } from "@auth0/auth0-react";
 
-export const LoginButton = () => {
+type Props = {
+    buttonText?: string;
+};
+
+export const LoginButton = ({ buttonText = "Log in" }: Props) => {
     const { isAuthenticated, loginWithRedirect } = useAuth0();
 
     if (isAuthenticated) {
@@ -18,7 +22,7 @@ export const LoginButton = () => {
                 })
             }
         >
-            Log in
+            {buttonText}
         </button>
     );
 };
