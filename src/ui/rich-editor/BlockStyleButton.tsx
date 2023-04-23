@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { BaseSyntheticEvent } from "react";
-import { Editor, Transforms, Text, Element } from "slate";
+import { Editor, Element, Transforms } from "slate";
 import { useSlate } from "slate-react";
 
 type Props = {

@@ -6,6 +6,19 @@ env:
 on: push
 
 jobs:
+    lint:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+                  cache: yarn
+            - name: Install dependencies
+              run: yarn
+            - name: Run lint
+              run: yarn lint
+
     preview-deploy:
         runs-on: ubuntu-latest
         environment:
@@ -28,7 +41,8 @@ jobs:
                   echo "url=$(cat url)" >> $GITHUB_OUTPUT
 
     end-2-end-test:
-        needs: [preview-deploy]
+        needs:
+            - preview-deploy
         timeout-minutes: 60
         runs-on: ubuntu-latest
         env:
@@ -57,7 +71,9 @@ jobs:
               run: yarn playwright test
 
     prod-deploy:
-        needs: [end-2-end-test]
+        needs: 
+            - lint
+            - end-2-end-test
         environment:
             name: production
             url: https://partchat.vercel.app

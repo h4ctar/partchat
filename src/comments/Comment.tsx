@@ -20,8 +20,8 @@ export const Comment = ({ comment }: Props) => {
                     </div>
                 </div>
                 <div className="prose">
-                    {comment.nodes.map((node) => (
-                        <RichHtml node={node} />
+                    {comment.nodes.map((node, index) => (
+                        <RichHtml key={index} node={node} />
                     ))}
                 </div>
             </div>
