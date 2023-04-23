@@ -18,11 +18,13 @@ End-2-end tests use Playwright and should test all nominal flows.
 
 ## Database
 
-The data is persisted in a Planetscale SQL database using the Prisma ORM.
+The data is persisted in a PlanetScale SQL database using the Prisma ORM.
 
 ![asf](docs/prisma-erd.svg)
 
-## API Resources
+There are two branches of the database, one for production and one for preview.
+
+## REST Resources
 
 ## API Deployment
 
@@ -31,3 +33,5 @@ The data is persisted in a Planetscale SQL database using the Prisma ORM.
 ## Authentication/Authorisation
 
 ## Responsive Layouts
+
+## Comment Editor
