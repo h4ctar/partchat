@@ -1,4 +1,4 @@
-import { BaseEditor, Descendant } from "slate";
+import { BaseEditor } from "slate";
 import { ReactEditor } from "slate-react";
 
 type CustomElement = {
