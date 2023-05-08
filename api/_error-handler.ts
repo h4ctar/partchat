@@ -1,5 +1,5 @@
 import { VercelApiHandler, VercelRequest, VercelResponse } from "@vercel/node";
-import { ForbiddenError, UnauthorizedError } from "./_auth";
+import { ForbiddenError, UnauthorizedError } from "./_auth.js";
 
 export const errorHandler =
     (handler: VercelApiHandler) =>
