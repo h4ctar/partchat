@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { DiagramResource } from "../../../types/motorcycles";
-import { UnsupportedMethodError } from "../../_error-handler";
-import { prisma } from "../../_prisma";
+import { prisma } from "../../_prisma.js";
+import { DiagramResource } from "../../../types/motorcycles.js";
+import { UnsupportedMethodError } from "../../_error-handler.js";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     const diagramId = (request.query.diagramId as string) || undefined;

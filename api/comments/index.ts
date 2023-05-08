@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { CommentResource, PostComment } from "../../types/motorcycles";
-import { checkToken } from "../_auth";
-import { errorHandler, UnsupportedMethodError } from "../_error-handler";
-import { prisma } from "../_prisma";
+import { CommentResource, PostComment } from "../../types/motorcycles.js";
+import { checkToken } from "../_auth.js";
+import { UnsupportedMethodError, errorHandler } from "../_error-handler.js";
+import { prisma } from "../_prisma.js";
 import { Descendant } from "slate";
 import { Prisma } from "@prisma/client";
 
