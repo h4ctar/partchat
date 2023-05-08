@@ -2,7 +2,7 @@ import { VercelRequest } from "@vercel/node";
 import jwt, { GetPublicKeyOrSecret, JwtPayload } from "jsonwebtoken";
 import jwks from "jwks-rsa";
 import util from "util";
-import { ForbiddenError, UnauthorizedError } from "./_error-handler";
+import { ForbiddenError, UnauthorizedError } from "./_error-handler.js";
 
 type Payload = {
     scope: string;
