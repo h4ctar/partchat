@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { PartReferenceResource } from "../../../../types/motorcycles";
-import { checkToken } from "../../../_auth";
-import { errorHandler, UnsupportedMethodError } from "../../../_error-handler";
-import { prisma } from "../../../_prisma";
+import { PartReferenceResource } from "../../../../types/motorcycles.js";
+import { checkToken } from "../../../_auth.js";
+import { errorHandler, UnsupportedMethodError } from "../../../_error-handler.js";
+import { prisma } from "../../../_prisma.js";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     const diagramId = request.query.diagramId as string;
