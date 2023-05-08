@@ -5,6 +5,7 @@ export type RowData = [Key, (string | number | undefined)[]];
 type Props = {
     headings?: string[];
     rows: RowData[];
+    selectedRowKey?: Key;
     setSelectedRowKey?: (selectedRowKey?: Key) => void;
 };
 

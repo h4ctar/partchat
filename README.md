@@ -4,7 +4,7 @@
 
 ## Pipelines
 
-There is one continuous deployment GitHub workflows.
+There is one continuous deployment GitHub workflow.
 It runs on all pushes to the main branch, deploys to a preview environment where it runs the end-2-end tests and if they pass it deploys to prod.
 
 The setup-node action is used to cache node dependencies.
@@ -27,6 +27,14 @@ The data is persisted in a PlanetScale SQL database using the Prisma ORM.
 There are two branches of the database, one for production and one for preview.
 
 ## REST Resources
+
+The REST API has these resources:
+
+-   Motorcycle
+-   Diagram
+-   Diagram / PartReference
+-   Part
+-   Comment
 
 ## API Deployment
 

@@ -30,6 +30,7 @@ const Diagram = ({ diagramId }: Props) => {
                     <PartHotspots
                         diagram={diagram}
                         selectedRefNo={selectedRefNo}
+                        setSelectedRefNo={setSelectedRefNo}
                     />
                 </div>
                 <div className="flex-shrink-0">

@@ -2,20 +2,7 @@ import { VercelRequest } from "@vercel/node";
 import jwt, { GetPublicKeyOrSecret, JwtPayload } from "jsonwebtoken";
 import jwks from "jwks-rsa";
 import util from "util";
-
-export class ForbiddenError extends Error {
-    constructor(message: string) {
-        super(message);
-        this.name = "ForbiddenError";
-    }
-}
-
-export class UnauthorizedError extends Error {
-    constructor(message: string) {
-        super(message);
-        this.name = "UnauthorizedError";
-    }
-}
+import { ForbiddenError, UnauthorizedError } from "./_error-handler";
 
 type Payload = {
     scope: string;

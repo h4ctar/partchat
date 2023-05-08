@@ -1,17 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { DiagramResource } from "../../types/motorcycles";
-
-const fetchDiagrams = (motorcycleId: string) => async () => {
-    const response = await fetch(`/api/diagrams?motorcycleId=${motorcycleId}`);
-    const diagrams: DiagramResource[] = await response.json();
-    return diagrams;
-};
-
-const fetchDiagram = (diagramId: string) => async () => {
-    const response = await fetch(`/api/diagrams/${diagramId}`);
-    const diagrams: DiagramResource = await response.json();
-    return diagrams;
-};
+import { fetchDiagram, fetchDiagrams } from "./diagram.api";
 
 export const useDiagrams = (motorcycleId: string) => {
     const query = useQuery({

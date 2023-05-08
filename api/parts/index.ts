@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { PartResource } from "../../types/motorcycles";
+import { UnsupportedMethodError } from "../_error-handler";
 import { prisma } from "../_prisma";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
@@ -38,7 +39,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
 
         response.status(200).send(partResources);
     } else {
-        throw new Error("Unsupported method");
+        throw new UnsupportedMethodError();
     }
 };
 
