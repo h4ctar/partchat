@@ -1,7 +1,10 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { PartReferenceResource } from "../../../../types/motorcycles.js";
 import { checkToken } from "../../../_auth.js";
-import { errorHandler, UnsupportedMethodError } from "../../../_error-handler.js";
+import {
+    errorHandler,
+    UnsupportedMethodError,
+} from "../../../_error-handler.js";
 import { prisma } from "../../../_prisma.js";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {

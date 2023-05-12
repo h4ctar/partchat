@@ -29,7 +29,9 @@ export const BlockStyleButton = ({ style, children }: Props) => {
     return (
         <button
             onMouseDown={toggleStyle}
-            className={active ? "fill-sky-400" : "fill-slate-500 dark:fill-slate-400"}
+            className={
+                active ? "fill-sky-400" : "fill-slate-500 dark:fill-slate-400"
+            }
         >
             {children}
         </button>

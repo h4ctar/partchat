@@ -11,7 +11,11 @@ type Props = {
 
 const HEADINGS = ["REF NO", "PART NO", "DESCRIPTION", "QTY"];
 
-export const PartsTable = ({ diagramId, selectedRefNo, setSelectedRefNo }: Props) => {
+export const PartsTable = ({
+    diagramId,
+    selectedRefNo,
+    setSelectedRefNo,
+}: Props) => {
     const { query } = useParts(diagramId);
 
     const rows = useMemo(
