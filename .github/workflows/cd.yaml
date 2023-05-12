@@ -72,7 +72,7 @@ jobs:
 
     prod-deploy:
         needs:
-            - lint
+            - prettier
             - end-2-end-test
         environment:
             name: production
