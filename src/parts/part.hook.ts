@@ -32,8 +32,8 @@ export const useParts = (diagramId: string) => {
             // Optimistically update to the new value
             queryClient.setQueryData(
                 ["parts", diagramId],
-                (parts?: PartResource[]) => {
-                    return _.map(parts, (p) =>
+                (parts?: PartResource[]) =>
+                    _.map(parts, (p) =>
                         p.id === partReference.partId
                             ? {
                                   ...p,
@@ -42,8 +42,7 @@ export const useParts = (diagramId: string) => {
                                   qty: partReference.qty,
                               }
                             : p,
-                    );
-                },
+                    ),
             );
 
             // Return a context object with the snapshotted value
@@ -52,16 +51,19 @@ export const useParts = (diagramId: string) => {
 
         // If the mutation fails, use the context returned from onMutate to roll back
         onError: (_err, _newPartReference, context) => {
+            console.log("error");
             queryClient.setQueryData(
                 ["parts", diagramId],
                 context?.previousParts,
             );
         },
 
-        onSuccess: async () =>
+        onSuccess: async () => {
+            console.log("success");
             queryClient.invalidateQueries({
                 queryKey: ["parts", diagramId],
-            }),
+            });
+        },
     });
 
     return {

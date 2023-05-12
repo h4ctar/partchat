@@ -36,6 +36,7 @@ const Diagram = ({ diagramId }: Props) => {
                 <div className="flex-shrink-0">
                     <PartsTable
                         diagramId={diagramId}
+                        selectedRefNo={selectedRefNo}
                         setSelectedRefNo={setSelectedRefNo}
                     />
                 </div>

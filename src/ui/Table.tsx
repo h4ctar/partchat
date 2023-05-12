@@ -9,7 +9,12 @@ type Props = {
     setSelectedRowKey?: (selectedRowKey?: Key) => void;
 };
 
-export const Table = ({ headings, rows, setSelectedRowKey }: Props) => {
+export const Table = ({
+    headings,
+    rows,
+    selectedRowKey,
+    setSelectedRowKey,
+}: Props) => {
     return (
         <div className="max-h-full overflow-auto rounded-lg shadow-xl ring-1 ring-slate-900/5">
             <table className="border-separate border-spacing-0">
@@ -32,7 +37,11 @@ export const Table = ({ headings, rows, setSelectedRowKey }: Props) => {
                             onMouseEnter={() =>
                                 setSelectedRowKey && setSelectedRowKey(key)
                             }
-                            className="group text-slate-500 hover:bg-slate-800 hover:text-slate-100 dark:text-slate-400 hover:dark:bg-slate-100 hover:dark:text-slate-800"
+                            className={`group text-slate-500 dark:text-slate-400 ${
+                                selectedRowKey === key
+                                    ? "bg-slate-800 text-slate-100 dark:bg-slate-100 dark:text-slate-800"
+                                    : ""
+                            }`}
                         >
                             {row.map((data, colIndex) => (
                                 <td

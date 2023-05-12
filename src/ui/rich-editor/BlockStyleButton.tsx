@@ -1,4 +1,3 @@
-import clsx from "clsx";
 import { BaseSyntheticEvent } from "react";
 import { Editor, Element, Transforms } from "slate";
 import { useSlate } from "slate-react";
@@ -30,10 +29,7 @@ export const BlockStyleButton = ({ style, children }: Props) => {
     return (
         <button
             onMouseDown={toggleStyle}
-            className={clsx({
-                "fill-sky-400": active,
-                "fill-slate-500 dark:fill-slate-400": !active,
-            })}
+            className={active ? "fill-sky-400" : "fill-slate-500 dark:fill-slate-400"}
         >
             {children}
         </button>

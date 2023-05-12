@@ -13,8 +13,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
             `Update part reference - diagramId: ${diagramId}, partId: ${partId}`,
         );
 
-        // TODO: this should be put:part-references
-        await checkToken(request, "post:comments");
+        await checkToken(request, "put:part-references");
 
         const partReference: PartReferenceResource = JSON.parse(request.body);
 

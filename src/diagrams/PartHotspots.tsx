@@ -85,7 +85,6 @@ export const PartHotspots = ({
                                 hotspots: _.map(part.hotspots, (h, i) =>
                                     i === index ? newHotspot : h,
                                 ),
-                                // TODO: better types
                                 qty: part.qty!,
                                 refNo: part.refNo!,
                             });

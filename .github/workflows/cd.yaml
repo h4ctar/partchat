@@ -6,7 +6,7 @@ env:
 on: push
 
 jobs:
-    lint:
+    prettier:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
@@ -16,8 +16,8 @@ jobs:
                   cache: yarn
             - name: Install dependencies
               run: yarn
-            - name: Run lint
-              run: yarn lint
+            - name: Run prettier
+              run: yarn prettier
 
     preview-deploy:
         runs-on: ubuntu-latest
@@ -71,7 +71,7 @@ jobs:
               run: yarn playwright test
 
     prod-deploy:
-        needs: 
+        needs:
             - lint
             - end-2-end-test
         environment:
