@@ -36,7 +36,7 @@ export const postComment = async (
 ) => {
     const token = await getAccessTokenSilently();
     const search = new URLSearchParams(searchParams).toString();
-    
+
     const response = await fetch(`/api/comments?${search}`, {
         method: "POST",
         headers: {
