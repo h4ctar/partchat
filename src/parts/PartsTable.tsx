@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Loading } from "../Loading";
 import { RowData, Table } from "../ui/Table";
 import { useParts } from "./part.hook";
+import { ErrorMessage } from "../ui/ErrorMessage";
 
 type Props = {
     diagramId: string;
@@ -35,8 +36,20 @@ export const PartsTable = ({
         [query.data],
     );
 
-    if (!query.data) {
-        return <Loading />;
+    if (query.isLoading) {
+        return (
+            <div className="mx-auto w-full lg:w-80">
+                <Loading />
+            </div>
+        );
+    }
+
+    if (query.isError) {
+        return (
+            <div className="mx-auto w-full lg:w-80">
+                <ErrorMessage error={query.error} />
+            </div>
+        );
     }
 
     return (

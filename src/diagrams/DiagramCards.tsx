@@ -1,16 +1,25 @@
 import { Link } from "wouter";
 import { Loading } from "../Loading";
 import { useDiagrams } from "./diagram.hooks";
+import { ErrorMessage } from "../ui/ErrorMessage";
 
 type Props = {
     motorcycleId: string;
 };
 
-export const Diagrams = ({ motorcycleId }: Props) => {
+export const DiagramCards = ({ motorcycleId }: Props) => {
     const { query } = useDiagrams(motorcycleId);
 
-    if (!query.data) {
+    if (query.isLoading) {
         return <Loading />;
+    }
+
+    if (query.isError) {
+        return (
+            <div className="mx-auto max-w-7xl p-5">
+                <ErrorMessage error={query.error} />
+            </div>
+        );
     }
 
     const diagrams = query.data;

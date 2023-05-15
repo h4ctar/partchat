@@ -1,30 +1,22 @@
 import { DiagramResource } from "../../types/motorcycles";
+import { PartChatError } from "../ui/ErrorMessage";
 
 export const fetchDiagrams = (motorcycleId: string) => async () => {
     const response = await fetch(`/api/diagrams?motorcycleId=${motorcycleId}`);
+    if (!response.ok) {
+        throw new PartChatError("Failed to fetch diagrams");
+    }
+
     const diagrams: DiagramResource[] = await response.json();
     return diagrams;
 };
 
 export const fetchDiagram = (diagramId: string) => async () => {
     const response = await fetch(`/api/diagrams/${diagramId}`);
+    if (!response.ok) {
+        throw new PartChatError("Failed to fetch diagram");
+    }
+
     const diagrams: DiagramResource = await response.json();
     return diagrams;
-};
-
-export const updateDiagram = async (
-    diagram: DiagramResource,
-    getAccessTokenSilently: () => Promise<string>,
-) => {
-    const token = await getAccessTokenSilently();
-    const response = await fetch(`/api/diagrams/${diagram.id}`, {
-        method: "PUT",
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(diagram),
-    });
-    if (!response.ok) {
-        throw new Error("Failed to update diagram");
-    }
 };

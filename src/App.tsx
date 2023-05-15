@@ -7,7 +7,7 @@ import { queryClient } from "./query";
 import { SettingsContext, useSettings } from "./settings";
 
 const Home = lazy(() => import("./Home"));
-const Motorcycles = lazy(() => import("./motorcycles/Motorcycles"));
+const Motorcycles = lazy(() => import("./motorcycles/MotorcycleCards"));
 const Motorcycle = lazy(() => import("./motorcycles/Motorcycle"));
 const Diagram = lazy(() => import("./diagrams/Diagram"));
 const NotFound = lazy(() => import("./NotFound"));

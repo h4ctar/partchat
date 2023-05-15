@@ -1,9 +1,14 @@
 import { PartReferenceResource, PartResource } from "../../types/motorcycles";
+import { PartChatError } from "../ui/ErrorMessage";
 
 export const fetchParts = (diagramId: string) => async () => {
     const response = await fetch(`/api/parts?diagramId=${diagramId}`);
-    const diagrams: PartResource[] = await response.json();
-    return diagrams;
+    if (!response.ok) {
+        throw new PartChatError("Failed to fetch parts");
+    }
+
+    const parts: PartResource[] = await response.json();
+    return parts;
 };
 
 export const updatePartReference = async (
@@ -22,6 +27,6 @@ export const updatePartReference = async (
         },
     );
     if (!response.ok) {
-        throw new Error("Failed to update part reference");
+        throw new PartChatError("Failed to update part reference");
     }
 };

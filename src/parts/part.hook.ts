@@ -51,7 +51,6 @@ export const useParts = (diagramId: string) => {
 
         // If the mutation fails, use the context returned from onMutate to roll back
         onError: (_err, _newPartReference, context) => {
-            console.log("error");
             queryClient.setQueryData(
                 ["parts", diagramId],
                 context?.previousParts,
@@ -59,7 +58,6 @@ export const useParts = (diagramId: string) => {
         },
 
         onSuccess: async () => {
-            console.log("success");
             queryClient.invalidateQueries({
                 queryKey: ["parts", diagramId],
             });
