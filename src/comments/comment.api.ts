@@ -1,4 +1,5 @@
 import { CommentResource, PostComment } from "../../types/motorcycles";
+import { PartChatError } from "../ui/ErrorMessage";
 
 export type CommentSearchParams = {
     motorcycleId?: string;
@@ -20,6 +21,10 @@ export const fetchComments =
         }
 
         const response = await fetch(`/api/comments?${search.toString()}`);
+        if (!response.ok) {
+            throw new PartChatError("Failed to fetch comments");
+        }
+
         const comments: CommentResource[] = await response.json();
         return comments;
     };
@@ -31,6 +36,7 @@ export const postComment = async (
 ) => {
     const token = await getAccessTokenSilently();
     const search = new URLSearchParams(searchParams).toString();
+
     const response = await fetch(`/api/comments?${search}`, {
         method: "POST",
         headers: {
@@ -39,6 +45,6 @@ export const postComment = async (
         body: JSON.stringify(comment),
     });
     if (!response.ok) {
-        throw new Error("Failed to post comment");
+        throw new PartChatError("Failed to post comment");
     }
 };

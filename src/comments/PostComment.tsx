@@ -5,6 +5,7 @@ import { Descendant } from "slate";
 import { queryClient } from "../query";
 import { RichEditor } from "../ui/rich-editor/RichEditor";
 import { postComment } from "./comment.api";
+import { ErrorMessage } from "../ui/ErrorMessage";
 
 type Props = {
     motorcycleId?: string;
@@ -41,6 +42,7 @@ export const PostComment = ({ motorcycleId, diagramId, partId }: Props) => {
 
     return (
         <div className="flex flex-col gap-4">
+            {mutation.isError && <ErrorMessage error={mutation.error} />}
             <RichEditor placeholder="Write comment" onChange={setNodes}>
                 <button
                     onClick={() => mutation.mutate()}

@@ -1,30 +1,41 @@
-import { useEffect, useRef, useState } from "react";
+import _ from "lodash";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { DiagramResource } from "../../types/motorcycles";
 import { useParts } from "../parts/part.hook";
 
 type Props = {
     diagram: DiagramResource;
     selectedRefNo?: number;
+    setSelectedRefNo: (selectedRefNo?: number) => void;
 };
 
 const NORMAL_COLOR = "bg-blue-600/40";
 const HIGHLIGHTED_COLOR = "bg-pink-600/40";
 
-export const PartHotspots = ({ diagram, selectedRefNo }: Props) => {
-    const { query } = useParts(diagram.id);
-    const containerRef = useRef<HTMLDivElement>(null);
+// TODO: move these into state
+let startX = 0;
+let endX = 0;
+
+export const PartHotspots = ({
+    diagram,
+    selectedRefNo,
+    setSelectedRefNo,
+}: Props) => {
+    const { query, mutation } = useParts(diagram.id);
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const setContainerRef = useCallback((container: HTMLDivElement) => {
+        containerRef.current = container;
+        if (container) {
+            resizeDiagram();
+        }
+    }, []);
     const [scale, setScale] = useState(1);
 
     useEffect(() => resizeDiagram(), [diagram]);
 
     useEffect(() => {
-        const listener = () => {
-            resizeDiagram();
-        };
-        window.addEventListener("resize", listener);
-        return () => {
-            window.removeEventListener("resize", listener);
-        };
+        window.addEventListener("resize", resizeDiagram);
+        return () => window.removeEventListener("resize", resizeDiagram);
     }, []);
 
     const resizeDiagram = () => {
@@ -32,19 +43,53 @@ export const PartHotspots = ({ diagram, selectedRefNo }: Props) => {
             const container = containerRef.current;
             // If the large breakpoint is used the height will be set, otherwise the width will be set
             if (container.clientWidth) {
-                setScale(containerRef.current.clientWidth / diagram.width);
+                setScale(container.clientWidth / diagram.width);
             } else if (container.clientHeight) {
-                setScale(containerRef.current.clientHeight / diagram.height);
+                setScale(container.clientHeight / diagram.height);
             }
         }
     };
 
+    if (!query.data) {
+        return null;
+    }
+
+    const parts = query.data;
+
     return (
-        <div ref={containerRef} className="absolute top-0 h-full w-full">
-            {query.data?.map((part) =>
+        <div
+            ref={setContainerRef}
+            className="absolute top-0 h-full w-full"
+            onDragOver={(event) => event.preventDefault()}
+        >
+            {parts.map((part) =>
                 part.hotspots?.map((hotspot, index) => (
                     <div
                         key={`${part.refNo}-${index}`}
+                        draggable={true}
+                        onDragStart={(event) => {
+                            startX = event.clientX;
+                            endX = event.clientY;
+                        }}
+                        onDragEnd={(event) => {
+                            const newHotspot = [
+                                hotspot[0] + (event.clientX - startX) / scale,
+                                hotspot[1] + (event.clientY - endX) / scale,
+                                hotspot[2],
+                                hotspot[3],
+                            ];
+
+                            mutation.mutate({
+                                partId: part.id,
+                                diagramId: diagram.id,
+                                hotspots: _.map(part.hotspots, (h, i) =>
+                                    i === index ? newHotspot : h,
+                                ),
+                                qty: part.qty!,
+                                refNo: part.refNo!,
+                            });
+                        }}
+                        onMouseEnter={() => setSelectedRefNo(part.refNo)}
                         style={{
                             left: hotspot[0] * scale,
                             top: hotspot[1] * scale,

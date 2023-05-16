@@ -1,5 +1,5 @@
 import { Comments } from "../comments/Comments";
-import { Diagrams } from "../diagrams/Diagrams";
+import { DiagramCards } from "../diagrams/DiagramCards";
 import { MotorcycleDetails } from "./MotorcycleDetails";
 
 type Props = {
@@ -10,7 +10,7 @@ const Motorcycle = ({ motorcycleId }: Props) => {
     return (
         <>
             <MotorcycleDetails motorcycleId={motorcycleId} />
-            <Diagrams motorcycleId={motorcycleId} />
+            <DiagramCards motorcycleId={motorcycleId} />
             <Comments motorcycleId={motorcycleId} />
         </>
     );

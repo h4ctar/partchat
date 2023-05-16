@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { MotorcycleResource } from "../../types/motorcycles.js";
 import { prisma } from "../_prisma.js";
+import { UnsupportedMethodError } from "../_error-handler.js";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     if (request.method === "GET") {
@@ -34,7 +35,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
 
         response.status(200).send(motorcycleResources);
     } else {
-        throw new Error("Unsupported method");
+        throw new UnsupportedMethodError();
     }
 };
 

@@ -19,7 +19,7 @@ export const Comment = ({ comment }: Props) => {
                         {new Date(comment.createdAt).toLocaleDateString()}
                     </div>
                 </div>
-                <div className="prose dark:prose-invert">
+                <div className="prose prose-sm dark:prose-invert md:prose-base">
                     {comment.nodes.map((node, index) => (
                         <RichHtml key={index} node={node} />
                     ))}

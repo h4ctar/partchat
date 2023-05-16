@@ -2,8 +2,9 @@ import { Link } from "wouter";
 import { useSearch } from "wouter/use-location";
 import { Loading } from "../Loading";
 import { useMotorcycles } from "./motorcycle.hook";
+import { ErrorMessage } from "../ui/ErrorMessage";
 
-const Motorcycles = () => {
+const MotorcycleCards = () => {
     const search = useSearch();
 
     const searchParams = new URLSearchParams(search);
@@ -12,8 +13,12 @@ const Motorcycles = () => {
 
     const { query } = useMotorcycles(make, year);
 
-    if (!query.data) {
+    if (query.isLoading) {
         return <Loading />;
+    }
+
+    if (query.isError) {
+        return <ErrorMessage error={query.error} />;
     }
 
     const motorcycles = query.data;
@@ -39,4 +44,4 @@ const Motorcycles = () => {
     );
 };
 
-export default Motorcycles;
+export default MotorcycleCards;

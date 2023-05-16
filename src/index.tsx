@@ -4,9 +4,6 @@ import ReactDOM from "react-dom/client";
 import { App } from "./App";
 import "./input.css";
 
-// Required for draft.js
-window.global ||= window;
-
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
         <Auth0Provider
@@ -15,7 +12,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             authorizationParams={{
                 redirect_uri: window.location.origin,
                 audience: import.meta.env.VITE_AUTH0_API_AUDIENCE,
-                scope: "post:comments",
+                scope: "post:comments put:part-references",
             }}
             useRefreshTokens={true}
             cacheLocation="localstorage"

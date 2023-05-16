@@ -1,6 +1,7 @@
 import { Motorcycle } from "@prisma/client";
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import _ from "lodash";
+import { UnsupportedMethodError } from "../_error-handler.js";
 import { prisma } from "../_prisma.js";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
@@ -40,7 +41,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
 
         response.status(200).send(config);
     } else {
-        throw new Error("Unsupported method");
+        throw new UnsupportedMethodError();
     }
 };
 

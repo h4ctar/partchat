@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { DiagramResource } from "../../types/motorcycles.js";
-import { prisma } from "../_prisma.js";
+import { prisma } from "../../_prisma.js";
+import { DiagramResource } from "../../../types/motorcycles.js";
+import { UnsupportedMethodError } from "../../_error-handler.js";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     const diagramId = (request.query.diagramId as string) || undefined;
@@ -31,7 +32,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
 
         response.status(200).send(diagramResource);
     } else {
-        throw new Error("Unsupported method");
+        throw new UnsupportedMethodError();
     }
 };
 

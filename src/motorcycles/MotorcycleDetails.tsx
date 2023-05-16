@@ -1,4 +1,5 @@
 import { Loading } from "../Loading";
+import { ErrorMessage } from "../ui/ErrorMessage";
 import { RowData, Table } from "../ui/Table";
 import { useMotorcycle } from "./motorcycle.hook";
 
@@ -9,8 +10,12 @@ type Props = {
 export const MotorcycleDetails = ({ motorcycleId }: Props) => {
     const { query } = useMotorcycle(motorcycleId);
 
-    if (!query.data) {
+    if (query.isLoading) {
         return <Loading />;
+    }
+
+    if (query.isError) {
+        return <ErrorMessage error={query.error} />;
     }
 
     const motorcycle = query.data;

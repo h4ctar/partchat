@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { CommentResource, PostComment } from "../../types/motorcycles.js";
 import { checkToken } from "../_auth.js";
-import { errorHandler } from "../_error-handler.js";
+import { UnsupportedMethodError, errorHandler } from "../_error-handler.js";
 import { prisma } from "../_prisma.js";
 import { Descendant } from "slate";
 import { Prisma } from "@prisma/client";
@@ -76,7 +76,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
 
         response.status(201).send(commentResource);
     } else {
-        throw new Error("Unsupported method");
+        throw new UnsupportedMethodError();
     }
 };
 

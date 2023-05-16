@@ -14,6 +14,7 @@ export type MotorcycleResource = {
     topSpeed: number;
     weight: number;
     image: string;
+
     _links?: {
         self: { href: string };
         diagrams: {
@@ -28,6 +29,7 @@ export type DiagramResource = {
     image: string;
     width: number;
     height: number;
+
     _links?: {
         self: { href: string };
         parts: {
@@ -43,6 +45,19 @@ export type PartResource = {
     qty?: number;
     refNo?: number;
     hotspots?: number[][];
+
+    _links?: {
+        self: { href: string };
+    };
+};
+
+export type PartReferenceResource = {
+    diagramId: string;
+    partId: string;
+    hotspots: number[][];
+    qty: number;
+    refNo: number;
+
     _links?: {
         self: { href: string };
     };
