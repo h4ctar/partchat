@@ -9,7 +9,7 @@ export const useParts = (diagramId: string) => {
     const { getAccessTokenSilently } = useAuth0();
 
     const query = useQuery({
-        queryKey: ["parts", diagramId],
+        queryKey: ["parts", { diagramId }],
         queryFn: fetchParts(diagramId),
     });
 
@@ -20,13 +20,13 @@ export const useParts = (diagramId: string) => {
         onMutate: async (partReference: PartReferenceResource) => {
             // Cancel any outgoing refetches
             await queryClient.cancelQueries({
-                queryKey: ["parts", diagramId],
+                queryKey: ["parts", { diagramId }],
             });
 
             // Snapshot the previous value
             const previousParts = queryClient.getQueryData<PartResource[]>([
                 "parts",
-                diagramId,
+                { diagramId },
             ]);
 
             // Optimistically update to the new value
@@ -52,14 +52,14 @@ export const useParts = (diagramId: string) => {
         // If the mutation fails, use the context returned from onMutate to roll back
         onError: (_err, _newPartReference, context) => {
             queryClient.setQueryData(
-                ["parts", diagramId],
+                ["parts", { diagramId }],
                 context?.previousParts,
             );
         },
 
         onSuccess: async () => {
             queryClient.invalidateQueries({
-                queryKey: ["parts", diagramId],
+                queryKey: ["parts", { diagramId }],
             });
         },
     });
