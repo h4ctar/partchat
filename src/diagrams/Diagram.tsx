@@ -30,7 +30,7 @@ const Diagram = ({ diagramId }: Props) => {
 
     return (
         <div>
-            <div className="flex flex-col items-stretch gap-5 p-5 lg:h-[calc(100vh-42px-20px-20px)] lg:flex-row lg:justify-center">
+            <div className="flex flex-col items-stretch gap-4 p-5 lg:h-[calc(100vh-42px-20px-20px)] lg:flex-row lg:justify-center">
                 <div className="relative h-full">
                     <img
                         src={diagram.image}
