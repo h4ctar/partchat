@@ -36,7 +36,7 @@ export const MotorcycleDetails = ({ motorcycleId }: Props) => {
             <h2 className="mx-5 mb-5 text-2xl text-slate-500">
                 {`${motorcycle.yearFrom}-${motorcycle.yearTo}`}
             </h2>
-            <div className="flex flex-col items-center gap-5 lg:flex-row">
+            <div className="flex flex-col items-center gap-4 lg:flex-row">
                 <img
                     className="rounded-lg shadow-xl ring-1 ring-slate-900/5"
                     src={motorcycle.image}

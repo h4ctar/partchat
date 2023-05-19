@@ -52,7 +52,7 @@ export const useConfig = () => {
 
 export const useMotorcycles = (make?: string, year?: number) => {
     const query = useQuery({
-        queryKey: ["motorcycles", make, year],
+        queryKey: ["motorcycles", { make, year }],
         queryFn: fetchMotorcycles(make, year),
     });
 

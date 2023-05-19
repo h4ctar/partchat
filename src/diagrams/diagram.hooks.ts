@@ -3,7 +3,7 @@ import { fetchDiagram, fetchDiagrams } from "./diagram.api";
 
 export const useDiagrams = (motorcycleId: string) => {
     const query = useQuery({
-        queryKey: ["diagrams", motorcycleId],
+        queryKey: ["diagrams", { motorcycleId }],
         queryFn: fetchDiagrams(motorcycleId),
     });
 

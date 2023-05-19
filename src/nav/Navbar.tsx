@@ -72,7 +72,7 @@ export const Navbar = ({ toggleTheme }: Props) => {
     const hideNav = () => setNav(false);
 
     return (
-        <div className="flex flex-row flex-wrap items-center justify-between gap-5 border-b p-5 shadow-lg ring-1 ring-slate-900/5 dark:border-slate-50/[0.06]">
+        <div className="flex flex-row flex-wrap items-center justify-between gap-4 border-b p-5 shadow-lg ring-1 ring-slate-900/5 dark:border-slate-50/[0.06]">
             <h2 className="order-1 ">
                 <Link
                     to="/"
@@ -88,7 +88,7 @@ export const Navbar = ({ toggleTheme }: Props) => {
             <div
                 className={`${
                     nav ? "" : "hidden"
-                } order-3 flex w-screen flex-col gap-5 sm:flex sm:w-auto sm:flex-row sm:items-center`}
+                } order-3 flex w-screen flex-col gap-4 sm:flex sm:w-auto sm:flex-row sm:items-center`}
             >
                 <Link to="/motorcycles" onClick={hideNav}>
                     Motorcycles
@@ -99,7 +99,7 @@ export const Navbar = ({ toggleTheme }: Props) => {
                 <LogoutButton />
                 <ThemeButton toggleTheme={toggleTheme} />
             </div>
-            <div className="order-4 grid w-screen grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4 xl:order-2 xl:flex xl:w-auto xl:flex-grow">
+            <div className="order-4 grid w-screen grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 xl:order-2 xl:flex xl:w-auto xl:flex-grow">
                 <MakeSelect make={selectedMake} />
                 {selectedMake && (
                     <YearSelect make={selectedMake} year={selectedYear} />
