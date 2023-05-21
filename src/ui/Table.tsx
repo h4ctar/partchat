@@ -24,7 +24,7 @@ export const Table = ({
                             {headings?.map((heading, colIndex) => (
                                 <th
                                     key={colIndex}
-                                    className="border-b border-slate-100 p-4 text-sm font-medium text-slate-400 group-first:first:rounded-tl-lg group-first:last:rounded-tr-lg group-last:first:rounded-bl-lg group-last:last:rounded-br-lg dark:border-slate-600 dark:text-slate-200 lg:text-base"
+                                    className="border-b border-slate-100 p-4 text-left text-sm font-medium text-slate-400 group-first:first:rounded-tl-lg group-first:last:rounded-tr-lg group-last:first:rounded-bl-lg group-last:last:rounded-br-lg dark:border-slate-600 dark:text-slate-200 lg:text-base"
                                 >
                                     {heading}
                                 </th>
@@ -37,10 +37,10 @@ export const Table = ({
                             onMouseEnter={() =>
                                 setSelectedRowKey && setSelectedRowKey(key)
                             }
-                            className={`group text-slate-500 dark:text-slate-400 ${
+                            className={`group ${
                                 selectedRowKey === key
                                     ? "bg-slate-800 text-slate-100 dark:bg-slate-100 dark:text-slate-800"
-                                    : ""
+                                    : "text-slate-500 dark:text-slate-400"
                             }`}
                         >
                             {row.map((data, colIndex) => (

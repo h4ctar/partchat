@@ -16,28 +16,44 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
                 },
             },
             include: {
-                partOnDiagrams: true,
+                partOnDiagrams: !!diagramId,
             },
         });
 
-        const partResources: PartResource[] = partModels
-            .map((partModel) => {
-                // Do this destructure so that the partOnDiagrams is not included in the response resources
-                const { partOnDiagrams: _, ...partResources } = {
-                    ...partModel,
-                    refNo: partModel.partOnDiagrams[0].refNo,
-                    hotspots: partModel.partOnDiagrams[0]
-                        .hotspots as number[][],
-                    qty: partModel.partOnDiagrams[0].qty,
-                    _links: {
-                        self: { href: `/api/parts/${partModel.id}` },
-                    },
-                };
-                return partResources;
-            })
-            .sort((a, b) => a.refNo - b.refNo);
+        if (diagramId) {
+            const partResources: PartResource[] = partModels
+                .map((partModel) => {
+                    // Do this destructure so that the partOnDiagrams is not included in the response resources
+                    const { partOnDiagrams: _, ...partResources } = {
+                        ...partModel,
+                        refNo: partModel.partOnDiagrams[0].refNo,
+                        hotspots: partModel.partOnDiagrams[0]
+                            .hotspots as number[][],
+                        qty: partModel.partOnDiagrams[0].qty,
+                        _links: {
+                            self: { href: `/api/parts/${partModel.id}` },
+                        },
+                    };
+                    return partResources;
+                })
+                .sort((a, b) => a.refNo - b.refNo);
 
-        response.status(200).send(partResources);
+            response.status(200).send(partResources);
+        } else {
+            const partResources: PartResource[] = partModels
+                .map((partModel) => {
+                    const partResources = {
+                        ...partModel,
+                        _links: {
+                            self: { href: `/api/parts/${partModel.id}` },
+                        },
+                    };
+                    return partResources;
+                })
+                .sort((a, b) => a.partNumber.localeCompare(b.partNumber));
+
+            response.status(200).send(partResources);
+        }
     } else {
         throw new UnsupportedMethodError();
     }

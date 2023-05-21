@@ -93,8 +93,7 @@ export const Navbar = ({ toggleTheme }: Props) => {
                 <Link to="/motorcycles" onClick={hideNav}>
                     Motorcycles
                 </Link>
-                {/* <Link to="/diagrams">Diagrams</Link>
-                <Link to="/parts">Parts</Link> */}
+                <Link to="/parts">Parts</Link>
                 <LoginButton />
                 <LogoutButton />
                 <ThemeButton toggleTheme={toggleTheme} />

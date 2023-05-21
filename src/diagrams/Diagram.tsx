@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Comments } from "../comments/Comments";
 import { Loading } from "../Loading";
+import { Comments } from "../comments/Comments";
 import { PartsTable } from "../parts/PartsTable";
-import { useDiagram } from "./diagram.hooks";
-import { PartHotspots } from "./PartHotspots";
 import { ErrorMessage } from "../ui/ErrorMessage";
+import { PartHotspots } from "./PartHotspots";
+import { useDiagram } from "./diagram.hooks";
 
 type Props = {
     diagramId: string;
@@ -45,8 +45,10 @@ const Diagram = ({ diagramId }: Props) => {
                 <div className="flex-shrink-0">
                     <PartsTable
                         diagramId={diagramId}
-                        selectedRefNo={selectedRefNo}
-                        setSelectedRefNo={setSelectedRefNo}
+                        selectedPart={selectedRefNo}
+                        setSelectedPart={(key) =>
+                            setSelectedRefNo(key as number)
+                        }
                     />
                 </div>
             </div>

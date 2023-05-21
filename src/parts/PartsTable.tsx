@@ -1,36 +1,39 @@
 import { useMemo } from "react";
 import { Loading } from "../Loading";
+import { ErrorMessage } from "../ui/ErrorMessage";
 import { RowData, Table } from "../ui/Table";
 import { useParts } from "./part.hook";
-import { ErrorMessage } from "../ui/ErrorMessage";
 
 type Props = {
-    diagramId: string;
-    selectedRefNo?: number;
-    setSelectedRefNo: (selectedRefNo?: number) => void;
+    diagramId?: string;
+    selectedPart?: number | string;
+    setSelectedPart: (selectedPart?: number | string) => void;
 };
 
-const HEADINGS = ["REF NO", "PART NO", "DESCRIPTION", "QTY"];
+const HEADINGS = ["PART NO", "DESCRIPTION"];
+const HEADINGS_DIAGRAM = ["REF NO", "PART NO", "DESCRIPTION", "QTY"];
 
 export const PartsTable = ({
     diagramId,
-    selectedRefNo,
-    setSelectedRefNo,
+    selectedPart,
+    setSelectedPart,
 }: Props) => {
-    const { query } = useParts(diagramId);
+    const { query } = useParts({ diagramId });
 
     const rows = useMemo(
         () =>
             query.data?.map(
                 (part) =>
                     [
-                        part.refNo,
-                        [
-                            part.refNo,
-                            part.partNumber,
-                            part.description,
-                            part.qty,
-                        ],
+                        part.refNo || part.partNumber,
+                        diagramId
+                            ? [
+                                  part.refNo,
+                                  part.partNumber,
+                                  part.description,
+                                  part.qty,
+                              ]
+                            : [part.partNumber, part.description],
                     ] as RowData,
             ) || [],
         [query.data],
@@ -54,10 +57,10 @@ export const PartsTable = ({
 
     return (
         <Table
-            headings={HEADINGS}
+            headings={diagramId ? HEADINGS_DIAGRAM : HEADINGS}
             rows={rows}
-            selectedRowKey={selectedRefNo}
-            setSelectedRowKey={(key) => setSelectedRefNo(key as number)}
+            selectedRowKey={selectedPart}
+            setSelectedRowKey={(key) => setSelectedPart(key)}
         />
     );
 };

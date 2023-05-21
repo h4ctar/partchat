@@ -6,7 +6,6 @@ import { ErrorMessage } from "../ui/ErrorMessage";
 
 const MotorcycleCards = () => {
     const search = useSearch();
-
     const searchParams = new URLSearchParams(search);
     const make = searchParams.get("make") || undefined;
     const year = parseInt(searchParams.get("year") || "") || undefined;

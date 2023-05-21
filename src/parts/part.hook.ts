@@ -4,13 +4,14 @@ import _ from "lodash";
 import { PartReferenceResource, PartResource } from "../../types/motorcycles";
 import { queryClient } from "../query";
 import { fetchParts, updatePartReference } from "./part.api";
+import { CommentSearchParams } from "../comments/comment.api";
 
-export const useParts = (diagramId: string) => {
+export const useParts = (searchParams: CommentSearchParams) => {
     const { getAccessTokenSilently } = useAuth0();
 
     const query = useQuery({
-        queryKey: ["parts", { diagramId }],
-        queryFn: fetchParts(diagramId),
+        queryKey: ["parts", searchParams],
+        queryFn: fetchParts(searchParams),
     });
 
     const mutation = useMutation({
@@ -20,18 +21,18 @@ export const useParts = (diagramId: string) => {
         onMutate: async (partReference: PartReferenceResource) => {
             // Cancel any outgoing refetches
             await queryClient.cancelQueries({
-                queryKey: ["parts", { diagramId }],
+                queryKey: ["parts"],
             });
 
             // Snapshot the previous value
             const previousParts = queryClient.getQueryData<PartResource[]>([
                 "parts",
-                { diagramId },
+                searchParams,
             ]);
 
             // Optimistically update to the new value
             queryClient.setQueryData(
-                ["parts", diagramId],
+                ["parts", searchParams],
                 (parts?: PartResource[]) =>
                     _.map(parts, (p) =>
                         p.id === partReference.partId
@@ -52,14 +53,14 @@ export const useParts = (diagramId: string) => {
         // If the mutation fails, use the context returned from onMutate to roll back
         onError: (_err, _newPartReference, context) => {
             queryClient.setQueryData(
-                ["parts", { diagramId }],
+                ["parts", searchParams],
                 context?.previousParts,
             );
         },
 
         onSuccess: async () => {
             queryClient.invalidateQueries({
-                queryKey: ["parts", { diagramId }],
+                queryKey: ["parts", searchParams],
             });
         },
     });

@@ -7,9 +7,10 @@ import { queryClient } from "./query";
 import { SettingsContext, useSettings } from "./settings";
 
 const Home = lazy(() => import("./Home"));
-const Motorcycles = lazy(() => import("./motorcycles/MotorcycleCards"));
+const MotorcycleCards = lazy(() => import("./motorcycles/MotorcycleCards"));
 const Motorcycle = lazy(() => import("./motorcycles/Motorcycle"));
 const Diagram = lazy(() => import("./diagrams/Diagram"));
+const PartsPage = lazy(() => import("./parts/PartsPage"));
 const NotFound = lazy(() => import("./NotFound"));
 
 export const App = () => {
@@ -28,7 +29,7 @@ export const App = () => {
                         </Route>
                         <Route path="/motorcycles">
                             <Suspense fallback={<Loading />}>
-                                <Motorcycles />
+                                <MotorcycleCards />
                             </Suspense>
                         </Route>
                         <Route path="/motorcycles/:motorcycleId">
@@ -46,6 +47,11 @@ export const App = () => {
                                     <Diagram diagramId={params.diagramId!} />
                                 </Suspense>
                             )}
+                        </Route>
+                        <Route path="/parts">
+                            <Suspense fallback={<Loading />}>
+                                <PartsPage />
+                            </Suspense>
                         </Route>
                         <Route>
                             <Suspense fallback={<Loading />}>

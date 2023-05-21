@@ -21,7 +21,7 @@ export const PartHotspots = ({
     selectedRefNo,
     setSelectedRefNo,
 }: Props) => {
-    const { query, mutation } = useParts(diagram.id);
+    const { query, mutation } = useParts({ diagramId: diagram.id });
     const containerRef = useRef<HTMLDivElement | null>(null);
     const setContainerRef = useCallback((container: HTMLDivElement) => {
         containerRef.current = container;
@@ -55,6 +55,8 @@ export const PartHotspots = ({
     }
 
     const parts = query.data;
+
+    // TODO: mutation error
 
     return (
         <div

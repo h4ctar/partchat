@@ -1,8 +1,17 @@
 import { PartReferenceResource, PartResource } from "../../types/motorcycles";
 import { PartChatError } from "../ui/ErrorMessage";
 
-export const fetchParts = (diagramId: string) => async () => {
-    const response = await fetch(`/api/parts?diagramId=${diagramId}`);
+export type PartSearchParams = {
+    diagramId?: string;
+};
+
+export const fetchParts = (searchParams: PartSearchParams) => async () => {
+    const search = new URLSearchParams();
+    if (searchParams.diagramId) {
+        search.append("diagramId", searchParams.diagramId);
+    }
+
+    const response = await fetch(`/api/parts?${search.toString()}`);
     if (!response.ok) {
         throw new PartChatError("Failed to fetch parts");
     }
