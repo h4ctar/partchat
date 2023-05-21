@@ -41,7 +41,7 @@ export const MotorcycleDetails = ({ motorcycleId }: Props) => {
                     className="rounded-lg shadow-xl ring-1 ring-slate-900/5"
                     src={motorcycle.image}
                 />
-                <div className="w-full overflow-auto rounded-lg shadow-xl ring-1 ring-slate-900/5">
+                <div className="w-full">
                     <Table rows={rows} />
                 </div>
             </div>

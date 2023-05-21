@@ -42,7 +42,7 @@ const Diagram = ({ diagramId }: Props) => {
                         setSelectedRefNo={setSelectedRefNo}
                     />
                 </div>
-                <div className="flex-shrink-0">
+                <div className="max-h-full flex-shrink-0 overflow-auto">
                     <PartsTable
                         diagramId={diagramId}
                         selectedPart={selectedRefNo}
