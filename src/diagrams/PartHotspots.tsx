@@ -2,6 +2,7 @@ import _ from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { DiagramResource } from "../../types/motorcycles";
 import { useParts } from "../parts/part.hook";
+import { ErrorMessage } from "../ui/ErrorMessage";
 
 type Props = {
     diagram: DiagramResource;
@@ -56,56 +57,62 @@ export const PartHotspots = ({
 
     const parts = query.data;
 
-    // TODO: mutation error
-
     return (
-        <div
-            ref={setContainerRef}
-            className="absolute top-0 h-full w-full"
-            onDragOver={(event) => event.preventDefault()}
-        >
-            {parts.map((part) =>
-                part.hotspots?.map((hotspot, index) => (
-                    <div
-                        key={`${part.refNo}-${index}`}
-                        draggable={true}
-                        onDragStart={(event) => {
-                            startX = event.clientX;
-                            endX = event.clientY;
-                        }}
-                        onDragEnd={(event) => {
-                            const newHotspot = [
-                                hotspot[0] + (event.clientX - startX) / scale,
-                                hotspot[1] + (event.clientY - endX) / scale,
-                                hotspot[2],
-                                hotspot[3],
-                            ];
-
-                            mutation.mutate({
-                                partId: part.id,
-                                diagramId: diagram.id,
-                                hotspots: _.map(part.hotspots, (h, i) =>
-                                    i === index ? newHotspot : h,
-                                ),
-                                qty: part.qty!,
-                                refNo: part.refNo!,
-                            });
-                        }}
-                        onMouseEnter={() => setSelectedRefNo(part.refNo)}
-                        style={{
-                            left: hotspot[0] * scale,
-                            top: hotspot[1] * scale,
-                            width: hotspot[2] * scale,
-                            height: hotspot[3] * scale,
-                        }}
-                        className={`absolute ${
-                            part.refNo === selectedRefNo
-                                ? HIGHLIGHTED_COLOR
-                                : NORMAL_COLOR
-                        }`}
-                    ></div>
-                )),
+        <>
+            {mutation.isError && (
+                <div className="absolute top-0 z-10 w-full p-4">
+                    <ErrorMessage error={mutation.error} />
+                </div>
             )}
-        </div>
+            <div
+                ref={setContainerRef}
+                className="absolute top-0 h-full w-full"
+                onDragOver={(event) => event.preventDefault()}
+            >
+                {parts.map((part) =>
+                    part.hotspots?.map((hotspot, index) => (
+                        <div
+                            key={`${part.refNo}-${index}`}
+                            draggable={true}
+                            onDragStart={(event) => {
+                                startX = event.clientX;
+                                endX = event.clientY;
+                            }}
+                            onDragEnd={(event) => {
+                                const newHotspot = [
+                                    hotspot[0] +
+                                        (event.clientX - startX) / scale,
+                                    hotspot[1] + (event.clientY - endX) / scale,
+                                    hotspot[2],
+                                    hotspot[3],
+                                ];
+
+                                mutation.mutate({
+                                    partId: part.id,
+                                    diagramId: diagram.id,
+                                    hotspots: _.map(part.hotspots, (h, i) =>
+                                        i === index ? newHotspot : h,
+                                    ),
+                                    qty: part.qty!,
+                                    refNo: part.refNo!,
+                                });
+                            }}
+                            onMouseEnter={() => setSelectedRefNo(part.refNo)}
+                            style={{
+                                left: hotspot[0] * scale,
+                                top: hotspot[1] * scale,
+                                width: hotspot[2] * scale,
+                                height: hotspot[3] * scale,
+                            }}
+                            className={`absolute ${
+                                part.refNo === selectedRefNo
+                                    ? HIGHLIGHTED_COLOR
+                                    : NORMAL_COLOR
+                            }`}
+                        ></div>
+                    )),
+                )}
+            </div>
+        </>
     );
 };
