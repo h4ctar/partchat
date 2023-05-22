@@ -21,8 +21,8 @@ export const CommentsList = ({ motorcycleId, diagramId, partId }: Props) => {
 
     return (
         <>
-            {comments.map((comment) => (
-                <Comment key={comment.id} comment={comment} />
+            {comments.items.map((comment) => (
+                <Comment key={comment.id} commentId={comment.id} />
             ))}
         </>
     );

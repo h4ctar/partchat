@@ -1,11 +1,8 @@
 import { CommentsList } from "./CommentsList";
 import { PostComment } from "./PostComment";
+import { CommentSearchParams } from "./comment.api";
 
-type Props = {
-    motorcycleId?: string;
-    diagramId?: string;
-    partId?: string;
-};
+type Props = CommentSearchParams;
 
 export const Comments = ({ motorcycleId, diagramId, partId }: Props) => {
     return (

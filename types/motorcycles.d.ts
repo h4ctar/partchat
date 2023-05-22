@@ -63,6 +63,16 @@ export type PartReferenceResource = {
     };
 };
 
+export type CommentsResource = {
+    total: number;
+    items: {
+        id: number;
+    }[];
+    _links?: {
+        self: { href: string };
+    };
+};
+
 export type CommentResource = {
     id: number;
     username: string;

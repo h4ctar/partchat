@@ -1,16 +1,30 @@
 import Avatar from "boring-avatars";
-import { CommentResource } from "../../types/motorcycles";
+import { Loading } from "../Loading";
 import { DownArrowIcon } from "../icons/DownArrowIcon";
-import { UpArrowIcon } from "../icons/UpArrowIcon";
-import { RichHtml } from "../ui/rich-editor/RichHtml";
 import { PencilIcon } from "../icons/PencilIcon";
 import { TrashIcon } from "../icons/TrashIcon";
+import { UpArrowIcon } from "../icons/UpArrowIcon";
+import { ErrorMessage } from "../ui/ErrorMessage";
+import { RichHtml } from "../ui/rich-editor/RichHtml";
+import { useComment } from "./comment.hooks";
 
 type Props = {
-    comment: CommentResource;
+    commentId: number;
 };
 
-export const Comment = ({ comment }: Props) => {
+export const Comment = ({ commentId }: Props) => {
+    const { query } = useComment(commentId);
+
+    if (query.isLoading) {
+        return <Loading />;
+    }
+
+    if (query.isError) {
+        return <ErrorMessage error={query.error} />;
+    }
+
+    const comment = query.data;
+
     return (
         <div className="dark:highlight-white/10 relative z-10 flex flex-row flex-wrap gap-4 rounded-lg bg-white p-5 shadow-xl ring-1 ring-slate-900/5 dark:bg-slate-800">
             <div className="flex flex-grow flex-row items-center gap-4">

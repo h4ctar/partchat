@@ -1,5 +1,9 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { CommentResource, PostComment } from "../../types/motorcycles.js";
+import {
+    CommentResource,
+    CommentsResource,
+    PostComment,
+} from "../../types/motorcycles.js";
 import { checkToken } from "../_auth.js";
 import { UnsupportedMethodError, errorHandler } from "../_error-handler.js";
 import { prisma } from "../_prisma.js";
@@ -27,21 +31,17 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
             },
         });
 
-        const commentResources: CommentResource[] = commentModels.map(
-            (commentModel) => ({
-                ...commentModel,
-                nodes: commentModel.nodes as unknown as Descendant[],
-                motorcycleId: commentModel.motorcycleId || undefined,
-                diagramId: commentModel.diagramId || undefined,
-                partId: commentModel.partId || undefined,
-                createdAt: commentModel.createdAt.toISOString(),
-                _links: {
-                    self: { href: `/api/comments/${commentModel.id}` },
-                },
-            }),
-        );
+        const commentsResource: CommentsResource = {
+            total: commentModels.length,
+            items: commentModels.map((commentModel) => ({
+                id: commentModel.id,
+            })),
+            _links: {
+                self: { href: `/api/comments` },
+            },
+        };
 
-        response.status(200).send(commentResources);
+        response.status(200).send(commentsResource);
     } else if (request.method === "POST") {
         console.info(
             `Post new comment - motorcycleId: ${motorcycleId}, diagramId: ${diagramId}, partId: ${partId}`,
