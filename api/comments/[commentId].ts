@@ -1,5 +1,9 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { UnsupportedMethodError, errorHandler } from "../_error-handler.js";
+import {
+    NotFoundError,
+    UnsupportedMethodError,
+    errorHandler,
+} from "../_error-handler.js";
 import { prisma } from "../_prisma.js";
 import { CommentResource } from "../../types/motorcycles.js";
 import { Descendant } from "slate";
@@ -17,9 +21,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
         });
 
         if (!commentModel) {
-            // TODO: throw error
-            response.status(404).send("Comment not found");
-            return;
+            throw new NotFoundError("Comment not found");
         }
 
         const commentResource: CommentResource = {

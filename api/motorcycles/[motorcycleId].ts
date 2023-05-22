@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { MotorcycleResource } from "../../types/motorcycles.js";
 import { prisma } from "../_prisma.js";
-import { UnsupportedMethodError } from "../_error-handler.js";
+import { NotFoundError, UnsupportedMethodError } from "../_error-handler.js";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     const motorcycleId = (request.query.motorcycleId as string) || undefined;
@@ -16,8 +16,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
         });
 
         if (!motorcycleModel) {
-            response.status(404).send("Motorcycle not found");
-            return;
+            throw new NotFoundError("Motorcycle not found");
         }
 
         const motorcycleResource: MotorcycleResource = {

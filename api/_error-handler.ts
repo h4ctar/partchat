@@ -21,6 +21,13 @@ export class UnsupportedMethodError extends Error {
     }
 }
 
+export class NotFoundError extends Error {
+    constructor(message: string) {
+        super(message);
+        this.name = "NotFoundError";
+    }
+}
+
 export const errorHandler =
     (handler: VercelApiHandler) =>
     async (request: VercelRequest, response: VercelResponse) => {
@@ -36,6 +43,8 @@ export const errorHandler =
             } else if (err instanceof UnsupportedMethodError) {
                 response.status(405).send(err.message);
                 return;
+            } else if (err instanceof NotFoundError) {
+                response.status(404).send(err.message);
             } else {
                 throw err;
             }

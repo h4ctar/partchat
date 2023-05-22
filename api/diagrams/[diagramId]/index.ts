@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import { prisma } from "../../_prisma.js";
 import { DiagramResource } from "../../../types/motorcycles.js";
-import { UnsupportedMethodError } from "../../_error-handler.js";
+import { NotFoundError, UnsupportedMethodError } from "../../_error-handler.js";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     const diagramId = (request.query.diagramId as string) || undefined;
@@ -16,8 +16,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
         });
 
         if (!diagramModel) {
-            response.status(404).send("Diagram not found");
-            return;
+            throw new NotFoundError("Diagram not found");
         }
 
         const diagramResource: DiagramResource = {
