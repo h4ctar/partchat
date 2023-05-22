@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import {
     CommentSearchParams,
     fetchComment,
@@ -21,8 +21,6 @@ export const useComment = (commentId: number) => {
         queryKey: ["comments", commentId],
         queryFn: fetchComment(commentId),
     });
-
-    // const mutate = useMutation()
 
     return {
         query,

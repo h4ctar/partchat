@@ -16,6 +16,7 @@ type Props = {
 export const PostComment = ({ motorcycleId, diagramId, partId }: Props) => {
     const [nodes, setNodes] = useState<Descendant[]>([]);
     const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+
     const mutation = useMutation({
         mutationFn: () =>
             postComment(

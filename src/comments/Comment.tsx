@@ -7,6 +7,10 @@ import { UpArrowIcon } from "../icons/UpArrowIcon";
 import { ErrorMessage } from "../ui/ErrorMessage";
 import { RichHtml } from "../ui/rich-editor/RichHtml";
 import { useComment } from "./comment.hooks";
+import { useMutation } from "@tanstack/react-query";
+import { queryClient } from "../query";
+import { deleteComment } from "./comment.api";
+import { useAuth0 } from "@auth0/auth0-react";
 
 type Props = {
     commentId: number;
@@ -14,6 +18,16 @@ type Props = {
 
 export const Comment = ({ commentId }: Props) => {
     const { query } = useComment(commentId);
+    const { getAccessTokenSilently } = useAuth0();
+
+    const mutation = useMutation({
+        mutationFn: () => deleteComment(commentId, getAccessTokenSilently),
+        onSuccess: async () => {
+            queryClient.invalidateQueries({
+                queryKey: ["comments"],
+            });
+        },
+    });
 
     if (query.isLoading) {
         return <Loading />;
@@ -36,11 +50,12 @@ export const Comment = ({ commentId }: Props) => {
                     </div>
                 </div>
             </div>
+            {mutation.isError && <ErrorMessage error={mutation.error} />}
             <div className="flex flex-row items-center gap-4">
                 <button>
                     <PencilIcon />
                 </button>
-                <button>
+                <button onClick={() => mutation.mutate()}>
                     <TrashIcon />
                 </button>
                 <button>

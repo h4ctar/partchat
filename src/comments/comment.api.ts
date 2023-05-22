@@ -62,3 +62,20 @@ export const fetchComment = (commentId: number) => async () => {
     const comment: CommentResource = await response.json();
     return comment;
 };
+
+export const deleteComment = async (
+    commentId: number,
+    getAccessTokenSilently: () => Promise<string>,
+) => {
+    const token = await getAccessTokenSilently();
+
+    const response = await fetch(`/api/comments/${commentId}`, {
+        method: "DELETE",
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    if (!response.ok) {
+        throw new PartChatError("Failed to delete comment");
+    }
+};

@@ -35,6 +35,16 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
         };
 
         response.status(200).send(commentResource);
+    } else if (request.method === "DELETE") {
+        console.info(`Delete comment - commentId: ${commentId}`);
+
+        await prisma.comment.delete({
+            where: {
+                id: commentId,
+            },
+        });
+
+        response.status(200).send("Comment deleted");
     } else {
         throw new UnsupportedMethodError();
     }
