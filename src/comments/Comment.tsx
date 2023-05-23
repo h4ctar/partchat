@@ -23,6 +23,7 @@ export const Comment = ({ commentId }: Props) => {
     const mutation = useMutation({
         mutationFn: () => deleteComment(commentId, getAccessTokenSilently),
         onSuccess: async () => {
+            queryClient.removeQueries(["comments", commentId]);
             queryClient.invalidateQueries({
                 queryKey: ["comments"],
             });
