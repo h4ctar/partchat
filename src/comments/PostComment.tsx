@@ -30,7 +30,7 @@ export const PostComment = ({ motorcycleId, diagramId, partId }: Props) => {
                 getAccessTokenSilently,
             ),
         onSuccess: async () => {
-            setNodes([]);
+            // TODO: clear editor on success
             queryClient.invalidateQueries({
                 queryKey: ["comments"],
             });

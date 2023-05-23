@@ -40,6 +40,9 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
     } else if (request.method === "DELETE") {
         console.info(`Delete comment - commentId: ${commentId}`);
 
+        // TODO: check role
+        // TODO: check that you own the comment
+
         await prisma.comment.delete({
             where: {
                 id: commentId,
