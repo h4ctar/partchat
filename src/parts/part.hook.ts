@@ -14,7 +14,7 @@ export const useParts = (searchParams: CommentSearchParams) => {
         queryFn: fetchParts(searchParams),
     });
 
-    const mutation = useMutation({
+    const updatePartReferenceMutation = useMutation({
         mutationFn: (partReference: PartReferenceResource) =>
             updatePartReference(partReference, getAccessTokenSilently),
 
@@ -67,6 +67,6 @@ export const useParts = (searchParams: CommentSearchParams) => {
 
     return {
         query,
-        mutation,
+        updatePartReference: updatePartReferenceMutation,
     };
 };

@@ -1,3 +1,4 @@
+import { Descendant } from "slate";
 import {
     CommentResource,
     CommentsResource,
@@ -35,9 +36,14 @@ export const fetchComments =
 
 export const postComment = async (
     searchParams: CommentSearchParams,
-    comment: PostComment,
+    nodes: Descendant[],
     getAccessTokenSilently: () => Promise<string>,
 ) => {
+    const comment: PostComment = {
+        nodes,
+        ...searchParams,
+    };
+
     const token = await getAccessTokenSilently();
     const search = new URLSearchParams(searchParams).toString();
 

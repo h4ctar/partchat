@@ -13,7 +13,7 @@ type Props = {
 const NORMAL_COLOR = "bg-blue-600/40";
 const HIGHLIGHTED_COLOR = "bg-pink-600/40";
 
-// TODO: move these into state
+// TODO: move these into refs
 let startX = 0;
 let endX = 0;
 
@@ -22,7 +22,7 @@ export const PartHotspots = ({
     selectedRefNo,
     setSelectedRefNo,
 }: Props) => {
-    const { query, mutation } = useParts({ diagramId: diagram.id });
+    const { query, updatePartReference } = useParts({ diagramId: diagram.id });
     const containerRef = useRef<HTMLDivElement | null>(null);
     const setContainerRef = useCallback((container: HTMLDivElement) => {
         containerRef.current = container;
@@ -59,9 +59,9 @@ export const PartHotspots = ({
 
     return (
         <>
-            {mutation.isError && (
+            {updatePartReference.isError && (
                 <div className="absolute top-0 z-10 w-full p-4">
-                    <ErrorMessage error={mutation.error} />
+                    <ErrorMessage error={updatePartReference.error} />
                 </div>
             )}
             <div
@@ -87,7 +87,7 @@ export const PartHotspots = ({
                                     hotspot[3],
                                 ];
 
-                                mutation.mutate({
+                                updatePartReference.mutate({
                                     partId: part.id,
                                     diagramId: diagram.id,
                                     hotspots: _.map(part.hotspots, (h, i) =>
