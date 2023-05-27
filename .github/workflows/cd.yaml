@@ -2,6 +2,8 @@ name: Continuous Deployment
 env:
     VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
     VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+    TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
 
 on: push
 
