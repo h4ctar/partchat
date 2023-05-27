@@ -47,6 +47,8 @@ jobs:
             - preview-deploy
         timeout-minutes: 60
         runs-on: ubuntu-latest
+        environment:
+            name: preview
         env:
             DEPLOYMENT_URL: ${{ needs.preview-deploy.outputs.url }}
         permissions:
