@@ -33,7 +33,8 @@ export const checkToken = async (
     let jwtPayload;
     try {
         jwtPayload = await verify(token, getPublicKey);
-    } catch (err) {
+    } catch (err: any) {
+        console.error(`Could not verify token - ${err.message}`);
         throw new UnauthorizedError("Could not verify token");
     }
 

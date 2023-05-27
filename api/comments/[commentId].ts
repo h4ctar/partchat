@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import {
+    ForbiddenError,
     NotFoundError,
     UnsupportedMethodError,
     errorHandler,
@@ -7,6 +8,7 @@ import {
 import { prisma } from "../_prisma.js";
 import { CommentResource } from "../../types/motorcycles.js";
 import { Descendant } from "slate";
+import { checkToken } from "../_auth.js";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     const commentId = Number(request.query.commentId as string);
@@ -40,8 +42,17 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
     } else if (request.method === "DELETE") {
         console.info(`Delete comment - commentId: ${commentId}`);
 
-        // TODO: check role
-        // TODO: check that you own the comment
+        const jwtPayload = await checkToken(request, "delete:comments");
+
+        const commentModel = await prisma.comment.findUnique({
+            where: {
+                id: commentId,
+            },
+        });
+
+        if (commentModel?.username !== jwtPayload.username) {
+            throw new ForbiddenError("You don't own this comment");
+        }
 
         await prisma.comment.delete({
             where: {
