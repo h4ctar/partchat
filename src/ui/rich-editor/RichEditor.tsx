@@ -61,7 +61,7 @@ export const RichEditor = ({
                         renderElement={Element}
                         renderLeaf={Leaf}
                         placeholder={placeholder}
-                        className="prose dark:prose-invert"
+                        className="prose max-w-none dark:prose-invert"
                         readOnly={disabled}
                         onKeyDown={(event) => {
                             if (event.code === "Enter" && event.shiftKey) {
