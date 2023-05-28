@@ -79,7 +79,6 @@ jobs:
               uses: dorny/test-reporter@v1
               if: success() || failure()
               with:
-                  name: Playwright Test Results
                   path: test-results/junit.xml
                   reporter: java-junit
 
