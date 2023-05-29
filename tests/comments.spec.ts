@@ -1,25 +1,45 @@
-import { test, expect } from "@playwright/test";
+import { test, expect, Page } from "@playwright/test";
 
-test.describe("Comments", () => {
-    test("post comment", async ({ page }) => {
-        await page.goto("/");
-        await page.getByText("Log in").click();
+test.describe.configure({ mode: "serial" });
 
-        await page
-            .getByLabel("Username or email address")
-            .fill(process.env.TEST_USERNAME!);
-        await page.getByLabel("Password").fill(process.env.TEST_PASSWORD!);
-        await page
-            .getByRole("button", { name: "Continue", exact: true })
-            .click();
-        await page.waitForURL("/");
+const commentText = `Test comment ${Math.random()}`;
+let page: Page;
 
-        await page.goto("/motorcycles/yamaha-xj650lj-1982-1984");
+test.beforeAll(async ({ browser }) => {
+    page = await browser.newPage();
 
-        const commentText = `Test comment ${Math.random()}`;
-        await page.getByRole("textbox").fill(commentText);
-        await page.getByText("Post comment").click();
+    await page.goto("/");
+    await page.getByText("Log in").click();
 
-        await expect(page.getByRole("paragraph")).toHaveText(commentText);
-    });
+    await page
+        .getByLabel("Username or email address")
+        .fill(process.env.TEST_USERNAME!);
+    await page.getByLabel("Password").fill(process.env.TEST_PASSWORD!);
+    await page.getByRole("button", { name: "Continue", exact: true }).click();
+    await page.waitForURL("/");
+
+    await page.goto("/motorcycles/yamaha-xj650lj-1982-1984");
+});
+
+test("post comment", async () => {
+    await page.getByRole("textbox").fill(commentText);
+    await page.getByText("Post comment").click();
+
+    await expect(page.getByRole("listitem").first()).toHaveText(commentText);
+});
+
+test("delete comment", async () => {
+    await page
+        .getByRole("listitem")
+        .filter({ hasText: commentText })
+        .getByRole("button", { name: "delete" })
+        .click();
+
+    await expect(
+        page.getByRole("listitem").filter({ hasText: commentText }),
+    ).toBeHidden();
+});
+
+test.afterAll(async () => {
+    await page.close();
 });

@@ -20,10 +20,12 @@ export const CommentsList = ({ motorcycleId, diagramId, partId }: Props) => {
     const comments = query.data;
 
     return (
-        <>
+        <ol className="flex flex-col gap-4">
             {comments.items.map((comment) => (
-                <Comment key={comment.id} commentId={comment.id} />
+                <li key={comment.id}>
+                    <Comment commentId={comment.id} />
+                </li>
             ))}
-        </>
+        </ol>
     );
 };
