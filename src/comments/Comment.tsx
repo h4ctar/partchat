@@ -26,7 +26,7 @@ export const Comment = ({ commentId }: Props) => {
     }
 
     const comment = query.data;
-    console.log(JSON.stringify(user));
+
     return (
         <>
             {deleteComment.isError && (
@@ -48,22 +48,27 @@ export const Comment = ({ commentId }: Props) => {
                     {comment.username === user?.preferred_username && (
                         <>
                             {" "}
-                            <button>
+                            <button name="edit">
                                 <PencilIcon />
                             </button>
-                            <button onClick={() => deleteComment.mutate()}>
+                            <button
+                                onClick={() => deleteComment.mutate()}
+                                name="delete"
+                            >
                                 <TrashIcon />
                             </button>
                         </>
                     )}
                     <button
                         disabled={comment.username === user?.preferred_username}
+                        name="up-vote"
                     >
                         <UpArrowIcon />
                     </button>
                     <div className="text-lg font-bold">0</div>
                     <button
                         disabled={comment.username === user?.preferred_username}
+                        name="down-vote"
                     >
                         <DownArrowIcon />
                     </button>
