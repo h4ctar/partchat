@@ -1,8 +1,2 @@
 dist
 node_modules
-.vercel
-scripts
-.env
-/test-results/
-/playwright-report/
-/playwright/.cache/

@@ -1,8 +1,0 @@
-{
-    "rewrites": [
-        {
-            "source": "/motorcycles(.*)",
-            "destination": "/index.html"
-        }
-    ]
-}
