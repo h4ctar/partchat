@@ -2,8 +2,8 @@ import "dotenv/config";
 import fastify from "fastify";
 import jwtVerify from "fastify-auth0-verify";
 import { commentRoutes } from "./comments";
-import { motorcycleRoutes } from "./motorcycles";
 import { diagramRoutes } from "./diagrams";
+import { motorcycleRoutes } from "./motorcycles";
 import { partRoutes } from "./parts";
 
 export const server = fastify({ logger: true });
