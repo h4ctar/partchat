@@ -8,97 +8,78 @@ env:
 on: push
 
 jobs:
-    prettier:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: 18
-                  cache: yarn
-            - name: Install dependencies
-              run: yarn
-            - name: Run prettier
-              run: yarn prettier
+    prettier-backend:
+        uses: ./.github/workflows/prettier.yml
+        with:
+            directory: backend
 
-    preview-deploy:
-        runs-on: ubuntu-latest
-        environment:
-            name: preview
-            url: ${{ steps.deploy.outputs.url }}
-        outputs:
-            url: ${{ steps.deploy.outputs.url }}
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: 18
-                  cache: yarn
-            - name: Install Vercel CLI
-              run: yarn global add vercel@latest
-            - name: Deploy project to Vercel
-              id: deploy
-              run: |
-                  vercel --token=${{ secrets.VERCEL_TOKEN }} > url
-                  echo "url=$(cat url)" >> $GITHUB_OUTPUT
+    prettier-frontend:
+        uses: ./.github/workflows/prettier.yml
+        with:
+            directory: frontend
 
-    end-2-end-test:
-        needs:
-            - preview-deploy
-        timeout-minutes: 60
-        runs-on: ubuntu-latest
-        environment:
-            name: preview
-        env:
-            DEPLOYMENT_URL: ${{ needs.preview-deploy.outputs.url }}
-        permissions:
-            checks: write
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: 18
-                  cache: yarn
-            - name: Get installed Playwright version
-              id: playwright-version
-              run: echo "playwright_version=$(jq -r .devDependencies.\"@playwright/test\" package.json)" >> $GITHUB_OUTPUT
-            - name: Cache Playwright binaries
-              uses: actions/cache@v3
-              id: playwright-cache
-              with:
-                  path: ~/.cache/ms-playwright
-                  key: $RUNNER_OS-playwright-${{ steps.playwright-version.outputs.playwright_version }}
-            - name: Install dependencies
-              run: yarn
-            - name: Install Playwright browsers
-              run: yarn playwright install --with-deps
-              if: steps.playwright-cache.outputs.cache-hit != 'true'
-            - name: Run Playwright tests
-              run: yarn playwright test
-            - name: Test Report
-              uses: dorny/test-reporter@v1
-              if: success() || failure()
-              with:
-                  path: test-results/junit.xml
-                  reporter: java-junit
+    build-backend:
+        uses: ./.github/workflows/build.yml
+        with:
+            directory: backend
 
-    prod-deploy:
-        needs:
-            - prettier
-            - end-2-end-test
-        environment:
-            name: production
-            url: https://partchat.vercel.app
-        if: github.ref == 'refs/heads/main'
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: 18
-                  cache: yarn
-            - name: Install Vercel CLI
-              run: yarn global add vercel@latest
-            - name: Deploy project to Vercel
-              id: deploy
-              run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
+    build-frontend:
+        uses: ./.github/workflows/build.yml
+        with:
+            directory: frontend
+
+    # end-2-end-test:
+    #     needs:
+    #         - build
+    #     timeout-minutes: 60
+    #     runs-on: ubuntu-latest
+    #     environment:
+    #         name: preview
+    #     env:
+    #         DEPLOYMENT_URL: ${{ needs.preview-deploy.outputs.url }}
+    #     permissions:
+    #         checks: write
+    #     steps:
+    #         - uses: actions/checkout@v3
+    #         - uses: actions/setup-node@v3
+    #           with:
+    #               node-version: 18
+    #               cache: yarn
+    #         - name: Get installed Playwright version
+    #           id: playwright-version
+    #           run: echo "playwright_version=$(jq -r .devDependencies.\"@playwright/test\" package.json)" >> $GITHUB_OUTPUT
+    #         - name: Cache Playwright binaries
+    #           uses: actions/cache@v3
+    #           id: playwright-cache
+    #           with:
+    #               path: ~/.cache/ms-playwright
+    #               key: $RUNNER_OS-playwright-${{ steps.playwright-version.outputs.playwright_version }}
+    #         - name: Install dependencies
+    #           run: yarn
+    #         - name: Install Playwright browsers
+    #           run: yarn playwright install --with-deps
+    #           if: steps.playwright-cache.outputs.cache-hit != 'true'
+    #         - name: Run Playwright tests
+    #           run: yarn playwright test
+    #         - name: Test Report
+    #           uses: dorny/test-reporter@v1
+    #           if: success() || failure()
+    #           with:
+    #               path: test-results/junit.xml
+    #               reporter: java-junit
+
+    # prod-deploy:
+    #     needs:
+    #         - prettier
+    #         - end-2-end-test
+    #     environment:
+    #         name: production
+    #         url: https://partchat.h4ctar.com
+    #     if: github.ref == 'refs/heads/main'
+    #     runs-on: ubuntu-latest
+    #     steps:
+    #         - uses: actions/checkout@v3
+    #         # git pull
+    #         # (cd frontend && npm install && npm run build)
+    #         # (cd backend && npm install && npm run dbpush && npm run build)
+    #         # pm2 restart server
