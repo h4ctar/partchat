@@ -34,7 +34,7 @@ export const RichEditor = ({
     const [editor] = useState(() => withReact(createEditor()));
 
     return (
-        <Slate editor={editor} value={initialValue} onChange={onChange}>
+        <Slate editor={editor} initialValue={initialValue} onChange={onChange}>
             <div className="w-full rounded-lg border border-gray-300 dark:border-slate-50/10 dark:bg-slate-400/10 dark:bg-slate-800">
                 <div className="flex flex-row gap-4 border-b border-gray-300 p-4 dark:border-slate-50/10">
                     <LeafStyleButton style="bold">
@@ -61,7 +61,7 @@ export const RichEditor = ({
                         renderElement={Element}
                         renderLeaf={Leaf}
                         placeholder={placeholder}
-                        className="prose max-w-none dark:prose-invert"
+                        className="prose dark:prose-invert max-w-none"
                         readOnly={disabled}
                         onKeyDown={(event) => {
                             if (event.code === "Enter" && event.shiftKey) {
