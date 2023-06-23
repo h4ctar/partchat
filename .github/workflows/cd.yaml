@@ -1,9 +1,4 @@
 name: Continuous Deployment
-env:
-    VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-    VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-    TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
-    TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
 
 on: push
 
@@ -30,13 +25,10 @@ jobs:
 
     # end-2-end-test:
     #     needs:
-    #         - build
+    #         - build-backend
+    #         - build-frontend
     #     timeout-minutes: 60
     #     runs-on: ubuntu-latest
-    #     environment:
-    #         name: preview
-    #     env:
-    #         DEPLOYMENT_URL: ${{ needs.preview-deploy.outputs.url }}
     #     permissions:
     #         checks: write
     #     steps:
@@ -44,7 +36,6 @@ jobs:
     #         - uses: actions/setup-node@v3
     #           with:
     #               node-version: 18
-    #               cache: yarn
     #         - name: Get installed Playwright version
     #           id: playwright-version
     #           run: echo "playwright_version=$(jq -r .devDependencies.\"@playwright/test\" package.json)" >> $GITHUB_OUTPUT
@@ -55,7 +46,7 @@ jobs:
     #               path: ~/.cache/ms-playwright
     #               key: $RUNNER_OS-playwright-${{ steps.playwright-version.outputs.playwright_version }}
     #         - name: Install dependencies
-    #           run: yarn
+    #           run: npm install
     #         - name: Install Playwright browsers
     #           run: yarn playwright install --with-deps
     #           if: steps.playwright-cache.outputs.cache-hit != 'true'

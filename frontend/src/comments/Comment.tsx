@@ -74,7 +74,7 @@ export const Comment = ({ commentId }: Props) => {
                     </button>
                 </div>
                 <div className="w-full">
-                    <div className="prose prose-sm max-w-none dark:prose-invert md:prose-base">
+                    <div className="prose prose-sm dark:prose-invert md:prose-base max-w-none">
                         {comment.nodes.map((node, index) => (
                             <RichHtml key={index} node={node} />
                         ))}

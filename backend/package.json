@@ -3,6 +3,7 @@
     "private": true,
     "version": "0.0.0",
     "scripts": {
+        "prettier": "prettier --check src",
         "build": "tsc",
         "dev": "nodemon src/server.ts | pino-pretty",
         "postinstall": "prisma generate",
@@ -25,6 +26,7 @@
         "dotenv": "^16.3.1",
         "nodemon": "^2.0.22",
         "pino-pretty": "^10.0.0",
+        "prettier": "^2.8.8",
         "prisma": "^4.14.0",
         "slate": "^0.94.1",
         "ts-node": "^10.9.1",
