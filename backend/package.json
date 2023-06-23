@@ -7,7 +7,11 @@
         "dev": "nodemon src/server.ts | pino-pretty",
         "postinstall": "prisma generate",
         "dbgenerate": "prisma generate",
-        "dbpush": "prisma db push"
+        "dbpush": "prisma db push",
+        "dbseed": "prisma db seed"
+    },
+    "prisma": {
+        "seed": "ts-node prisma/seed.ts"
     },
     "dependencies": {
         "@prisma/client": "^4.14.0",
@@ -18,8 +22,9 @@
     },
     "devDependencies": {
         "@types/lodash": "^4.14.192",
+        "@types/node": "^20.3.1",
         "dotenv": "^16.3.1",
-        "nodemon": "^2.0.22",
+        "nodemon": "^1.14.9",
         "pino-pretty": "^10.0.0",
         "prisma": "^4.14.0",
         "ts-node": "^10.9.1",

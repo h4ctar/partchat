@@ -30,8 +30,9 @@ export const partRoutes: FastifyPluginCallback = async (server) => {
                         const { partOnDiagrams: _, ...partResources } = {
                             ...partModel,
                             refNo: partModel.partOnDiagrams[0].refNo,
-                            hotspots: partModel.partOnDiagrams[0]
-                                .hotspots as number[][],
+                            hotspots: JSON.parse(
+                                partModel.partOnDiagrams[0].hotspots,
+                            ) as number[][],
                             qty: partModel.partOnDiagrams[0].qty,
                             _links: {
                                 self: { href: `/api/parts/${partModel.id}` },

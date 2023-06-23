@@ -103,7 +103,7 @@ export const commentRoutes: FastifyPluginCallback = async (server) => {
             const commentModel = await prisma.comment.create({
                 data: {
                     ...postComment,
-                    nodes: postComment.nodes as unknown as Prisma.JsonArray,
+                    nodes: JSON.stringify(postComment.nodes),
                     motorcycleId: postComment.motorcycleId || null,
                     diagramId: postComment.diagramId || null,
                     partId: postComment.partId || null,

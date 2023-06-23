@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
+  provider     = "sqlite"
+  url          = "file:./dev.db"
   relationMode = "prisma"
 }
 
@@ -51,7 +51,7 @@ model Part {
 
 model PartToDiagram {
   refNo    Int
-  hotspots Json
+  hotspots String
   qty      Int
 
   partId String
@@ -69,7 +69,7 @@ model Comment {
   id        Int      @id @default(autoincrement())
   username  String
   createdAt DateTime @default(now())
-  nodes     Json
+  nodes     String
 
   diagramId String?
   diagram   Diagram? @relation(fields: [diagramId], references: [id])
