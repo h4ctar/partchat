@@ -1,13 +1,9 @@
 import { test, expect, Page } from "@playwright/test";
 
-test.describe.configure({ mode: "serial" });
+test("Post, edit and delete comments", async ({ page }) => {
+    const commentText = `Test comment ${Math.round(Math.random() * 100)}`;
 
-const commentText = `Test comment ${Math.random()}`;
-let page: Page;
-
-test.beforeAll(async ({ browser }) => {
-    page = await browser.newPage();
-
+    // Setup
     await page.goto("/");
     await page.getByText("Log in").click();
 
@@ -19,27 +15,31 @@ test.beforeAll(async ({ browser }) => {
     await page.waitForURL("/");
 
     await page.goto("/motorcycles/yamaha-xj650lj-1982-1984");
-});
 
-test("post comment", async () => {
+    // Post comment
     await page.getByRole("textbox").fill(commentText);
     await page.getByText("Post comment").click();
 
-    await expect(page.getByRole("listitem").first()).toHaveText(commentText);
-});
+    await expect(
+        page.getByRole("listitem").first().getByRole("paragraph"),
+    ).toHaveText(commentText);
 
-test("delete comment", async () => {
+    // Edit comment
+
+    // Delete comment
     await page
         .getByRole("listitem")
-        .filter({ hasText: commentText })
-        .getByRole("button", { name: "delete" })
+        .filter({
+            hasText: commentText,
+        })
+        .locator('button[name="delete"]')
+        // TODO: why doesnt this work? .getByRole("button", { name: "delete" })
         .click();
 
     await expect(
         page.getByRole("listitem").filter({ hasText: commentText }),
     ).toBeHidden();
-});
 
-test.afterAll(async () => {
+    // Clean up
     await page.close();
 });

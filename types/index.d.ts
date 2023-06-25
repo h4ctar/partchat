@@ -1,5 +1,3 @@
-import { Descendant } from "slate";
-
 export type MotorcycleResource = {
     id: string;
     make: string;
@@ -77,7 +75,7 @@ export type CommentResource = {
     id: number;
     username: string;
     createdAt: string;
-    nodes: Descendant[];
+    nodes: object[];
 
     motorcycleId?: string;
     diagramId?: string;
@@ -89,7 +87,7 @@ export type CommentResource = {
 };
 
 export type PostComment = {
-    nodes: Descendant[];
+    nodes: object[];
 
     motorcycleId?: string;
     diagramId?: string;

@@ -8,6 +8,7 @@ import { ErrorMessage } from "../ui/ErrorMessage";
 import { RichHtml } from "../ui/rich-editor/RichHtml";
 import { useComment } from "./comment.hooks";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Descendant } from "slate";
 
 type Props = {
     commentId: number;
@@ -76,7 +77,7 @@ export const Comment = ({ commentId }: Props) => {
                 <div className="w-full">
                     <div className="prose prose-sm dark:prose-invert md:prose-base max-w-none">
                         {comment.nodes.map((node, index) => (
-                            <RichHtml key={index} node={node} />
+                            <RichHtml key={index} node={node as Descendant} />
                         ))}
                     </div>
                 </div>

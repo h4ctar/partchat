@@ -23,41 +23,38 @@ jobs:
         with:
             directory: frontend
 
-    # end-2-end-test:
-    #     needs:
-    #         - build-backend
-    #         - build-frontend
-    #     timeout-minutes: 60
-    #     runs-on: ubuntu-latest
-    #     permissions:
-    #         checks: write
-    #     steps:
-    #         - uses: actions/checkout@v3
-    #         - uses: actions/setup-node@v3
-    #           with:
-    #               node-version: 18
-    #         - name: Get installed Playwright version
-    #           id: playwright-version
-    #           run: echo "playwright_version=$(jq -r .devDependencies.\"@playwright/test\" package.json)" >> $GITHUB_OUTPUT
-    #         - name: Cache Playwright binaries
-    #           uses: actions/cache@v3
-    #           id: playwright-cache
-    #           with:
-    #               path: ~/.cache/ms-playwright
-    #               key: $RUNNER_OS-playwright-${{ steps.playwright-version.outputs.playwright_version }}
-    #         - name: Install dependencies
-    #           run: npm install
-    #         - name: Install Playwright browsers
-    #           run: yarn playwright install --with-deps
-    #           if: steps.playwright-cache.outputs.cache-hit != 'true'
-    #         - name: Run Playwright tests
-    #           run: yarn playwright test
-    #         - name: Test Report
-    #           uses: dorny/test-reporter@v1
-    #           if: success() || failure()
-    #           with:
-    #               path: test-results/junit.xml
-    #               reporter: java-junit
+    end-2-end-test:
+        timeout-minutes: 60
+        runs-on: ubuntu-latest
+        permissions:
+            checks: write
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+            - name: Get installed Playwright version
+              id: playwright-version
+              run: echo "playwright_version=$(jq -r .devDependencies.\"@playwright/test\" package.json)" >> $GITHUB_OUTPUT
+            - name: Cache Playwright binaries
+              uses: actions/cache@v3
+              id: playwright-cache
+              with:
+                  path: ~/.cache/ms-playwright
+                  key: $RUNNER_OS-playwright-${{ steps.playwright-version.outputs.playwright_version }}
+            - name: Install dependencies
+              run: npm install
+            - name: Install Playwright browsers
+              run: npx playwright install --with-deps
+              if: steps.playwright-cache.outputs.cache-hit != 'true'
+            - name: Run Playwright tests
+              run: npx playwright test
+            - name: Test Report
+              uses: dorny/test-reporter@v1
+              if: success() || failure()
+              with:
+                  path: test-results/junit.xml
+                  reporter: java-junit
 
     # prod-deploy:
     #     needs:

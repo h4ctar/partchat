@@ -1,16 +1,20 @@
 import "dotenv/config";
 import fastify from "fastify";
-import jwtVerify from "fastify-auth0-verify";
+import jwtVerify from "fastify-jwt-jwks";
 import { commentRoutes } from "./comments";
 import { diagramRoutes } from "./diagrams";
 import { motorcycleRoutes } from "./motorcycles";
 import { partRoutes } from "./parts";
+import { User } from "./auth";
 
 export const server = fastify({ logger: true });
 
 const start = async () => {
     try {
-        await server.register(jwtVerify, { domain: "h4ctar" });
+        await server.register(jwtVerify, {
+            jwksUrl: process.env.JWKS_URL,
+            formatUser: (payload) => payload as User,
+        });
         await server.register(commentRoutes);
         await server.register(diagramRoutes);
         await server.register(motorcycleRoutes);

@@ -1,0 +1,7 @@
+{
+    "name": "partchat-end-2-end-tests",
+    "devDependencies": {
+        "@playwright/test": "^1.35.1",
+        "dotenv": "^16.3.1"
+    }
+}
