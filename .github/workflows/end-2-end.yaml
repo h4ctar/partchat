@@ -32,9 +32,9 @@ jobs:
                   key: $RUNNER_OS-playwright-${{ steps.playwright-version.outputs.playwright_version }}
             - name: Install dependencies
               run: |
-                  npm install &&
-                  (cd backend && npm install) &&
-                  (cd frontend && npm install)
+                  npm ci &&
+                  (cd backend && npm ci) &&
+                  (cd frontend && npm ci)
             - name: Setup DB
               working-directory: backend
               run: |
@@ -65,6 +65,6 @@ jobs:
     #     steps:
     #         - uses: actions/checkout@v3
     #         # git pull
-    #         # (cd frontend && npm install && npm run build)
-    #         # (cd backend && npm install && npm run dbpush && npm run build)
+    #         # (cd frontend && npm ci && npm run build)
+    #         # (cd backend && npm ci && npm run dbpush && npm run build)
     #         # pm2 restart server

@@ -1,7 +1,7 @@
 # Part Chat
 
-![Backend](https://github.com/h4ctar/partchat/actions/workflows/backend.yaml/badge.svg)
-![Frontend](https://github.com/h4ctar/partchat/actions/workflows/frontend.yaml/badge.svg)
+![Prettier](https://github.com/h4ctar/partchat/actions/workflows/prettier.yaml/badge.svg)
+![Build](https://github.com/h4ctar/partchat/actions/workflows/build.yaml/badge.svg)
 ![End-to-End Test](https://github.com/h4ctar/partchat/actions/workflows/end-2-end.yaml/badge.svg)
 
 ## Pipelines
