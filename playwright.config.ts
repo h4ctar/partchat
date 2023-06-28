@@ -47,11 +47,13 @@ export default defineConfig({
             cwd: "backend",
             command: "npm run dev",
             port: 3000,
+            stdout: "pipe",
         },
         {
             cwd: "frontend",
             command: "npm run dev",
             port: 5173,
+            stdout: "pipe",
         },
     ],
 });

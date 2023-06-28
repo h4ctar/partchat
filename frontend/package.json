@@ -5,7 +5,7 @@
     "version": "0.0.0",
     "scripts": {
         "prettier": "prettier --check src",
-        "dev": "vite --port 5173 --strictPort",
+        "dev": "vite --strictPort",
         "build": "tsc && vite build",
         "preview": "vite preview"
     },
