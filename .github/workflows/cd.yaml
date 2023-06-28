@@ -4,6 +4,7 @@ on: push
 
 jobs:
     prettier:
+        name: Prettier
         strategy:
             matrix:
                 directory: [backend, frontend]
@@ -22,6 +23,7 @@ jobs:
               run: npm run prettier
 
     build:
+        name: Build
         strategy:
             matrix:
                 directory: [backend, frontend]
