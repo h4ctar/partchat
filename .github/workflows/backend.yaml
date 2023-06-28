@@ -4,11 +4,13 @@ on: push
 
 jobs:
     prettier:
+        name: Prettier Check
         uses: ./.github/workflows/_prettier.yaml
         with:
             directory: backend
 
     build:
+        name: Build
         uses: ./.github/workflows/_build.yaml
         with:
             directory: backend

@@ -4,6 +4,7 @@ on: push
 
 jobs:
     end-2-end-test:
+        name: End-to-End Test
         timeout-minutes: 60
         runs-on: ubuntu-latest
         permissions:
