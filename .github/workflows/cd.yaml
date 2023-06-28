@@ -3,6 +3,42 @@ name: Continuous Deployment
 on: push
 
 jobs:
+    prettier:
+        strategy:
+            matrix:
+                directory: [backend, frontend]
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ${{ matrix.directory }}
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+            - name: Install dependencies
+              run: npm ci
+            - name: Run prettier
+              run: npm run prettier
+
+    build:
+        strategy:
+            matrix:
+                directory: [backend, frontend]
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: ${{ matrix.directory }}
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: 18
+            - name: Install dependencies
+              run: npm ci
+            - name: Build
+              run: npm run build
+
     end-2-end-test:
         name: End-to-End Test
         timeout-minutes: 60
