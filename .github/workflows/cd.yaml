@@ -43,12 +43,20 @@ jobs:
                   path: ~/.cache/ms-playwright
                   key: $RUNNER_OS-playwright-${{ steps.playwright-version.outputs.playwright_version }}
             - name: Install dependencies
-              run: npm install && (cd backend && npm install) && (cd frontend && npm install)
+              run: |
+                  npm install &&
+                  (cd backend && npm install) &&
+                  (cd frontend && npm install)
+            - name: Setup DB
+              working-directory: backend
+              run: |
+                  npm run dbpush &&
+                  npm run dbseed
             - name: Install Playwright browsers
-              run: npx playwright install --with-deps
+              run: npm install-browsers
               if: steps.playwright-cache.outputs.cache-hit != 'true'
             - name: Run Playwright tests
-              run: npx playwright test
+              run: npm run test
             - name: Test Report
               uses: dorny/test-reporter@v1
               if: success() || failure()

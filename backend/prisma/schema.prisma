@@ -1,86 +1,86 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider     = "sqlite"
-  url          = "file:./dev.db"
-  relationMode = "prisma"
+    provider     = "sqlite"
+    url          = "file:./dev.db"
+    relationMode = "prisma"
 }
 
 model Motorcycle {
-  id       String @id
-  make     String
-  model    String
-  yearFrom Int
-  yearTo   Int
-  image    String
+    id       String @id
+    make     String
+    model    String
+    yearFrom Int
+    yearTo   Int
+    image    String
 
-  engineType        String
-  displacement      Float // Engine displacement in ccm
-  valvesPerCylinder Int
-  power             Float // Engine power in kW
-  compression       Float // Engine compression x:1
-  topSpeed          Float // Top speed in km/h
-  weight            Float // Weight in kg
+    engineType        String
+    displacement      Float // Engine displacement in ccm
+    valvesPerCylinder Int
+    power             Float // Engine power in kW
+    compression       Float // Engine compression x:1
+    topSpeed          Float // Top speed in km/h
+    weight            Float // Weight in kg
 
-  diagrams Diagram[]
-  comments Comment[]
+    diagrams Diagram[]
+    comments Comment[]
 }
 
 model Diagram {
-  id     String @id
-  name   String
-  image  String
-  width  Int
-  height Int
+    id     String @id
+    name   String
+    image  String
+    width  Int
+    height Int
 
-  motorcycles    Motorcycle[]
-  partOnDiagrams PartToDiagram[]
-  comments       Comment[]
+    motorcycles    Motorcycle[]
+    partOnDiagrams PartToDiagram[]
+    comments       Comment[]
 }
 
 model Part {
-  id          String @id
-  partNumber  String
-  description String
+    id          String @id
+    partNumber  String
+    description String
 
-  partOnDiagrams PartToDiagram[]
-  comments       Comment[]
+    partOnDiagrams PartToDiagram[]
+    comments       Comment[]
 }
 
 model PartToDiagram {
-  refNo    Int
-  hotspots String
-  qty      Int
+    refNo    Int
+    hotspots String
+    qty      Int
 
-  partId String
-  part   Part   @relation(fields: [partId], references: [id])
+    partId String
+    part   Part   @relation(fields: [partId], references: [id])
 
-  diagramId String
-  diagram   Diagram @relation(fields: [diagramId], references: [id])
+    diagramId String
+    diagram   Diagram @relation(fields: [diagramId], references: [id])
 
-  @@unique([partId, diagramId])
-  @@index([partId])
-  @@index([diagramId])
+    @@unique([partId, diagramId])
+    @@index([partId])
+    @@index([diagramId])
 }
 
 model Comment {
-  id        Int      @id @default(autoincrement())
-  username  String
-  createdAt DateTime @default(now())
-  nodes     String
+    id        Int      @id @default(autoincrement())
+    username  String
+    createdAt DateTime @default(now())
+    nodes     String
 
-  diagramId String?
-  diagram   Diagram? @relation(fields: [diagramId], references: [id])
+    diagramId String?
+    diagram   Diagram? @relation(fields: [diagramId], references: [id])
 
-  motorcycleId String?
-  motorcycle   Motorcycle? @relation(fields: [motorcycleId], references: [id])
+    motorcycleId String?
+    motorcycle   Motorcycle? @relation(fields: [motorcycleId], references: [id])
 
-  partId String?
-  part   Part?   @relation(fields: [partId], references: [id])
+    partId String?
+    part   Part?   @relation(fields: [partId], references: [id])
 
-  @@index([diagramId])
-  @@index([motorcycleId])
-  @@index([partId])
+    @@index([diagramId])
+    @@index([motorcycleId])
+    @@index([partId])
 }
