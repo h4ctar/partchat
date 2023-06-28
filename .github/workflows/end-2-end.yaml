@@ -8,6 +8,11 @@ jobs:
         runs-on: ubuntu-latest
         permissions:
             checks: write
+        env:
+            JWKS_URL: ${{ vars.JWKS_URL }}
+            VITE_AUTH0_DOMAIN: ${{ vars.VITE_AUTH0_DOMAIN }}
+            VITE_AUTH0_CLIENT_ID: ${{ vars.VITE_AUTH0_CLIENT_ID }}
+            VITE_AUTH0_API_AUDIENCE: ${{ vars.VITE_AUTH0_API_AUDIENCE }}
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
