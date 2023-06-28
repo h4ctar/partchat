@@ -1,0 +1,14 @@
+name: Backend
+
+on: push
+
+jobs:
+    prettier:
+        uses: ./.github/workflows/_prettier.yaml
+        with:
+            directory: backend
+
+    build:
+        uses: ./.github/workflows/_build.yaml
+        with:
+            directory: backend

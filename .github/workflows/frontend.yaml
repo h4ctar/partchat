@@ -1,0 +1,14 @@
+name: Frontend
+
+on: push
+
+jobs:
+    prettier:
+        uses: ./.github/workflows/_prettier.yaml
+        with:
+            directory: frontend
+
+    build:
+        uses: ./.github/workflows/_build.yaml
+        with:
+            directory: frontend

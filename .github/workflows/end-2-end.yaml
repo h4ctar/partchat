@@ -3,26 +3,6 @@ name: Continuous Deployment
 on: push
 
 jobs:
-    prettier-backend:
-        uses: ./.github/workflows/prettier.yaml
-        with:
-            directory: backend
-
-    prettier-frontend:
-        uses: ./.github/workflows/prettier.yaml
-        with:
-            directory: frontend
-
-    build-backend:
-        uses: ./.github/workflows/build.yaml
-        with:
-            directory: backend
-
-    build-frontend:
-        uses: ./.github/workflows/build.yaml
-        with:
-            directory: frontend
-
     end-2-end-test:
         timeout-minutes: 60
         runs-on: ubuntu-latest
