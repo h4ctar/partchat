@@ -15,7 +15,8 @@ module.exports = {
             ref: "origin/main",
             repo: "https://github.com/h4ctar/partchat.git",
             path: "/opt/partchat",
-            "post-deploy": "npm run post-deploy",
+            "post-deploy":
+                "npm run post-deploy && mp2 startOrRestart ecosystem.config.json --name partchat-backend",
         },
     },
 };
