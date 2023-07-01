@@ -121,5 +121,6 @@ jobs:
                   mkdir -p ~/.ssh/
                   echo $DEPLOY_KEY_VALUE > $DEPLOY_KEY
                   echo $SSH_KNOWN_HOSTS > ~/.ssh/known_hosts
+                  chmod 600 ~/.ssh/known_hosts
             - name: Deploy to production
               run: pm2 deploy production --force
