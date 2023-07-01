@@ -121,7 +121,7 @@ jobs:
                   chmod 700 ~/.ssh &&
                   echo $SSH_PRIVATE_KEY > ~/.ssh/gh_rsa &&
                   chmod 600 ~/.ssh/gh_rsa &&
-                  ssh-keyscan -H $DEPLOY_HOST >> ~/.ssh/known_hosts &&
+                  echo $SSH_KNOWN_HOSTS > ~/.ssh/known_hosts &&
                   chmod 600 ~/.ssh/known_hosts &&
                   ls -l ~/.ssh/ &&
                   echo "XXXXXXXXXXXXXXXX" && cat ~/.ssh/gh_rsa && echo "XXXXXXXXXXXXXXXX" &&
