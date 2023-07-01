@@ -118,9 +118,11 @@ jobs:
             - name: Setup SSH
               run: |
                   mkdir -p ~/.ssh/ &&
-                  echo $SSH_PRIVATE_KEY > gh_rsa &&
+                  echo $SSH_PRIVATE_KEY > ~/.ssh/gh_rsa &&
+                  chmod 600 ~/.ssh/.gh_rsa &&
                   echo $SSH_KNOWN_HOSTS > ~/.ssh/known_hosts &&
-                  ls -l &&
-                  echo "XXXXXXXXXXXXXXXX" && cat gh_rsa && echo "XXXXXXXXXXXXXXXX"
+                  ls -l ~/.ssh/ &&
+                  echo "XXXXXXXXXXXXXXXX" && cat ~/.ssh/gh_rsa && echo "XXXXXXXXXXXXXXXX" &&
+                  echo "XXXXXXXXXXXXXXXX" && cat ~/.ssh/known_hosts && echo "XXXXXXXXXXXXXXXX"
             - name: Deploy to production
               run: pm2 deploy production --force
