@@ -121,6 +121,6 @@ jobs:
                   echo $SSH_PRIVATE_KEY > gh_rsa &&
                   echo $SSH_KNOWN_HOSTS > ~/.ssh/known_hosts &&
                   ls -l &&
-                  cat "XXXXXXXXXXXXXXXX" && cat gh_rsa && cat "XXXXXXXXXXXXXXXX"
+                  echo "XXXXXXXXXXXXXXXX" && cat gh_rsa && echo "XXXXXXXXXXXXXXXX"
             - name: Deploy to production
               run: pm2 deploy production --force
