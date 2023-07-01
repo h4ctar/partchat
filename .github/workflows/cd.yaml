@@ -52,7 +52,7 @@ jobs:
             VITE_AUTH0_DOMAIN: ${{ vars.VITE_AUTH0_DOMAIN }}
             VITE_AUTH0_CLIENT_ID: ${{ vars.VITE_AUTH0_CLIENT_ID }}
             VITE_AUTH0_API_AUDIENCE: ${{ vars.VITE_AUTH0_API_AUDIENCE }}
-            TEST_USERNAME: ${{ secrets.TEST_USERNAME }}
+            TEST_USERNAME: ${{ vars.TEST_USERNAME }}
             TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
         steps:
             - uses: actions/checkout@v3
@@ -91,18 +91,20 @@ jobs:
                   path: test-results/junit.xml
                   reporter: java-junit
 
-    # prod-deploy:
-    #     needs:
-    #         - prettier
-    #         - end-2-end-test
-    #     environment:
-    #         name: production
-    #         url: https://partchat.h4ctar.com
-    #     if: github.ref == 'refs/heads/main'
-    #     runs-on: ubuntu-latest
-    #     steps:
-    #         - uses: actions/checkout@v3
-    #         # git pull
-    #         # (cd frontend && npm ci && npm run build)
-    #         # (cd backend && npm ci && npm run dbpush && npm run build)
-    #         # pm2 restart server
+    prod-deploy:
+        name: Production Deploy
+        needs:
+            - prettier
+            - build
+            - end-2-end-test
+        environment:
+            name: production
+            url: https://partchat.h4ctar.com
+        if: github.ref == 'refs/heads/main'
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - name: Install pm2
+              run: npm install --global pm2@latest
+            - name: Deploy to production
+              run: pm2 deploy production --force
