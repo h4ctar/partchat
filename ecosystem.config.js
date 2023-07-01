@@ -12,9 +12,9 @@ module.exports = {
 
     deploy: {
         production: {
-            user: process.env.DEPLOY_USER,
+            user: process.env.SSH_USER,
             host: process.env.DEPLOY_HOST,
-            key: process.env.DEPLOY_KEY,
+            key: "gh_rsa",
             ref: "origin/main",
             repo: "https://github.com/h4ctar/partchat.git",
             path: "/opt/partchat",

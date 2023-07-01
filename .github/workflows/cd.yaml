@@ -101,10 +101,9 @@ jobs:
             name: production
             url: https://partchat.h4ctar.com
         env:
-            DEPLOY_USER: ${{ vars.DEPLOY_USER }}
             DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
-            DEPLOY_KEY_VALUE: ${{ secrets.DEPLOY_KEY_VALUE }}
-            DEPLOY_KEY: ./github.key
+            SSH_USER: ${{ vars.SSH_USER }}
+            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
             SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
             JWKS_URL: ${{ vars.JWKS_URL }}
             VITE_AUTH0_DOMAIN: ${{ vars.VITE_AUTH0_DOMAIN }}
@@ -119,9 +118,9 @@ jobs:
             - name: Setup SSH
               run: |
                   mkdir -p ~/.ssh/ &&
-                  echo $DEPLOY_KEY_VALUE > $DEPLOY_KEY &&
-                  chmod 600 $DEPLOY_KEY &&
+                  echo $SSH_PRIVATE_KEY > gh_rsa &&
                   echo $SSH_KNOWN_HOSTS > ~/.ssh/known_hosts &&
-                  chmod 600 ~/.ssh/known_hosts
+                  ls -l &&
+                  cat "XXXXXXXXXXXXXXXX" && cat gh_rsa && cat "XXXXXXXXXXXXXXXX"
             - name: Deploy to production
               run: pm2 deploy production --force
