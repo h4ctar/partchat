@@ -4,6 +4,9 @@ module.exports = {
             name: "partchat-backend",
             cwd: "backend",
             script: "./dist/server.js",
+            env: {
+                JWKS_URL: process.env.JWKS_URL,
+            },
         },
     ],
 
@@ -17,6 +20,9 @@ module.exports = {
             path: "/opt/partchat",
             "post-deploy":
                 "npm run post-deploy && pm2 startOrRestart ecosystem.config.js --name partchat-backend",
+            env: {
+                JWKS_URL: process.env.JWKS_URL,
+            },
         },
     },
 };
