@@ -21,7 +21,13 @@ module.exports = {
             "post-deploy":
                 "npm run post-deploy && pm2 startOrRestart ecosystem.config.js --name partchat-backend",
             env: {
+                // Backend environment variables
                 JWKS_URL: process.env.JWKS_URL,
+
+                // Frontend environment variables
+                VITE_AUTH0_DOMAIN: process.env.VITE_AUTH0_DOMAIN,
+                VITE_AUTH0_CLIENT_ID: process.env.VITE_AUTH0_CLIENT_ID,
+                VITE_AUTH0_API_AUDIENCE: process.env.VITE_AUTH0_API_AUDIENCE,
             },
         },
     },
