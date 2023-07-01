@@ -104,7 +104,7 @@ jobs:
             DEPLOY_USER: ${{ vars.DEPLOY_USER }}
             DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
             DEPLOY_KEY_VALUE: ${{ secrets.DEPLOY_KEY_VALUE }}
-            DEPLOY_KEY: ./github.key
+            DEPLOY_KEY: ./github
             SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
             JWKS_URL: ${{ vars.JWKS_URL }}
             VITE_AUTH0_DOMAIN: ${{ vars.VITE_AUTH0_DOMAIN }}
