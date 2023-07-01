@@ -118,6 +118,7 @@ jobs:
               run: npm install --global pm2@latest
             - name: Setup SSH
               run: |
+                  mkdir -p ~/.ssh/
                   echo $DEPLOY_KEY_VALUE > $DEPLOY_KEY
                   echo $SSH_KNOWN_HOSTS > ~/.ssh/known_hosts
             - name: Deploy to production
