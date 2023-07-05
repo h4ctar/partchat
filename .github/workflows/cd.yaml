@@ -117,10 +117,15 @@ jobs:
               run: npm install --global pm2@latest
             - name: Setup SSH
               run: |
-                  mkdir -p ~/.ssh && chmod 700 ~/.ssh &&
+                  mkdir -m 700 -p ~/.ssh &&
                   echo $SSH_PRIVATE_KEY > ~/.ssh/gh_rsa && chmod 600 ~/.ssh/gh_rsa &&
                   echo $SSH_KNOWN_HOSTS > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
             - name: Test SSH
-              run: ssh -i ~/.ssh/gh_rsa $SSH_USER@$DEPLOY_HOST uname -a
+              run: |
+                  echo $HOME &&
+                  cat $HOME/.ssh/config &&
+                  cat ~/.ssh/config &&
+                  cat /etc/ssh/ssh_config &&
+                  ssh -i ~/.ssh/gh_rsa $SSH_USER@$DEPLOY_HOST uname -a
             - name: Deploy to production
               run: pm2 deploy production
