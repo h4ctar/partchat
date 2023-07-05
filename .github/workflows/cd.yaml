@@ -123,6 +123,7 @@ jobs:
             - name: Test SSH
               run: |
                   cat /etc/ssh/ssh_config &&
+                  ssh -G $DEPLOY_HOST &&
                   ssh -i ~/.ssh/gh_rsa $SSH_USER@$DEPLOY_HOST uname -a
             - name: Deploy to production
               run: pm2 deploy production
