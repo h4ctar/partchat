@@ -122,9 +122,6 @@ jobs:
                   echo $SSH_KNOWN_HOSTS > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
             - name: Test SSH
               run: |
-                  echo $HOME &&
-                  cat $HOME/.ssh/config &&
-                  cat ~/.ssh/config &&
                   cat /etc/ssh/ssh_config &&
                   ssh -i ~/.ssh/gh_rsa $SSH_USER@$DEPLOY_HOST uname -a
             - name: Deploy to production
