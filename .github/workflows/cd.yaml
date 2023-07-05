@@ -121,7 +121,7 @@ jobs:
                   chmod 700 ~/.ssh &&
                   echo $SSH_PRIVATE_KEY > ~/.ssh/deploy_rsa && chmod 600 ~/.ssh/deploy_rsa &&
                   echo $SSH_KNOWN_HOSTS > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts &&
-                  cat > ~/.ssh/config << EOL
+                  cat > config << EOL
                   Host deploy
                       HostName $DEPLOY_HOST
                       User $SSH_USER
