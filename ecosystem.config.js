@@ -14,7 +14,6 @@ module.exports = {
         production: {
             user: process.env.SSH_USER,
             host: process.env.DEPLOY_HOST,
-            ssh_options: "StrictHostKeyChecking=no",
             key: "~/.ssh/gh_rsa",
             ref: "origin/main",
             repo: "https://github.com/h4ctar/partchat.git",

@@ -49,11 +49,11 @@ jobs:
             checks: write
         env:
             JWKS_URL: ${{ vars.JWKS_URL }}
-            VITE_AUTH0_DOMAIN: ${{ vars.VITE_AUTH0_DOMAIN }}
-            VITE_AUTH0_CLIENT_ID: ${{ vars.VITE_AUTH0_CLIENT_ID }}
-            VITE_AUTH0_API_AUDIENCE: ${{ vars.VITE_AUTH0_API_AUDIENCE }}
-            TEST_USERNAME: ${{ vars.TEST_USERNAME }}
             TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+            TEST_USERNAME: ${{ vars.TEST_USERNAME }}
+            VITE_AUTH0_API_AUDIENCE: ${{ vars.VITE_AUTH0_API_AUDIENCE }}
+            VITE_AUTH0_CLIENT_ID: ${{ vars.VITE_AUTH0_CLIENT_ID }}
+            VITE_AUTH0_DOMAIN: ${{ vars.VITE_AUTH0_DOMAIN }}
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
@@ -102,13 +102,13 @@ jobs:
             url: https://partchat.h4ctar.com
         env:
             DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
-            SSH_USER: ${{ vars.SSH_USER }}
-            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-            SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
             JWKS_URL: ${{ vars.JWKS_URL }}
-            VITE_AUTH0_DOMAIN: ${{ vars.VITE_AUTH0_DOMAIN }}
-            VITE_AUTH0_CLIENT_ID: ${{ vars.VITE_AUTH0_CLIENT_ID }}
+            SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+            SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+            SSH_USER: ${{ vars.SSH_USER }}
             VITE_AUTH0_API_AUDIENCE: ${{ vars.VITE_AUTH0_API_AUDIENCE }}
+            VITE_AUTH0_CLIENT_ID: ${{ vars.VITE_AUTH0_CLIENT_ID }}
+            VITE_AUTH0_DOMAIN: ${{ vars.VITE_AUTH0_DOMAIN }}
         if: github.ref == 'refs/heads/main'
         runs-on: ubuntu-latest
         steps:
@@ -117,14 +117,10 @@ jobs:
               run: npm install --global pm2@latest
             - name: Setup SSH
               run: |
-                  mkdir -p ~/.ssh/ &&
-                  chmod 700 ~/.ssh &&
-                  echo $SSH_PRIVATE_KEY > ~/.ssh/gh_rsa &&
-                  chmod 600 ~/.ssh/gh_rsa &&
-                  echo $SSH_KNOWN_HOSTS > ~/.ssh/known_hosts &&
-                  chmod 600 ~/.ssh/known_hosts &&
-                  ls -l ~/.ssh/ &&
-                  echo "XXXXXXXXXXXXXXXX" && cat ~/.ssh/gh_rsa && echo "XXXXXXXXXXXXXXXX" &&
-                  echo "XXXXXXXXXXXXXXXX" && cat ~/.ssh/known_hosts && echo "XXXXXXXXXXXXXXXX"
+                  mkdir -p ~/.ssh && chmod 700 ~/.ssh &&
+                  echo $SSH_PRIVATE_KEY > ~/.ssh/gh_rsa && chmod 600 ~/.ssh/gh_rsa &&
+                  echo $SSH_KNOWN_HOSTS > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
+            - name: Test SSH
+              run: ssh -i ~/.ssh/gh_rsa $SSH_USER@$DEPLOY_HOST uname -a
             - name: Deploy to production
-              run: pm2 deploy production --force
+              run: pm2 deploy production
