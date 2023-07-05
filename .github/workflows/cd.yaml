@@ -126,7 +126,6 @@ jobs:
                       HostName $DEPLOY_HOST
                       User $SSH_USER
                       IdentityFile ~/.ssh/deploy_rsa
-                  EOL
-                  chmod 600 ~/.ssh/config
+                  EOL && chmod 600 ~/.ssh/config
             - name: Deploy to production
               run: pm2 deploy production --force
