@@ -117,11 +117,10 @@ jobs:
               run: npm install --global pm2@latest
             - name: Setup SSH
               run: |
-                  eval "$(ssh-agent -s)" &&
                   mkdir -m 700 -p ~/.ssh &&
-                  echo $SSH_PRIVATE_KEY > ~/.ssh/gh_rsa && chmod 600 ~/.ssh/gh_rsa &&
-                  ssh-add ~/.ssh/gh_rsa &&
-                  echo $SSH_KNOWN_HOSTS > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
+                  echo "$SSH_PRIVATE_KEY" > ~/.ssh/gh_rsa && chmod 600 ~/.ssh/gh_rsa &&
+                  echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts &&
+                  eval "$(ssh-agent -s)" && ssh-add ~/.ssh/gh_rsa
             - name: Test SSH
               run: |
                   cat /etc/ssh/ssh_config &&
