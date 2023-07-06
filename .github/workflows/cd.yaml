@@ -119,13 +119,8 @@ jobs:
               run: |
                   mkdir -m 700 -p ~/.ssh &&
                   echo "$SSH_PRIVATE_KEY" > ~/.ssh/gh_rsa && chmod 600 ~/.ssh/gh_rsa &&
-                  echo $SSH_KNOWN_HOSTS > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts &&
-                  eval "$(ssh-agent -s)" && ssh-add ~/.ssh/gh_rsa
+                  echo $SSH_KNOWN_HOSTS > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
             - name: Test SSH
-              run: |
-                  cat /etc/ssh/ssh_config &&
-                  ssh -G $SSH_USER$DEPLOY_HOST &&
-                  cat /home/runner/.ssh/known_hosts &&
-                  ssh -i ~/.ssh/gh_rsa $SSH_USER@$DEPLOY_HOST uname -a
+              run: ssh -i ~/.ssh/gh_rsa $SSH_USER@$DEPLOY_HOST uname -a
             - name: Deploy to production
               run: pm2 deploy production
