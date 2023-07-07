@@ -7,15 +7,22 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
-cd backend
-npm ci
-npm run dbpush
-npm run build
-cd -
+(
+    cd types
+    npm ci
+)
 
-cd frontend
-npm ci
-npm run build
-cd -
+(
+    cd backend
+    npm ci
+    npm run dbpush
+    npm run build
+)
+
+(
+    cd frontend
+    npm ci
+    npm run build
+)
 
 pm2 reload ecosystem.config.js --env $1
