@@ -95,20 +95,8 @@ export type CommentResource = {
     };
 };
 
-const TextNode = z.object({
-    bold: z.boolean().optional(),
-    italic: z.boolean().optional(),
-    text: z.string().min(1),
-});
-// This explicit any is because it's a recursive type
-const ElementNode: any = z.object({
-    children: z.lazy(() => Node.array().min(1)),
-    type: z.enum(["paragraph", "code", "heading", "quote"]),
-});
-const Node = z.union([TextNode, ElementNode]);
-
 export const PostComment = z.object({
-    nodes: Node.array().min(1),
+    nodes: z.any().array().min(1),
 
     motorcycleId: Id.optional(),
     diagramId: Id.optional(),
