@@ -28,17 +28,15 @@ jobs:
             matrix:
                 directory: [backend, frontend]
         runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: ${{ matrix.directory }}
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
               with:
                   node-version: 18
             - name: Install dependencies
-              run: npm ci
+              run: (cd types && npm ci) && (cd ${{ matrix.directory }} && npm ci)
             - name: Build
+              working-directory: ${{ matrix.directory }}
               run: npm run build
 
     end-2-end-test:
