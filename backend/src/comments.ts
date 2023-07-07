@@ -9,6 +9,7 @@ import {
 import { User, authenticate } from "./auth";
 import { prisma } from "./prisma";
 import zodToJsonSchema from "zod-to-json-schema";
+import { z } from "zod";
 
 type CommentsQuery = {
     motorcycleId?: string;
@@ -67,7 +68,7 @@ export const commentRoutes: FastifyPluginCallback = async (server) => {
         {
             schema: {
                 params: {
-                    commentId: zodToJsonSchema(Id),
+                    commentId: zodToJsonSchema(z.number().int()),
                 },
             },
         },
@@ -151,7 +152,7 @@ export const commentRoutes: FastifyPluginCallback = async (server) => {
             preValidation: authenticate(server, "delete:comments"),
             schema: {
                 params: {
-                    commentId: zodToJsonSchema(Id),
+                    commentId: zodToJsonSchema(z.number().int()),
                 },
             },
         },

@@ -7,6 +7,7 @@ type Props = {
 };
 
 export const RichHtml = ({ node }: Props) => {
+    console.log(node);
     if (Text.isText(node)) {
         return (
             <Leaf
@@ -24,7 +25,7 @@ export const RichHtml = ({ node }: Props) => {
             element={node}
             attributes={{ "data-slate-node": "element", ref: undefined }}
         >
-            {node.children.map((node, index) => (
+            {node.children?.map((node, index) => (
                 <RichHtml key={index} node={node} />
             ))}
         </Element>

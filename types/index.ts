@@ -95,8 +95,19 @@ export type CommentResource = {
     };
 };
 
+const TextNode = z.object({
+    bold: z.boolean().optional(),
+    italic: z.boolean().optional(),
+    text: z.string().min(1),
+});
+const ElementNode = z.object({
+    children: z.lazy(() => Node.array()),
+    type: z.enum(["paragraph", "code", "heading", "quote"]),
+});
+const Node = z.union([TextNode, ElementNode]);
+
 export const PostComment = z.object({
-    nodes: z.object({}).array(),
+    nodes: Node.array().min(1),
 
     motorcycleId: Id.optional(),
     diagramId: Id.optional(),
