@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 export default defineConfig({
-    testDir: "test",
+    testDir: "specs",
 
     /* Run tests in files in parallel */
     fullyParallel: true,
