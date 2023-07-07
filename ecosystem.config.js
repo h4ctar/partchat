@@ -7,7 +7,12 @@ module.exports = {
             script: "./dist/server.js",
             env: {
                 JWKS_URL: process.env.JWKS_URL,
-                PORT: process.env.PORT,
+            },
+            env_staging: {
+                PORT: 3001,
+            },
+            env_production: {
+                PORT: 3000,
             },
         },
     ],
@@ -22,11 +27,6 @@ module.exports = {
             path: "/opt/partchat-production",
             "post-deploy": "./post-deploy.sh production",
             env: {
-                // Backend environment variables
-                JWKS_URL: process.env.JWKS_URL,
-                PORT: 3000,
-
-                // Frontend environment variables
                 VITE_AUTH0_DOMAIN: process.env.VITE_AUTH0_DOMAIN,
                 VITE_AUTH0_CLIENT_ID: process.env.VITE_AUTH0_CLIENT_ID,
                 VITE_AUTH0_API_AUDIENCE: process.env.VITE_AUTH0_API_AUDIENCE,
@@ -41,11 +41,6 @@ module.exports = {
             path: "/opt/partchat-staging",
             "post-deploy": "./post-deploy.sh staging",
             env: {
-                // Backend environment variables
-                JWKS_URL: process.env.JWKS_URL,
-                PORT: 3001,
-
-                // Frontend environment variables
                 VITE_AUTH0_DOMAIN: process.env.VITE_AUTH0_DOMAIN,
                 VITE_AUTH0_CLIENT_ID: process.env.VITE_AUTH0_CLIENT_ID,
                 VITE_AUTH0_API_AUDIENCE: process.env.VITE_AUTH0_API_AUDIENCE,
