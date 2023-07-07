@@ -44,12 +44,12 @@ export default defineConfig({
 
     webServer: [
         {
-            cwd: "backend",
+            cwd: "../backend",
             command: "npm run dev",
             port: 3000,
         },
         {
-            cwd: "frontend",
+            cwd: "../frontend",
             command: "npm run dev",
             port: 5173,
         },
