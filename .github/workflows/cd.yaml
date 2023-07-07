@@ -39,6 +39,38 @@ jobs:
               working-directory: ${{ matrix.directory }}
               run: npm run build
 
+    staging-deploy:
+        name: Staging Deploy
+        needs:
+            - prettier
+            - build
+        environment:
+            name: staging
+            url: https://staging.partchat.h4ctar.com
+        if: github.ref == 'refs/heads/main'
+        runs-on: ubuntu-latest
+        env:
+            DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+            JWKS_URL: ${{ vars.JWKS_URL }}
+            SSH_USER: ${{ vars.SSH_USER }}
+            VITE_AUTH0_API_AUDIENCE: ${{ vars.VITE_AUTH0_API_AUDIENCE }}
+            VITE_AUTH0_CLIENT_ID: ${{ vars.VITE_AUTH0_CLIENT_ID }}
+            VITE_AUTH0_DOMAIN: ${{ vars.VITE_AUTH0_DOMAIN }}
+        steps:
+            - uses: actions/checkout@v3
+            - name: Install pm2
+              run: npm install --global pm2@latest
+            - name: Setup SSH
+              env:
+                  SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+                  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+              run: |
+                  mkdir -m 700 -p ~/.ssh &&
+                  echo "$SSH_PRIVATE_KEY" > ~/.ssh/github_rsa && chmod 600 ~/.ssh/github_rsa &&
+                  echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
+            - name: Deploy to staging
+              run: pm2 deploy staging
+
     end-2-end-test:
         name: End-to-End Test
         timeout-minutes: 60

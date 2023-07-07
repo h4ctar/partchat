@@ -22,7 +22,7 @@ const start = async () => {
         await server.register(partReferenceRoutes);
         await server.register(partRoutes);
 
-        await server.listen({ port: 3000 });
+        await server.listen({ port: parseInt(process.env.PORT) });
     } catch (err) {
         server.log.error(err);
         process.exit(1);

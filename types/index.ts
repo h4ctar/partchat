@@ -100,8 +100,9 @@ const TextNode = z.object({
     italic: z.boolean().optional(),
     text: z.string().min(1),
 });
-const ElementNode = z.object({
-    children: z.lazy(() => Node.array()),
+// This explicit any is because it's a recursive type
+const ElementNode: any = z.object({
+    children: z.lazy(() => Node.array().min(1)),
     type: z.enum(["paragraph", "code", "heading", "quote"]),
 });
 const Node = z.union([TextNode, ElementNode]);
