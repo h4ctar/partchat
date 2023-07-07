@@ -70,6 +70,7 @@ jobs:
             - name: Install dependencies
               run: |
                   (cd test && npm ci) &&
+                  (cd types && npm ci) &&
                   (cd backend && npm ci) &&
                   (cd frontend && npm ci)
             - name: Setup DB
