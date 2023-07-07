@@ -94,6 +94,9 @@ jobs:
               with:
                   path: ~/.cache/ms-playwright
                   key: $RUNNER_OS-playwright-${{ steps.playwright-version.outputs.playwright_version }}
+            - name: Install dependencies
+              working-directory: test
+              run: npm ci
             - name: Install Playwright browsers
               working-directory: test
               run: npm run install-browsers
