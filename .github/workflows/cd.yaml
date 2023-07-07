@@ -73,17 +73,12 @@ jobs:
 
     end-2-end-test:
         name: End-to-End Test
+        needs:
+            - staging-deploy
         timeout-minutes: 60
         runs-on: ubuntu-latest
         permissions:
             checks: write
-        env:
-            JWKS_URL: ${{ vars.JWKS_URL }}
-            TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
-            TEST_USERNAME: ${{ vars.TEST_USERNAME }}
-            VITE_AUTH0_API_AUDIENCE: ${{ vars.VITE_AUTH0_API_AUDIENCE }}
-            VITE_AUTH0_CLIENT_ID: ${{ vars.VITE_AUTH0_CLIENT_ID }}
-            VITE_AUTH0_DOMAIN: ${{ vars.VITE_AUTH0_DOMAIN }}
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
@@ -99,17 +94,6 @@ jobs:
               with:
                   path: ~/.cache/ms-playwright
                   key: $RUNNER_OS-playwright-${{ steps.playwright-version.outputs.playwright_version }}
-            - name: Install dependencies
-              run: |
-                  (cd test && npm ci) &&
-                  (cd types && npm ci) &&
-                  (cd backend && npm ci) &&
-                  (cd frontend && npm ci)
-            - name: Setup DB
-              working-directory: backend
-              run: |
-                  npm run dbpush &&
-                  npm run dbseed
             - name: Install Playwright browsers
               working-directory: test
               run: npm run install-browsers
@@ -128,8 +112,6 @@ jobs:
     prod-deploy:
         name: Production Deploy
         needs:
-            - prettier
-            - build
             - end-2-end-test
         environment:
             name: production

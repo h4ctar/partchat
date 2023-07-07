@@ -24,7 +24,7 @@ export default defineConfig({
     /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
     use: {
         /* Base URL to use in actions like `await page.goto('/')`. */
-        baseURL: "http://localhost:5173",
+        baseURL: "https://staging.partchat.h4ctar.com",
 
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: "on-first-retry",
@@ -39,19 +39,6 @@ export default defineConfig({
         {
             name: "firefox",
             use: { ...devices["Desktop Firefox"] },
-        },
-    ],
-
-    webServer: [
-        {
-            cwd: "../backend",
-            command: "npm run dev",
-            port: 3000,
-        },
-        {
-            cwd: "../frontend",
-            command: "npm run dev",
-            port: 5173,
         },
     ],
 });
