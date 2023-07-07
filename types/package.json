@@ -1,0 +1,6 @@
+{
+    "name": "partchat-types",
+    "dependencies": {
+        "zod": "^3.21.4"
+    }
+}

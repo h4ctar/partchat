@@ -6,6 +6,7 @@ import { diagramRoutes } from "./diagrams";
 import { motorcycleRoutes } from "./motorcycles";
 import { partRoutes } from "./parts";
 import { User } from "./auth";
+import { partReferenceRoutes } from "./part-references";
 
 export const server = fastify({ logger: true });
 
@@ -18,6 +19,7 @@ const start = async () => {
         await server.register(commentRoutes);
         await server.register(diagramRoutes);
         await server.register(motorcycleRoutes);
+        await server.register(partReferenceRoutes);
         await server.register(partRoutes);
 
         await server.listen({ port: 3000 });

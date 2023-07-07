@@ -18,8 +18,7 @@ module.exports = {
             ref: "origin/main",
             repo: "https://github.com/h4ctar/partchat.git",
             path: "/opt/partchat",
-            "post-deploy":
-                "npm run post-deploy && pm2 startOrRestart ecosystem.config.js --name partchat-backend",
+            "post-deploy": "post-deploy.sh",
             env: {
                 // Backend environment variables
                 JWKS_URL: process.env.JWKS_URL,

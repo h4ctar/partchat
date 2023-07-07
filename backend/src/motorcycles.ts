@@ -1,6 +1,7 @@
 import { FastifyPluginCallback } from "fastify";
-import { MotorcycleResource } from "../../types";
 import { prisma } from "./prisma";
+import { Id, Make, MotorcycleResource, Year } from "../../types";
+import zodToJsonSchema from "zod-to-json-schema";
 
 type MotorcyclesQuery = {
     make?: string;
@@ -17,9 +18,8 @@ export const motorcycleRoutes: FastifyPluginCallback = async (server) => {
         {
             schema: {
                 params: {
-                    year: {
-                        type: "number",
-                    },
+                    year: zodToJsonSchema(Year.optional()),
+                    make: zodToJsonSchema(Make.optional()),
                 },
             },
         },
@@ -56,6 +56,13 @@ export const motorcycleRoutes: FastifyPluginCallback = async (server) => {
 
     server.get<{ Params: MotorcycleParams }>(
         "/api/motorcycles/:motorcycleId",
+        {
+            schema: {
+                params: {
+                    motorcycleId: zodToJsonSchema(Id),
+                },
+            },
+        },
         async (request, reply) => {
             server.log.info("Get motorcycle");
 

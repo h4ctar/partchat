@@ -1,8 +1,14 @@
 import { FastifyPluginCallback } from "fastify";
 import { Forbidden } from "http-errors";
-import { CommentResource, CommentsResource, PostComment } from "../../types";
+import {
+    CommentResource,
+    CommentsResource,
+    Id,
+    PostComment,
+} from "../../types";
 import { User, authenticate } from "./auth";
 import { prisma } from "./prisma";
+import zodToJsonSchema from "zod-to-json-schema";
 
 type CommentsQuery = {
     motorcycleId?: string;
@@ -17,6 +23,15 @@ type CommentParams = {
 export const commentRoutes: FastifyPluginCallback = async (server) => {
     server.get<{ Querystring: CommentsQuery }>(
         "/api/comments",
+        {
+            schema: {
+                querystring: {
+                    motorcycleId: zodToJsonSchema(Id.optional()),
+                    diagramId: zodToJsonSchema(Id.optional()),
+                    partId: zodToJsonSchema(Id.optional()),
+                },
+            },
+        },
         async (request, reply) => {
             server.log.info(
                 `Get all comments - motorcycleId: ${request.query.motorcycleId}, diagramId: ${request.query.diagramId}, partId: ${request.query.partId}`,
@@ -52,9 +67,7 @@ export const commentRoutes: FastifyPluginCallback = async (server) => {
         {
             schema: {
                 params: {
-                    commentId: {
-                        type: "number",
-                    },
+                    commentId: zodToJsonSchema(Id),
                 },
             },
         },
@@ -93,6 +106,9 @@ export const commentRoutes: FastifyPluginCallback = async (server) => {
         "/api/comments",
         {
             preValidation: authenticate(server, "post:comments"),
+            schema: {
+                body: zodToJsonSchema(PostComment),
+            },
         },
         async (request, reply) => {
             const postComment = request.body;
@@ -135,9 +151,7 @@ export const commentRoutes: FastifyPluginCallback = async (server) => {
             preValidation: authenticate(server, "delete:comments"),
             schema: {
                 params: {
-                    commentId: {
-                        type: "number",
-                    },
+                    commentId: zodToJsonSchema(Id),
                 },
             },
         },
