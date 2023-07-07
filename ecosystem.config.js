@@ -7,12 +7,7 @@ module.exports = {
             script: "./dist/server.js",
             env: {
                 JWKS_URL: process.env.JWKS_URL,
-            },
-            env_production: {
-                PORT: 3000,
-            },
-            env_staging: {
-                PORT: 3001,
+                PORT: process.env.PORT,
             },
         },
     ],
@@ -24,11 +19,12 @@ module.exports = {
             key: "~/.ssh/github_rsa",
             ref: "origin/main",
             repo: "https://github.com/h4ctar/partchat.git",
-            path: "/opt/partchat",
+            path: "/opt/partchat-production",
             "post-deploy": "./post-deploy.sh production",
             env: {
                 // Backend environment variables
                 JWKS_URL: process.env.JWKS_URL,
+                PORT: 3000,
 
                 // Frontend environment variables
                 VITE_AUTH0_DOMAIN: process.env.VITE_AUTH0_DOMAIN,
@@ -42,11 +38,12 @@ module.exports = {
             key: "~/.ssh/github_rsa",
             ref: "origin/main",
             repo: "https://github.com/h4ctar/partchat.git",
-            path: "/opt/partchat",
+            path: "/opt/partchat-staging",
             "post-deploy": "./post-deploy.sh staging",
             env: {
                 // Backend environment variables
                 JWKS_URL: process.env.JWKS_URL,
+                PORT: 3001,
 
                 // Frontend environment variables
                 VITE_AUTH0_DOMAIN: process.env.VITE_AUTH0_DOMAIN,
