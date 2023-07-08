@@ -5,7 +5,7 @@ import {
     CommentsResource,
     Id,
     PostComment,
-} from "../../types";
+} from "@partchat/types";
 import { User, authenticate } from "./auth";
 import { prisma } from "./prisma";
 import zodToJsonSchema from "zod-to-json-schema";

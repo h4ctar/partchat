@@ -1,6 +1,6 @@
+import { PartReferenceResource } from "@partchat/types";
 import { FastifyPluginCallback } from "fastify";
 import { authenticate } from "./auth";
-import { PartReferenceResource } from "../../types";
 import { prisma } from "./prisma";
 
 type PartReferenceParams = {

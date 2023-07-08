@@ -1,4 +1,4 @@
-import type { PartReferenceResource, PartResource } from "../../../types";
+import type { PartReferenceResource, PartResource } from "@partchat/types";
 import { PartChatError } from "../ui/ErrorMessage";
 
 export type PartSearchParams = {

@@ -1,5 +1,5 @@
+import { PartResource } from "@partchat/types";
 import { FastifyPluginCallback } from "fastify";
-import { PartResource } from "../../types";
 import { prisma } from "./prisma";
 
 type PartsQuery = {

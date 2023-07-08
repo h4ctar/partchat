@@ -1,7 +1,7 @@
+import { Id, Make, MotorcycleResource, Year } from "@partchat/types";
 import { FastifyPluginCallback } from "fastify";
-import { prisma } from "./prisma";
-import { Id, Make, MotorcycleResource, Year } from "../../types";
 import zodToJsonSchema from "zod-to-json-schema";
+import { prisma } from "./prisma";
 
 type MotorcyclesQuery = {
     make?: string;

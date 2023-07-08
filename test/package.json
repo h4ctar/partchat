@@ -1,5 +1,5 @@
 {
-    "name": "partchat-end-2-end-tests",
+    "name": "@partchat/test",
     "scripts": {
         "install-browsers": "playwright install --with-deps",
         "test": "playwright test"

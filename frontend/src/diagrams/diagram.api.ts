@@ -1,4 +1,4 @@
-import type { DiagramResource } from "../../../types";
+import type { DiagramResource } from "@partchat/types";
 import { PartChatError } from "../ui/ErrorMessage";
 
 export const fetchDiagrams = (motorcycleId: string) => async () => {

@@ -1,5 +1,5 @@
+import type { MotorcycleResource } from "@partchat/types";
 import { useQuery } from "@tanstack/react-query";
-import type { MotorcycleResource } from "../../../types";
 import { PartChatError } from "../ui/ErrorMessage";
 
 const fetchConfig = async () => {

@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
-import type { DiagramResource } from "../../../types";
+import type { DiagramResource } from "@partchat/types";
 import { useParts } from "../parts/part.hook";
 import { ErrorMessage } from "../ui/ErrorMessage";
 

@@ -1,6 +1,6 @@
-import { DiagramResource } from "../../types";
-import { prisma } from "./prisma";
+import { DiagramResource } from "@partchat/types";
 import { FastifyPluginCallback } from "fastify";
+import { prisma } from "./prisma";
 
 type DiagramsQuery = {
     motorcycleId?: string;

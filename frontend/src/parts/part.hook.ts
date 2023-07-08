@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import type { PartReferenceResource, PartResource } from "@partchat/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import _ from "lodash";
-import type { PartReferenceResource, PartResource } from "../../../types";
 import { CommentSearchParams } from "../comments/comment.api";
 import { queryClient } from "../query";
 import { fetchParts, updatePartReference } from "./part.api";
