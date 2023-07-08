@@ -2,9 +2,9 @@
     "name": "partchat",
     "version": "0.0.0",
     "workspaces": [
+        "types",
         "backend",
         "frontend",
-        "test",
-        "types"
+        "test"
     ]
 }
