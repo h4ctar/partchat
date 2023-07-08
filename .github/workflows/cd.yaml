@@ -78,6 +78,9 @@ jobs:
         runs-on: ubuntu-latest
         permissions:
             checks: write
+        env:
+            TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+            TEST_USERNAME: ${{ vars.TEST_USERNAME }}
         steps:
             - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
