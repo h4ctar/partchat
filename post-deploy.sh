@@ -25,4 +25,4 @@ fi
     npm run build
 )
 
-pm2 reload ecosystem.config.js --env $1
+pm2 startOrRestart ecosystem.config.js --env $1

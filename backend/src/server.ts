@@ -12,6 +12,8 @@ export const server = fastify({ logger: true });
 
 const start = async () => {
     try {
+        server.log.info(`Starting server on port ${process.env.PORT}`);
+
         await server.register(jwtVerify, {
             jwksUrl: process.env.JWKS_URL,
             formatUser: (payload) => payload as User,
@@ -23,6 +25,8 @@ const start = async () => {
         await server.register(partRoutes);
 
         await server.listen({ port: parseInt(process.env.PORT) });
+
+        server.log.info(`Server listening on port ${process.env.PORT}`);
     } catch (err) {
         server.log.error(err);
         process.exit(1);
