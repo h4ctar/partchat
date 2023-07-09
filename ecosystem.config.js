@@ -27,6 +27,7 @@ module.exports = {
             path: "/opt/partchat-production",
             "post-deploy": "./post-deploy.sh production",
             env: {
+                JWKS_URL: process.env.JWKS_URL,
                 VITE_AUTH0_DOMAIN: process.env.VITE_AUTH0_DOMAIN,
                 VITE_AUTH0_CLIENT_ID: process.env.VITE_AUTH0_CLIENT_ID,
                 VITE_AUTH0_API_AUDIENCE: process.env.VITE_AUTH0_API_AUDIENCE,
@@ -41,6 +42,7 @@ module.exports = {
             path: "/opt/partchat-staging",
             "post-deploy": "./post-deploy.sh staging",
             env: {
+                JWKS_URL: process.env.JWKS_URL,
                 VITE_AUTH0_DOMAIN: process.env.VITE_AUTH0_DOMAIN,
                 VITE_AUTH0_CLIENT_ID: process.env.VITE_AUTH0_CLIENT_ID,
                 VITE_AUTH0_API_AUDIENCE: process.env.VITE_AUTH0_API_AUDIENCE,
