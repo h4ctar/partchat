@@ -17,7 +17,7 @@
     },
     "dependencies": {
         "@auth0/auth0-react": "^2.1.1",
-        "@partchat/types": "../types",
+        "@partchat/types": "0.0.0",
         "@tanstack/react-query": "^4.29.15",
         "boring-avatars": "^1.7.0",
         "lodash": "^4.17.21",
