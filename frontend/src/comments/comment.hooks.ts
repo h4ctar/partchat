@@ -35,7 +35,7 @@ export const useComments = (searchParams: CommentSearchParams) => {
     };
 };
 
-export const useComment = (commentId: number) => {
+export const useComment = (commentId: string) => {
     const { getAccessTokenSilently } = useAuth0();
 
     const query = useQuery({

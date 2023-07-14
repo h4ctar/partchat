@@ -60,7 +60,7 @@ export const postComment = async (
     }
 };
 
-export const fetchComment = (commentId: number) => async () => {
+export const fetchComment = (commentId: string) => async () => {
     const response = await fetch(`/api/comments/${commentId}`);
     if (!response.ok) {
         throw new PartChatError("Failed to get comment");
@@ -71,7 +71,7 @@ export const fetchComment = (commentId: number) => async () => {
 };
 
 export const deleteComment = async (
-    commentId: number,
+    commentId: string,
     getAccessTokenSilently: () => Promise<string>,
 ) => {
     const token = await getAccessTokenSilently();

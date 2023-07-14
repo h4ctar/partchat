@@ -11,7 +11,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { Descendant } from "slate";
 
 type Props = {
-    commentId: number;
+    commentId: string;
 };
 
 export const Comment = ({ commentId }: Props) => {
