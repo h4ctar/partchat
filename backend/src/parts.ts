@@ -1,14 +1,23 @@
-import { PartResource } from "@partchat/types";
-import { FastifyPluginCallback } from "fastify";
+import { Id, PartResource } from "@partchat/types";
+import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { prisma } from "./prisma";
+import { ZodTypeProvider } from "fastify-type-provider-zod";
+import { z } from "zod";
 
-type PartsQuery = {
-    diagramId?: string;
-};
-
-export const partRoutes: FastifyPluginCallback = async (server) => {
-    server.get<{ Querystring: PartsQuery }>(
+export const partRoutes: FastifyPluginCallback<
+    Record<never, never>,
+    RawServerDefault,
+    ZodTypeProvider
+> = async (server) => {
+    server.get(
         "/api/parts",
+        {
+            schema: {
+                querystring: z.object({
+                    diagramId: Id,
+                }),
+            },
+        },
         async (request, reply) => {
             server.log.info("Get all parts");
 

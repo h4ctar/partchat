@@ -9,8 +9,8 @@ export const Make = z.string();
 export const MotorcycleResource = z.object({
     id: Id,
     make: Make,
-    yearFrom: z.number().int().positive(),
-    yearTo: z.number().int().positive(),
+    yearFrom: Year,
+    yearTo: Year,
     model: z.string(),
     engineType: z.string(),
     displacement: z.number().positive(),
@@ -30,70 +30,86 @@ export const MotorcycleResource = z.object({
 });
 export type MotorcycleResource = z.infer<typeof MotorcycleResource>;
 
-export type DiagramResource = {
-    id: string;
-    name: string;
-    image: string;
-    width: number;
-    height: number;
+export const DiagramResource = z.object({
+    id: Id,
+    name: z.string(),
+    image: z.string(),
+    width: z.number(),
+    height: z.number(),
 
-    _links?: {
-        self: { href: string };
-        parts: {
-            href: string;
-        };
-    };
-};
+    _links: z
+        .object({
+            self: Link,
+            parts: Link,
+        })
+        .optional(),
+});
+export type DiagramResource = z.infer<typeof DiagramResource>;
 
-export type PartResource = {
-    id: string;
-    partNumber: string;
-    description: string;
-    qty?: number;
-    refNo?: number;
-    hotspots?: number[][];
+export const PartResource = z.object({
+    id: Id,
+    partNumber: z.string(),
+    description: z.string(),
+    qty: z.number().optional(),
+    refNo: z.number().optional(),
+    hotspots: z.number().array().length(4).array().optional(),
 
-    _links?: {
-        self: { href: string };
-    };
-};
+    _links: z
+        .object({
+            self: Link,
+        })
+        .optional(),
+});
+export type PartResource = z.infer<typeof PartResource>;
 
-export type PartReferenceResource = {
-    diagramId: string;
-    partId: string;
-    hotspots: number[][];
-    qty: number;
-    refNo: number;
+export const PartReferenceResource = z.object({
+    diagramId: Id,
+    partId: Id,
+    hotspots: z.number().array().length(4).array().optional(),
+    qty: z.number(),
+    refNo: z.number(),
 
-    _links?: {
-        self: { href: string };
-    };
-};
+    _links: z
+        .object({
+            self: Link,
+        })
+        .optional(),
+});
+export type PartReferenceResource = z.infer<typeof PartReferenceResource>;
 
-export type CommentsResource = {
-    total: number;
-    items: {
-        id: number;
-    }[];
-    _links?: {
-        self: { href: string };
-    };
-};
+export const CommentsResource = z.object({
+    total: z.number(),
+    items: z
+        .object({
+            id: Id,
+        })
+        .array(),
 
-export type CommentResource = {
-    id: number;
-    username: string;
-    createdAt: string;
-    nodes: object[];
+    _links: z
+        .object({
+            self: Link,
+        })
+        .optional(),
+});
+export type CommentsResource = z.infer<typeof CommentsResource>;
 
-    motorcycleId?: string;
-    diagramId?: string;
-    partId?: string;
+export const CommentResource = z.object({
+    id: Id,
+    username: z.string(),
+    createdAt: z.string(),
+    nodes: z.any().array().min(1),
 
-    _links?: {
-        self: { href: string };
-    };
-};
+    motorcycleId: z.string().optional(),
+    diagramId: z.string().optional(),
+    partId: z.string().optional(),
+
+    _links: z
+        .object({
+            self: Link,
+        })
+        .optional(),
+});
+export type CommentResource = z.infer<typeof CommentResource>;
 
 export const PostComment = z.object({
     nodes: z.any().array().min(1),

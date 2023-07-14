@@ -1,14 +1,23 @@
 import "dotenv/config";
 import fastify from "fastify";
 import jwtVerify from "fastify-jwt-jwks";
+import {
+    ZodTypeProvider,
+    serializerCompiler,
+    validatorCompiler,
+} from "fastify-type-provider-zod";
+import { User } from "./auth";
 import { commentRoutes } from "./comments";
 import { diagramRoutes } from "./diagrams";
 import { motorcycleRoutes } from "./motorcycles";
-import { partRoutes } from "./parts";
-import { User } from "./auth";
 import { partReferenceRoutes } from "./part-references";
+import { partRoutes } from "./parts";
 
-export const server = fastify({ logger: true });
+export const server = fastify({
+    logger: true,
+}).withTypeProvider<ZodTypeProvider>();
+server.setValidatorCompiler(validatorCompiler);
+server.setSerializerCompiler(serializerCompiler);
 
 const start = async () => {
     try {
@@ -19,6 +28,7 @@ const start = async () => {
             jwksUrl: process.env.JWKS_URL,
             formatUser: (payload) => payload as User,
         });
+
         await server.register(commentRoutes);
         await server.register(diagramRoutes);
         await server.register(motorcycleRoutes);

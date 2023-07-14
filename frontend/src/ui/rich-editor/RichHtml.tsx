@@ -7,7 +7,6 @@ type Props = {
 };
 
 export const RichHtml = ({ node }: Props) => {
-    console.log(node);
     if (Text.isText(node)) {
         return (
             <Leaf

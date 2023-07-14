@@ -1,36 +1,37 @@
-import { FastifyPluginCallback } from "fastify";
-import { Forbidden } from "http-errors";
 import {
     CommentResource,
     CommentsResource,
     Id,
     PostComment,
 } from "@partchat/types";
-import { User, authenticate } from "./auth";
-import { prisma } from "./prisma";
-import zodToJsonSchema from "zod-to-json-schema";
+import {
+    FastifyBaseLogger,
+    FastifyInstance,
+    FastifyPluginCallback,
+    RawReplyDefaultExpression,
+    RawRequestDefaultExpression,
+    RawServerDefault,
+} from "fastify";
+import { ZodTypeProvider } from "fastify-type-provider-zod";
+import { Forbidden } from "http-errors";
 import { z } from "zod";
+import { User, checkToken } from "./auth";
+import { prisma } from "./prisma";
 
-type CommentsQuery = {
-    motorcycleId?: string;
-    diagramId?: string;
-    partId?: string;
-};
-
-type CommentParams = {
-    commentId: number;
-};
-
-export const commentRoutes: FastifyPluginCallback = async (server) => {
-    server.get<{ Querystring: CommentsQuery }>(
+export const commentRoutes: FastifyPluginCallback<
+    Record<never, never>,
+    RawServerDefault,
+    ZodTypeProvider
+> = async (server) => {
+    server.get(
         "/api/comments",
         {
             schema: {
-                querystring: {
-                    motorcycleId: zodToJsonSchema(Id.optional()),
-                    diagramId: zodToJsonSchema(Id.optional()),
-                    partId: zodToJsonSchema(Id.optional()),
-                },
+                querystring: z.object({
+                    motorcycleId: Id.optional(),
+                    diagramId: Id.optional(),
+                    partId: Id.optional(),
+                }),
             },
         },
         async (request, reply) => {
@@ -52,7 +53,7 @@ export const commentRoutes: FastifyPluginCallback = async (server) => {
             const commentsResource: CommentsResource = {
                 total: commentModels.length,
                 items: commentModels.map((commentModel) => ({
-                    id: commentModel.id,
+                    id: commentModel.id.toString(),
                 })),
                 _links: {
                     self: { href: `/api/comments` },
@@ -63,13 +64,13 @@ export const commentRoutes: FastifyPluginCallback = async (server) => {
         },
     );
 
-    server.get<{ Params: CommentParams }>(
+    server.get(
         "/api/comments/:commentId",
         {
             schema: {
-                params: {
-                    commentId: zodToJsonSchema(z.number().int()),
-                },
+                params: z.object({
+                    commentId: Id,
+                }),
             },
         },
         async (request, reply) => {
@@ -79,7 +80,7 @@ export const commentRoutes: FastifyPluginCallback = async (server) => {
 
             const commentModel = await prisma.comment.findUnique({
                 where: {
-                    id: request.params.commentId,
+                    id: parseInt(request.params.commentId),
                 },
             });
 
@@ -89,6 +90,7 @@ export const commentRoutes: FastifyPluginCallback = async (server) => {
 
             const commentResource: CommentResource = {
                 ...commentModel,
+                id: commentModel.id.toString(),
                 nodes: JSON.parse(commentModel.nodes) as object[],
                 motorcycleId: commentModel.motorcycleId || undefined,
                 diagramId: commentModel.diagramId || undefined,
@@ -103,18 +105,17 @@ export const commentRoutes: FastifyPluginCallback = async (server) => {
         },
     );
 
-    server.post<{ Body: PostComment }>(
+    server.post(
         "/api/comments",
         {
-            preValidation: authenticate(server, "post:comments"),
             schema: {
-                body: zodToJsonSchema(PostComment),
+                body: PostComment,
             },
         },
         async (request, reply) => {
-            const postComment = request.body;
-            const user = request.user as User;
+            const user = await checkToken(request, "post:comments");
 
+            const postComment = request.body;
             server.log.info(
                 `Post new comment - motorcycleId: ${postComment.motorcycleId}, diagramId: ${postComment.diagramId}, partId: ${postComment.partId}`,
             );
@@ -132,6 +133,7 @@ export const commentRoutes: FastifyPluginCallback = async (server) => {
 
             const commentResource: CommentResource = {
                 ...commentModel,
+                id: commentModel.id.toString(),
                 nodes: JSON.parse(commentModel.nodes) as object[],
                 motorcycleId: commentModel.motorcycleId || undefined,
                 diagramId: commentModel.diagramId || undefined,
@@ -146,18 +148,17 @@ export const commentRoutes: FastifyPluginCallback = async (server) => {
         },
     );
 
-    server.delete<{ Params: CommentParams }>(
+    server.delete(
         "/api/comments/:commentId",
         {
-            preValidation: authenticate(server, "delete:comments"),
             schema: {
-                params: {
-                    commentId: zodToJsonSchema(z.number().int()),
-                },
+                params: z.object({
+                    commentId: Id,
+                }),
             },
         },
         async (request, reply) => {
-            const user = request.user as User;
+            const user = await checkToken(request, "delete:comments");
 
             server.log.info(
                 `Delete comment - commentId: ${request.params.commentId}`,
@@ -165,18 +166,17 @@ export const commentRoutes: FastifyPluginCallback = async (server) => {
 
             const commentModel = await prisma.comment.findUnique({
                 where: {
-                    id: request.params.commentId,
+                    id: parseInt(request.params.commentId),
                 },
             });
 
             if (commentModel?.username !== user.username) {
                 throw new Forbidden("You don't own this comment");
-                // return reply.status(403).send("You don't own this comment");
             }
 
             await prisma.comment.delete({
                 where: {
-                    id: request.params.commentId,
+                    id: parseInt(request.params.commentId),
                 },
             });
 

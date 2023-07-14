@@ -1,18 +1,23 @@
-import { DiagramResource } from "@partchat/types";
-import { FastifyPluginCallback } from "fastify";
+import { DiagramResource, Id } from "@partchat/types";
+import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { prisma } from "./prisma";
+import { ZodTypeProvider } from "fastify-type-provider-zod";
+import { z } from "zod";
 
-type DiagramsQuery = {
-    motorcycleId?: string;
-};
-
-type DiagramParams = {
-    diagramId: string;
-};
-
-export const diagramRoutes: FastifyPluginCallback = async (server) => {
-    server.get<{ Querystring: DiagramsQuery }>(
+export const diagramRoutes: FastifyPluginCallback<
+    Record<never, never>,
+    RawServerDefault,
+    ZodTypeProvider
+> = async (server) => {
+    server.get(
         "/api/diagrams",
+        {
+            schema: {
+                querystring: z.object({
+                    motorcycleId: Id,
+                }),
+            },
+        },
         async (request, reply) => {
             server.log.info("Get all diagrams");
 
@@ -42,8 +47,15 @@ export const diagramRoutes: FastifyPluginCallback = async (server) => {
         },
     );
 
-    server.get<{ Params: DiagramParams }>(
+    server.get(
         "/api/diagrams/:diagramId",
+        {
+            schema: {
+                params: z.object({
+                    diagramId: Id,
+                }),
+            },
+        },
         async (request, reply) => {
             server.log.info("Get diagram");
 
