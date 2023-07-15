@@ -2,7 +2,6 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import {
     CommentSearchParams,
     deleteComment,
-    fetchComment,
     fetchComments,
     postComment,
 } from "./comment.api";
@@ -38,11 +37,6 @@ export const useComments = (searchParams: CommentSearchParams) => {
 export const useComment = (commentId: string) => {
     const { getAccessTokenSilently } = useAuth0();
 
-    const query = useQuery({
-        queryKey: ["comments", commentId],
-        queryFn: fetchComment(commentId),
-    });
-
     const deleteCommentMutation = useMutation({
         mutationFn: () => deleteComment(commentId, getAccessTokenSilently),
         onSuccess: async () => {
@@ -54,7 +48,6 @@ export const useComment = (commentId: string) => {
     });
 
     return {
-        query,
         deleteComment: deleteCommentMutation,
     };
 };

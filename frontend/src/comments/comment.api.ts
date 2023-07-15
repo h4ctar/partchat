@@ -1,9 +1,5 @@
 import { Descendant } from "slate";
-import type {
-    CommentResource,
-    CommentsResource,
-    PostComment,
-} from "../../../types";
+import type { CommentResource, PostComment } from "../../../types";
 import { PartChatError } from "../ui/ErrorMessage";
 
 export type CommentSearchParams = {
@@ -30,7 +26,7 @@ export const fetchComments =
             throw new PartChatError("Failed to fetch comments");
         }
 
-        const comments: CommentsResource = await response.json();
+        const comments: CommentResource[] = await response.json();
         return comments;
     };
 

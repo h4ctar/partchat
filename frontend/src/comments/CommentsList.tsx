@@ -21,9 +21,9 @@ export const CommentsList = ({ motorcycleId, diagramId, partId }: Props) => {
 
     return (
         <ol className="flex flex-col gap-4">
-            {comments.items.map((comment) => (
+            {comments.map((comment) => (
                 <li key={comment.id}>
-                    <Comment commentId={comment.id} />
+                    <Comment comment={comment} />
                 </li>
             ))}
         </ol>

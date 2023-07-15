@@ -1,5 +1,7 @@
+import { useAuth0 } from "@auth0/auth0-react";
+import { CommentResource } from "@partchat/types";
 import Avatar from "boring-avatars";
-import { Loading } from "../Loading";
+import { Descendant } from "slate";
 import { DownArrowIcon } from "../icons/DownArrowIcon";
 import { PencilIcon } from "../icons/PencilIcon";
 import { TrashIcon } from "../icons/TrashIcon";
@@ -7,26 +9,14 @@ import { UpArrowIcon } from "../icons/UpArrowIcon";
 import { ErrorMessage } from "../ui/ErrorMessage";
 import { RichHtml } from "../ui/rich-editor/RichHtml";
 import { useComment } from "./comment.hooks";
-import { useAuth0 } from "@auth0/auth0-react";
-import { Descendant } from "slate";
 
 type Props = {
-    commentId: string;
+    comment: CommentResource;
 };
 
-export const Comment = ({ commentId }: Props) => {
+export const Comment = ({ comment }: Props) => {
     const { user } = useAuth0();
-    const { query, deleteComment } = useComment(commentId);
-
-    if (query.isLoading) {
-        return <Loading />;
-    }
-
-    if (query.isError) {
-        return <ErrorMessage error={query.error} />;
-    }
-
-    const comment = query.data;
+    const { deleteComment } = useComment(comment.id);
 
     return (
         <>

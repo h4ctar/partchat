@@ -1,21 +1,9 @@
-import {
-    CommentResource,
-    CommentsResource,
-    Id,
-    PostComment,
-} from "@partchat/types";
-import {
-    FastifyBaseLogger,
-    FastifyInstance,
-    FastifyPluginCallback,
-    RawReplyDefaultExpression,
-    RawRequestDefaultExpression,
-    RawServerDefault,
-} from "fastify";
+import { CommentResource, Id, PostComment } from "@partchat/types";
+import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { Forbidden } from "http-errors";
 import { z } from "zod";
-import { User, checkToken } from "./auth";
+import { checkToken } from "./auth";
 import { prisma } from "./prisma";
 
 export const commentRoutes: FastifyPluginCallback<
@@ -50,17 +38,19 @@ export const commentRoutes: FastifyPluginCallback<
                 },
             });
 
-            const commentsResource: CommentsResource = {
-                total: commentModels.length,
-                items: commentModels.map((commentModel) => ({
+            const commentResources: CommentResource[] = commentModels.map(
+                (commentModel) => ({
+                    ...commentModel,
                     id: commentModel.id.toString(),
-                })),
-                _links: {
-                    self: { href: `/api/comments` },
-                },
-            };
+                    nodes: JSON.parse(commentModel.nodes) as object[],
+                    motorcycleId: commentModel.motorcycleId || undefined,
+                    diagramId: commentModel.diagramId || undefined,
+                    partId: commentModel.partId || undefined,
+                    createdAt: commentModel.createdAt.toISOString(),
+                }),
+            );
 
-            return reply.status(200).send(commentsResource);
+            return reply.status(200).send(commentResources);
         },
     );
 

@@ -77,22 +77,6 @@ export const PartReferenceResource = z.object({
 });
 export type PartReferenceResource = z.infer<typeof PartReferenceResource>;
 
-export const CommentsResource = z.object({
-    total: z.number(),
-    items: z
-        .object({
-            id: Id,
-        })
-        .array(),
-
-    _links: z
-        .object({
-            self: Link,
-        })
-        .optional(),
-});
-export type CommentsResource = z.infer<typeof CommentsResource>;
-
 export const CommentResource = z.object({
     id: Id,
     username: z.string(),
