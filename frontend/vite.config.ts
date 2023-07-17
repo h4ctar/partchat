@@ -11,4 +11,12 @@ export default defineConfig({
             },
         },
     },
+    optimizeDeps: {
+        include: ["@partchat/types"],
+    },
+    build: {
+        commonjsOptions: {
+            include: [/types/, /node_modules/],
+        },
+    },
 });

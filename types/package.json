@@ -2,8 +2,8 @@
     "name": "@partchat/types",
     "private": true,
     "version": "0.0.0",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
     "scripts": {
         "prettier": "prettier --check src",
         "build": "tsc"
@@ -12,7 +12,7 @@
         "zod": "^3.21.4"
     },
     "devDependencies": {
-        "prettier": "^2.8.8",
+        "prettier": "^3.0.0",
         "typescript": "^5.0.3"
     }
 }
