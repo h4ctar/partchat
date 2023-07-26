@@ -1,11 +1,13 @@
 {
     "name": "@partchat/test",
     "scripts": {
+        "prettier": "prettier --check specs",
         "install-browsers": "playwright install --with-deps",
         "test": "playwright test"
     },
     "devDependencies": {
         "@playwright/test": "^1.36.1",
-        "dotenv": "^16.3.1"
+        "dotenv": "^16.3.1",
+        "prettier": "^3.0.0"
     }
 }

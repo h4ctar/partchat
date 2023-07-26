@@ -6,7 +6,8 @@
     "types": "lib/index.d.ts",
     "scripts": {
         "prettier": "prettier --check src",
-        "build": "tsc"
+        "build": "tsc",
+        "dev": "tsc --watch"
     },
     "dependencies": {
         "zod": "^3.21.4"

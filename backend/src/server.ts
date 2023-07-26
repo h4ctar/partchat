@@ -1,3 +1,5 @@
+import multipartPlugin from "@fastify/multipart";
+import staticPlugin from "@fastify/static";
 import "dotenv/config";
 import fastify from "fastify";
 import jwtVerify from "fastify-jwt-jwks";
@@ -6,6 +8,7 @@ import {
     serializerCompiler,
     validatorCompiler,
 } from "fastify-type-provider-zod";
+import path from "path";
 import { User } from "./auth";
 import { commentRoutes } from "./comments";
 import { diagramRoutes } from "./diagrams";
@@ -27,6 +30,11 @@ const start = async () => {
         await server.register(jwtVerify, {
             jwksUrl: process.env.JWKS_URL,
             formatUser: (payload) => payload as User,
+        });
+        await server.register(multipartPlugin);
+        await server.register(staticPlugin, {
+            root: path.join(process.cwd(), "public"),
+            prefix: "/public/",
         });
 
         await server.register(commentRoutes);

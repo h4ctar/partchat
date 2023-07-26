@@ -2,22 +2,22 @@ import { Loading } from "../Loading";
 import { ErrorMessage } from "../ui/ErrorMessage";
 import { Comment } from "./Comment";
 import { CommentSearchParams } from "./comment.api";
-import { useComments } from "./comment.hooks";
+import { useFetchComments } from "./comment.hooks";
 
 type Props = CommentSearchParams;
 
 export const CommentsList = ({ motorcycleId, diagramId, partId }: Props) => {
-    const { query } = useComments({ motorcycleId, diagramId, partId });
+    const fetchComments = useFetchComments({ motorcycleId, diagramId, partId });
 
-    if (query.isLoading) {
+    if (fetchComments.isLoading) {
         return <Loading />;
     }
 
-    if (query.isError) {
-        return <ErrorMessage error={query.error} />;
+    if (fetchComments.isError) {
+        return <ErrorMessage error={fetchComments.error} />;
     }
 
-    const comments = query.data;
+    const comments = fetchComments.data;
 
     return (
         <ol className="flex flex-col gap-4">

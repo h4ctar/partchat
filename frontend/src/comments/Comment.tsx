@@ -8,7 +8,7 @@ import { TrashIcon } from "../icons/TrashIcon";
 import { UpArrowIcon } from "../icons/UpArrowIcon";
 import { ErrorMessage } from "../ui/ErrorMessage";
 import { RichHtml } from "../ui/rich-editor/RichHtml";
-import { useComment } from "./comment.hooks";
+import { useDeleteComment } from "./comment.hooks";
 
 type Props = {
     comment: CommentResource;
@@ -16,7 +16,7 @@ type Props = {
 
 export const Comment = ({ comment }: Props) => {
     const { user } = useAuth0();
-    const { deleteComment } = useComment(comment.id);
+    const deleteComment = useDeleteComment(comment.id);
 
     return (
         <>
