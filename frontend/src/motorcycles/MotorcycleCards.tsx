@@ -1,20 +1,21 @@
 import { Link } from "wouter";
 import { Loading } from "../Loading";
+import { PlusIcon } from "../icons/PlusIcon";
 import { ErrorMessage } from "../ui/ErrorMessage";
-import { useMotorcycles } from "./motorcycle.hook";
+import { useFetchMotorcycles } from "./motorcycle.hook";
 
 const MotorcycleCards = () => {
-    const { query } = useMotorcycles();
+    const fetchMotorcycles = useFetchMotorcycles();
 
-    if (query.isLoading) {
+    if (fetchMotorcycles.isLoading) {
         return <Loading />;
     }
 
-    if (query.isError) {
-        return <ErrorMessage error={query.error} />;
+    if (fetchMotorcycles.isError) {
+        return <ErrorMessage error={fetchMotorcycles.error} />;
     }
 
-    const motorcycles = query.data;
+    const motorcycles = fetchMotorcycles.data;
 
     return (
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 p-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -30,9 +31,19 @@ const MotorcycleCards = () => {
                     <h3 className="mx-3 mb-3 text-lg text-slate-500">
                         {`${motorcycle.yearFrom}-${motorcycle.yearTo}`}
                     </h3>
-                    <img className="rounded-b-lg" src={motorcycle.image} />
+                    <img
+                        className="rounded-b-lg"
+                        src={`/public/motorcycles/${motorcycle.id}.png`}
+                    />
                 </Link>
             ))}
+            <Link
+                href="/motorcycles/new"
+                className="dark:highlight-white/10 relative z-10 flex flex-col items-center justify-center gap-2 rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5 dark:bg-slate-800"
+            >
+                <PlusIcon />
+                Create motorcycle
+            </Link>
         </div>
     );
 };

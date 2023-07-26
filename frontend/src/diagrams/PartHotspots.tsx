@@ -69,48 +69,54 @@ export const PartHotspots = ({
                 className="absolute top-0 h-full w-full"
                 onDragOver={(event) => event.preventDefault()}
             >
-                {parts.map((part) =>
-                    part.hotspots?.map((hotspot, index) => (
-                        <div
-                            key={`${part.refNo}-${index}`}
-                            draggable={true}
-                            onDragStart={(event) => {
-                                startX = event.clientX;
-                                endX = event.clientY;
-                            }}
-                            onDragEnd={(event) => {
-                                const newHotspot = [
-                                    hotspot[0] +
-                                        (event.clientX - startX) / scale,
-                                    hotspot[1] + (event.clientY - endX) / scale,
-                                    hotspot[2],
-                                    hotspot[3],
-                                ];
+                {parts.map(
+                    (part) =>
+                        part.hotspots?.map((hotspot, index) => (
+                            <div
+                                key={`${part.refNo}-${index}`}
+                                draggable={true}
+                                onDragStart={(event) => {
+                                    startX = event.clientX;
+                                    endX = event.clientY;
+                                }}
+                                onDragEnd={(event) => {
+                                    const newHotspot = [
+                                        hotspot[0] +
+                                            (event.clientX - startX) / scale,
+                                        hotspot[1] +
+                                            (event.clientY - endX) / scale,
+                                        hotspot[2],
+                                        hotspot[3],
+                                    ];
 
-                                updatePartReference.mutate({
-                                    partId: part.id,
-                                    diagramId: diagram.id,
-                                    hotspots: _.map(part.hotspots, (h, i) =>
-                                        i === index ? newHotspot : h,
-                                    ),
-                                    qty: part.qty!,
-                                    refNo: part.refNo!,
-                                });
-                            }}
-                            onMouseEnter={() => setSelectedRefNo(part.refNo)}
-                            style={{
-                                left: hotspot[0] * scale,
-                                top: hotspot[1] * scale,
-                                width: hotspot[2] * scale,
-                                height: hotspot[3] * scale,
-                            }}
-                            className={`absolute ${
-                                part.refNo === selectedRefNo
-                                    ? HIGHLIGHTED_COLOR
-                                    : NORMAL_COLOR
-                            }`}
-                        ></div>
-                    )),
+                                    updatePartReference.mutate({
+                                        partId: part.id,
+                                        diagramId: diagram.id,
+                                        hotspots: _.map(
+                                            part.hotspots,
+                                            (h, i) =>
+                                                i === index ? newHotspot : h,
+                                        ),
+                                        qty: part.qty!,
+                                        refNo: part.refNo!,
+                                    });
+                                }}
+                                onMouseEnter={() =>
+                                    setSelectedRefNo(part.refNo)
+                                }
+                                style={{
+                                    left: hotspot[0] * scale,
+                                    top: hotspot[1] * scale,
+                                    width: hotspot[2] * scale,
+                                    height: hotspot[3] * scale,
+                                }}
+                                className={`absolute ${
+                                    part.refNo === selectedRefNo
+                                        ? HIGHLIGHTED_COLOR
+                                        : NORMAL_COLOR
+                                }`}
+                            ></div>
+                        )),
                 )}
             </div>
         </>

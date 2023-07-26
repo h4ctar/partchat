@@ -9,15 +9,19 @@ import { queryClient } from "../query";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Descendant } from "slate";
 
-export const useComments = (searchParams: CommentSearchParams) => {
-    const { getAccessTokenSilently } = useAuth0();
-
+export const useFetchComments = (searchParams: CommentSearchParams) => {
     const query = useQuery({
         queryKey: ["comments", { searchParams }],
         queryFn: fetchComments(searchParams),
     });
 
-    const postCommentMutation = useMutation({
+    return query;
+};
+
+export const useCreateComment = (searchParams: CommentSearchParams) => {
+    const { getAccessTokenSilently } = useAuth0();
+
+    const mutation = useMutation({
         mutationFn: (nodes: Descendant[]) =>
             postComment(searchParams, nodes, getAccessTokenSilently),
         onSuccess: async () => {
@@ -28,16 +32,13 @@ export const useComments = (searchParams: CommentSearchParams) => {
         },
     });
 
-    return {
-        query,
-        postCommentMutation,
-    };
+    return mutation;
 };
 
-export const useComment = (commentId: string) => {
+export const useDeleteComment = (commentId: string) => {
     const { getAccessTokenSilently } = useAuth0();
 
-    const deleteCommentMutation = useMutation({
+    const mutation = useMutation({
         mutationFn: () => deleteComment(commentId, getAccessTokenSilently),
         onSuccess: async () => {
             queryClient.removeQueries(["comments", commentId]);
@@ -47,7 +48,5 @@ export const useComment = (commentId: string) => {
         },
     });
 
-    return {
-        deleteComment: deleteCommentMutation,
-    };
+    return mutation;
 };

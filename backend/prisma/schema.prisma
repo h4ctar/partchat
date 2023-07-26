@@ -14,7 +14,6 @@ model Motorcycle {
     model    String
     yearFrom Int
     yearTo   Int
-    image    String
 
     engineType        String
     displacement      Float // Engine displacement in ccm
@@ -26,6 +25,8 @@ model Motorcycle {
 
     diagrams Diagram[]
     comments Comment[]
+
+    @@unique([make, model])
 }
 
 model Diagram {

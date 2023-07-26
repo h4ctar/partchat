@@ -1,66 +1,106 @@
-import type { MotorcycleResource } from "@partchat/types";
-import { useQuery } from "@tanstack/react-query";
-import { PartChatError } from "../ui/ErrorMessage";
+import { useAuth0 } from "@auth0/auth0-react";
+import { PostMotorcycle } from "@partchat/types";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
+import { queryClient } from "../query";
+import {
+    createMotorcycle,
+    deleteMotorcycle,
+    fetchMotorcycle,
+    fetchMotorcycles,
+    updateMotorcycle,
+} from "./motorcycle.api";
 
-const fetchConfig = async () => {
-    const response = await fetch("/api/config");
-    if (!response.ok) {
-        throw new PartChatError("Failed to fetch config");
-    }
-
-    const config: {
-        [make: string]: { [year: number]: { [model: string]: string } };
-    } = await response.json();
-    return config;
-};
-
-const fetchMotorcycles = () => async () => {
-    const response = await fetch("/api/motorcycles");
-    if (!response.ok) {
-        throw new PartChatError("Failed to fetch motorcycles");
-    }
-
-    const motorcycles: MotorcycleResource[] = await response.json();
-    return motorcycles;
-};
-
-const fetchMotorcycle = (motorcycleId: string) => async () => {
-    const response = await fetch(`/api/motorcycles/${motorcycleId}`);
-    if (!response.ok) {
-        throw new PartChatError("Failed to fetch motorcycle");
-    }
-
-    const motorcycles: MotorcycleResource = await response.json();
-    return motorcycles;
-};
-
-export const useConfig = () => {
-    const query = useQuery({
-        queryKey: ["config"],
-        queryFn: fetchConfig,
-    });
-
-    return { query };
-};
-
-export const useMotorcycles = () => {
+export const useFetchMotorcycles = () => {
     const query = useQuery({
         queryKey: ["motorcycles"],
-        queryFn: fetchMotorcycles(),
+        queryFn: fetchMotorcycles,
     });
 
-    return {
-        query,
-    };
+    return query;
 };
 
-export const useMotorcycle = (motorcycleId: string) => {
+export const useFetchMotorcycle = (motorcycleId: string) => {
     const query = useQuery({
         queryKey: ["motorcycle", motorcycleId],
         queryFn: fetchMotorcycle(motorcycleId),
     });
 
-    return {
-        query,
-    };
+    return query;
+};
+
+export const useCreateMotorcycle = () => {
+    const { getAccessTokenSilently } = useAuth0();
+    const [, setLocation] = useLocation();
+
+    const mutation = useMutation({
+        mutationFn: ({
+            postMotorcycle,
+            image,
+        }: {
+            postMotorcycle: PostMotorcycle;
+            image?: File;
+        }) => createMotorcycle(postMotorcycle, image, getAccessTokenSilently),
+        onSuccess: async (motorcycle) => {
+            queryClient.invalidateQueries({
+                queryKey: ["motorcycles"],
+            });
+            setLocation(`/motorcycles/${motorcycle.id}`);
+        },
+    });
+
+    return mutation;
+};
+
+export const useUpdateMotorcycle = () => {
+    const { getAccessTokenSilently } = useAuth0();
+    const [, setLocation] = useLocation();
+
+    const mutation = useMutation({
+        mutationFn: ({
+            motorcycleId,
+            postMotorcycle,
+            image,
+        }: {
+            motorcycleId: string;
+            postMotorcycle: PostMotorcycle;
+            image?: File;
+        }) =>
+            updateMotorcycle(
+                motorcycleId,
+                postMotorcycle,
+                image,
+                getAccessTokenSilently,
+            ),
+        onSuccess: async (motorcycle) => {
+            queryClient.invalidateQueries({
+                queryKey: ["motorcycles"],
+            });
+            queryClient.invalidateQueries({
+                queryKey: ["motorcycle", motorcycle.id],
+            });
+            setLocation(`/motorcycles/${motorcycle.id}`);
+        },
+    });
+
+    return mutation;
+};
+
+export const useDeleteMotorcycle = (motorcycleId: string) => {
+    const { getAccessTokenSilently } = useAuth0();
+    const [, setLocation] = useLocation();
+
+    const mutation = useMutation({
+        mutationFn: () =>
+            deleteMotorcycle(motorcycleId, getAccessTokenSilently),
+        onSuccess: async () => {
+            queryClient.removeQueries(["motorcycles", motorcycleId]);
+            queryClient.invalidateQueries({
+                queryKey: ["motorcycles"],
+            });
+            setLocation("/motorcycles");
+        },
+    });
+
+    return mutation;
 };

@@ -5,13 +5,14 @@ import { Loading } from "./Loading";
 import { Navbar } from "./nav/Navbar";
 import { queryClient } from "./query";
 import { SettingsContext, useSettings } from "./settings";
+import Home from "./Home";
+import NotFound from "./NotFound";
+import { MotorcycleForm } from "./motorcycles/MotorcycleForm";
 
-const Home = lazy(() => import("./Home"));
 const MotorcycleCards = lazy(() => import("./motorcycles/MotorcycleCards"));
 const Motorcycle = lazy(() => import("./motorcycles/Motorcycle"));
 const Diagram = lazy(() => import("./diagrams/Diagram"));
 const PartsPage = lazy(() => import("./parts/PartsPage"));
-const NotFound = lazy(() => import("./NotFound"));
 
 export const App = () => {
     const { settings, toggleTheme } = useSettings();
@@ -23,14 +24,26 @@ export const App = () => {
                 <div>
                     <Switch>
                         <Route path="/">
-                            <Suspense fallback={<Loading />}>
-                                <Home />
-                            </Suspense>
+                            <Home />
                         </Route>
                         <Route path="/motorcycles">
                             <Suspense fallback={<Loading />}>
                                 <MotorcycleCards />
                             </Suspense>
+                        </Route>
+                        <Route path="/motorcycles/new">
+                            <Suspense fallback={<Loading />}>
+                                <MotorcycleForm />
+                            </Suspense>
+                        </Route>
+                        <Route path="/motorcycles/:motorcycleId/edit">
+                            {(params) => (
+                                <Suspense fallback={<Loading />}>
+                                    <MotorcycleForm
+                                        motorcycleId={params.motorcycleId!}
+                                    />
+                                </Suspense>
+                            )}
                         </Route>
                         <Route path="/motorcycles/:motorcycleId">
                             {(params) => (
@@ -54,9 +67,7 @@ export const App = () => {
                             </Suspense>
                         </Route>
                         <Route>
-                            <Suspense fallback={<Loading />}>
-                                <NotFound />
-                            </Suspense>
+                            <NotFound />
                         </Route>
                     </Switch>
                 </div>

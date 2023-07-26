@@ -1,24 +1,34 @@
+import { Link, useLocation } from "wouter";
 import { Loading } from "../Loading";
+import { PencilIcon } from "../icons/PencilIcon";
+import { TrashIcon } from "../icons/TrashIcon";
 import { ErrorMessage } from "../ui/ErrorMessage";
 import { RowData, Table } from "../ui/Table";
-import { useMotorcycle } from "./motorcycle.hook";
+import { useDeleteMotorcycle, useFetchMotorcycle } from "./motorcycle.hook";
 
 type Props = {
     motorcycleId: string;
 };
 
 export const MotorcycleDetails = ({ motorcycleId }: Props) => {
-    const { query } = useMotorcycle(motorcycleId);
+    const [, setLocation] = useLocation();
 
-    if (query.isLoading) {
+    const fetchMotorcycle = useFetchMotorcycle(motorcycleId);
+    const deleteMotorcycle = useDeleteMotorcycle(motorcycleId);
+
+    if (fetchMotorcycle.isLoading) {
         return <Loading />;
     }
 
-    if (query.isError) {
-        return <ErrorMessage error={query.error} />;
+    if (fetchMotorcycle.isError) {
+        return (
+            <div className="mx-auto max-w-7xl p-5">
+                <ErrorMessage error={fetchMotorcycle.error} />
+            </div>
+        );
     }
 
-    const motorcycle = query.data;
+    const motorcycle = fetchMotorcycle.data;
 
     const rows = [
         ["Engine type", motorcycle.engineType],
@@ -31,15 +41,34 @@ export const MotorcycleDetails = ({ motorcycleId }: Props) => {
     ].map((row, index) => [index, row] as RowData);
 
     return (
-        <div className="flex flex-col items-center p-5">
-            <h1 className="mx-5 mt-5 text-center text-4xl font-extrabold text-slate-900 dark:text-white sm:text-5xl lg:text-6xl">{`${motorcycle.make} ${motorcycle.model}`}</h1>
-            <h2 className="mx-5 mb-5 text-2xl text-slate-500">
-                {`${motorcycle.yearFrom}-${motorcycle.yearTo}`}
-            </h2>
-            <div className="flex flex-col items-center gap-4 lg:flex-row">
+        <div className="mx-auto flex max-w-7xl flex-col items-center p-5">
+            <div className="flex w-full flex-row">
+                <div className="flex-grow">
+                    <h1 className="mx-5 mt-5 text-4xl font-extrabold text-slate-900 dark:text-white sm:text-5xl lg:text-6xl">{`${motorcycle.make} ${motorcycle.model}`}</h1>
+                    <h2 className="mx-5 mb-5 text-2xl text-slate-500">
+                        {`${motorcycle.yearFrom}-${motorcycle.yearTo}`}
+                    </h2>
+                </div>
+                <div className="flex flex-row items-center gap-4">
+                    <button
+                        onClick={() => deleteMotorcycle.mutate()}
+                        name="delete"
+                    >
+                        <TrashIcon />
+                    </button>
+                    <button
+                        onClick={() =>
+                            setLocation(`/motorcycles/${motorcycleId}/edit`)
+                        }
+                    >
+                        <PencilIcon />
+                    </button>
+                </div>
+            </div>
+            <div className="flex w-full flex-col items-stretch gap-4 lg:flex-row">
                 <img
                     className="rounded-lg shadow-xl ring-1 ring-slate-900/5"
-                    src={motorcycle.image}
+                    src={`/public/motorcycles/${motorcycle.id}.png`}
                 />
                 <div className="w-full">
                     <Table rows={rows} />

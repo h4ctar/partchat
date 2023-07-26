@@ -2,25 +2,29 @@ import { z } from "zod";
 
 const Link = z.object({ href: z.string() });
 
-export const Id = z.string();
-export const Year = z.number().positive();
-export const Make = z.string();
+export const Id = z.string().nonempty();
+export const Year = z.coerce.number().positive();
+export const Make = z.string().nonempty();
 
-export const MotorcycleResource = z.object({
-    id: Id,
+export const Motorcycle = z.object({
     make: Make,
     yearFrom: Year,
     yearTo: Year,
-    model: z.string(),
-    engineType: z.string(),
-    displacement: z.number().positive(),
-    valvesPerCylinder: z.number().int().positive(),
-    power: z.number().positive(),
-    compression: z.number().positive(),
-    topSpeed: z.number().positive(),
-    weight: z.number().positive(),
-    image: z.string(),
+    model: z.string().nonempty(),
+    engineType: z.string().nonempty(),
+    displacement: z.coerce
+        .number()
+        .positive()
+        .describe("Engine displacement in ccm"),
+    valvesPerCylinder: z.coerce.number().int().positive(),
+    power: z.coerce.number().positive(),
+    compression: z.coerce.number().positive(),
+    topSpeed: z.coerce.number().positive(),
+    weight: z.coerce.number().positive(),
+});
 
+export const MotorcycleResource = Motorcycle.extend({
+    id: Id,
     _links: z
         .object({
             self: Link,
@@ -30,10 +34,13 @@ export const MotorcycleResource = z.object({
 });
 export type MotorcycleResource = z.infer<typeof MotorcycleResource>;
 
+export const PostMotorcycle = Motorcycle;
+export type PostMotorcycle = z.infer<typeof PostMotorcycle>;
+
 export const DiagramResource = z.object({
     id: Id,
-    name: z.string(),
-    image: z.string(),
+    name: z.string().nonempty(),
+    image: z.string().nonempty(),
     width: z.number(),
     height: z.number(),
 
@@ -48,8 +55,8 @@ export type DiagramResource = z.infer<typeof DiagramResource>;
 
 export const PartResource = z.object({
     id: Id,
-    partNumber: z.string(),
-    description: z.string(),
+    partNumber: z.string().nonempty(),
+    description: z.string().nonempty(),
     qty: z.number().optional(),
     refNo: z.number().optional(),
     hotspots: z.number().array().length(4).array().optional(),
@@ -79,13 +86,13 @@ export type PartReferenceResource = z.infer<typeof PartReferenceResource>;
 
 export const CommentResource = z.object({
     id: Id,
-    username: z.string(),
-    createdAt: z.string(),
+    username: z.string().nonempty(),
+    createdAt: z.string().nonempty(),
     nodes: z.any().array().min(1),
 
-    motorcycleId: z.string().optional(),
-    diagramId: z.string().optional(),
-    partId: z.string().optional(),
+    motorcycleId: z.string().nonempty().optional(),
+    diagramId: z.string().nonempty().optional(),
+    partId: z.string().nonempty().optional(),
 
     _links: z
         .object({
