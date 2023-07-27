@@ -37,7 +37,7 @@ module.exports = {
             user: process.env.SSH_USER,
             host: process.env.DEPLOY_HOST,
             key: "~/.ssh/github_rsa",
-            ref: `origin/${process.env.REF_NAME}`,
+            ref: `origin/${process.env.GITHUB_REF_NAME}`,
             repo: "https://github.com/h4ctar/partchat.git",
             path: "/opt/partchat-staging",
             "post-deploy": "./post-deploy.sh staging",
