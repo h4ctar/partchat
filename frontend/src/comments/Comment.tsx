@@ -18,6 +18,12 @@ export const Comment = ({ comment }: Props) => {
     const { user } = useAuth0();
     const deleteComment = useDeleteComment(comment.id);
 
+    const onDeleteClick = () => {
+        if (confirm(`Are you sure you want to delete this comment?`) == true) {
+            deleteComment.mutate();
+        }
+    };
+
     return (
         <>
             {deleteComment.isError && (
@@ -42,10 +48,7 @@ export const Comment = ({ comment }: Props) => {
                             <button name="edit">
                                 <PencilIcon />
                             </button>
-                            <button
-                                onClick={() => deleteComment.mutate()}
-                                name="delete"
-                            >
+                            <button onClick={onDeleteClick} name="delete">
                                 <TrashIcon />
                             </button>
                         </>
