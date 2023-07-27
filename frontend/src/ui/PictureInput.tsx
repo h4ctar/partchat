@@ -11,7 +11,16 @@ export const PictureInput = ({ setImage, defaultImage }: Props) => {
 
     return (
         <div className="grid grid-cols-2 gap-4">
-            <img className="rounded-xl" src={imageUrl} />
+            {imageUrl ? (
+                <img
+                    className="aspect-video w-full rounded-xl"
+                    src={imageUrl}
+                />
+            ) : (
+                <div className="flex aspect-video w-full items-center justify-center rounded-xl bg-slate-200 dark:bg-slate-800">
+                    <span>No image</span>
+                </div>
+            )}
             <input
                 onChange={(event) => {
                     const file = event.target.files![0];
