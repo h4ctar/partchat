@@ -58,7 +58,7 @@ jobs:
                   echo "$SSH_PRIVATE_KEY" > ~/.ssh/github_rsa && chmod 600 ~/.ssh/github_rsa &&
                   echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
             - name: Deploy to staging
-              run: env && pm2 deploy staging
+              run: pm2 deploy staging
 
     end-2-end-test:
         name: End-to-End Test
