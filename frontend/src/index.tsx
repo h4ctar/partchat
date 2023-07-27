@@ -12,7 +12,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
             authorizationParams={{
                 redirect_uri: window.location.origin,
                 audience: import.meta.env.VITE_AUTH0_API_AUDIENCE,
-                scope: "profile post:comments put:part-references delete:comments",
+                scope: "profile edit:comments edit:diagrams edit:motorcycles",
             }}
             useRefreshTokens={true}
             cacheLocation="localstorage"

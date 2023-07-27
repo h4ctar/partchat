@@ -20,7 +20,7 @@ export const Navbar = ({ toggleTheme }: Props) => {
         <div className="flex flex-row flex-wrap items-center justify-between gap-4 border-b p-5 shadow-lg ring-1 ring-slate-900/5 dark:border-slate-50/[0.06]">
             <h2 className="order-1 ">
                 <Link
-                    to="/"
+                    href="/"
                     className="flex items-center gap-2 text-2xl dark:text-white"
                 >
                     <ToolIcon className="h-8 w-8 stroke-sky-400" />
@@ -35,10 +35,10 @@ export const Navbar = ({ toggleTheme }: Props) => {
                     nav ? "" : "hidden"
                 } order-3 flex w-screen flex-col gap-4 sm:flex sm:w-auto sm:flex-row sm:items-center`}
             >
-                <Link to="/motorcycles" onClick={hideNav}>
+                <Link href="/motorcycles" onClick={hideNav}>
                     Motorcycles
                 </Link>
-                <Link to="/parts">Parts</Link>
+                <Link href="/parts">Parts</Link>
                 <LoginButton />
                 <LogoutButton />
                 <ThemeButton toggleTheme={toggleTheme} />

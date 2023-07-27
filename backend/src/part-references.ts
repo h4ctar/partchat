@@ -22,7 +22,7 @@ export const partReferenceRoutes: FastifyPluginCallback<
             },
         },
         async (request, reply) => {
-            await checkToken(request, "put:part-references");
+            await checkToken(request, "edit:diagrams");
 
             server.log.info(
                 `Update part reference - diagramId: ${request.params.diagramId}, partId: ${request.params.partId}`,
