@@ -1,7 +1,7 @@
 server {
     server_name partchat.h4ctar.com;
 
-    location /api {
+    location ~ /(api|public) {
         proxy_pass http://localhost:3000;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
