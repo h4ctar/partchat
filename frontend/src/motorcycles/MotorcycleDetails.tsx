@@ -42,6 +42,16 @@ export const MotorcycleDetails = ({ motorcycleId }: Props) => {
         ["Weight", `${motorcycle.weight.toFixed(1)} kg`],
     ].map((row, index) => [index, row] as RowData);
 
+    const onDeleteClick = () => {
+        if (
+            confirm(
+                `Are you sure you want to delete ${motorcycle.make} ${motorcycle.model}?`,
+            ) == true
+        ) {
+            deleteMotorcycle.mutate();
+        }
+    };
+
     return (
         <div className="mx-auto flex max-w-7xl flex-col items-center p-5">
             <div className="flex w-full flex-row">
@@ -54,10 +64,7 @@ export const MotorcycleDetails = ({ motorcycleId }: Props) => {
                 {/* TODO: check if they have the edit:motorcycle scope */}
                 {isAuthenticated && (
                     <div className="flex flex-row items-center gap-4">
-                        <button
-                            onClick={() => deleteMotorcycle.mutate()}
-                            name="delete"
-                        >
+                        <button onClick={onDeleteClick} name="delete">
                             <TrashIcon />
                         </button>
                         <Link href={`/motorcycles/${motorcycleId}/edit`}>
