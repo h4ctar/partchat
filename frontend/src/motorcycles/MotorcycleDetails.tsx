@@ -1,4 +1,5 @@
-import { Link, useLocation } from "wouter";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Link } from "wouter";
 import { Loading } from "../Loading";
 import { PencilIcon } from "../icons/PencilIcon";
 import { TrashIcon } from "../icons/TrashIcon";
@@ -11,7 +12,7 @@ type Props = {
 };
 
 export const MotorcycleDetails = ({ motorcycleId }: Props) => {
-    const [, setLocation] = useLocation();
+    const { isAuthenticated } = useAuth0();
 
     const fetchMotorcycle = useFetchMotorcycle(motorcycleId);
     const deleteMotorcycle = useDeleteMotorcycle(motorcycleId);
@@ -30,6 +31,7 @@ export const MotorcycleDetails = ({ motorcycleId }: Props) => {
 
     const motorcycle = fetchMotorcycle.data;
 
+    // TODO: memoize this
     const rows = [
         ["Engine type", motorcycle.engineType],
         ["Displacement", `${motorcycle.displacement.toFixed(1)} cc`],
@@ -49,21 +51,22 @@ export const MotorcycleDetails = ({ motorcycleId }: Props) => {
                         {`${motorcycle.yearFrom}-${motorcycle.yearTo}`}
                     </h2>
                 </div>
-                <div className="flex flex-row items-center gap-4">
-                    <button
-                        onClick={() => deleteMotorcycle.mutate()}
-                        name="delete"
-                    >
-                        <TrashIcon />
-                    </button>
-                    <button
-                        onClick={() =>
-                            setLocation(`/motorcycles/${motorcycleId}/edit`)
-                        }
-                    >
-                        <PencilIcon />
-                    </button>
-                </div>
+                {/* TODO: check if they have the edit:motorcycle scope */}
+                {isAuthenticated && (
+                    <div className="flex flex-row items-center gap-4">
+                        <button
+                            onClick={() => deleteMotorcycle.mutate()}
+                            name="delete"
+                        >
+                            <TrashIcon />
+                        </button>
+                        <Link href={`/motorcycles/${motorcycleId}/edit`}>
+                            <a>
+                                <PencilIcon />
+                            </a>
+                        </Link>
+                    </div>
+                )}
             </div>
             <div className="flex w-full flex-col items-stretch gap-4 lg:flex-row">
                 <img

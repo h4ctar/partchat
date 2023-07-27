@@ -103,7 +103,7 @@ export const commentRoutes: FastifyPluginCallback<
             },
         },
         async (request, reply) => {
-            const user = await checkToken(request, "post:comments");
+            const user = await checkToken(request, "edit:comments");
 
             const postComment = request.body;
             server.log.info(
@@ -148,7 +148,7 @@ export const commentRoutes: FastifyPluginCallback<
             },
         },
         async (request, reply) => {
-            const user = await checkToken(request, "delete:comments");
+            const user = await checkToken(request, "edit:comments");
 
             server.log.info(
                 `Delete comment - commentId: ${request.params.commentId}`,

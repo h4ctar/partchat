@@ -6,6 +6,7 @@ import { PictureInput } from "../ui/PictureInput";
 import { TextInput } from "../ui/TextInput";
 import { fetchMotorcycle } from "./motorcycle.api";
 import { useCreateMotorcycle, useUpdateMotorcycle } from "./motorcycle.hook";
+import { ErrorMessage } from "../ui/ErrorMessage";
 
 type Props = {
     motorcycleId?: string;
@@ -32,7 +33,13 @@ export const MotorcycleForm = ({ motorcycleId }: Props) => {
     }, [motorcycleId]);
 
     return (
-        <div className="mx-auto max-w-7xl p-5">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 p-5">
+            {updateMotorcycle.isError && (
+                <ErrorMessage error={updateMotorcycle.error} />
+            )}
+            {createMotorcycle.isError && (
+                <ErrorMessage error={createMotorcycle.error} />
+            )}
             <form
                 onSubmit={form.handleSubmit((postMotorcycle) =>
                     motorcycleId

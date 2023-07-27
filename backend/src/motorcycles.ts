@@ -11,6 +11,7 @@ import { BadRequest } from "http-errors";
 import Jimp from "jimp";
 import { z } from "zod";
 import { prisma } from "./prisma";
+import { checkToken } from "./auth";
 
 export const motorcycleRoutes: FastifyPluginCallback<
     Record<never, never>,
@@ -96,7 +97,6 @@ export const motorcycleRoutes: FastifyPluginCallback<
         },
     );
 
-    // TODO: protect
     server.post(
         "/api/motorcycles",
         {
@@ -105,6 +105,8 @@ export const motorcycleRoutes: FastifyPluginCallback<
             },
         },
         async (request, reply) => {
+            await checkToken(request, "edit:motorcycles");
+
             server.log.info("Create motorcycle");
 
             const postMotorcycle = request.body;
@@ -141,7 +143,6 @@ export const motorcycleRoutes: FastifyPluginCallback<
         },
     );
 
-    // TODO: protect
     server.put(
         "/api/motorcycles/:motorcycleId",
         {
@@ -153,6 +154,8 @@ export const motorcycleRoutes: FastifyPluginCallback<
             },
         },
         async (request, reply) => {
+            await checkToken(request, "edit:motorcycles");
+
             server.log.info("Update motorcycle");
 
             const postMotorcycle = request.body;
@@ -189,7 +192,6 @@ export const motorcycleRoutes: FastifyPluginCallback<
         },
     );
 
-    // TODO: protect
     server.patch(
         "/api/motorcycles/:motorcycleId/image",
         {
@@ -200,7 +202,7 @@ export const motorcycleRoutes: FastifyPluginCallback<
             },
         },
         async (request, reply) => {
-            // await checkToken(request, "create:motorcycles");
+            await checkToken(request, "edit:motorcycles");
 
             server.log.info(
                 `Patch motorcycle image - commentId: ${request.params.motorcycleId}`,
@@ -220,7 +222,6 @@ export const motorcycleRoutes: FastifyPluginCallback<
         },
     );
 
-    // TODO: protect
     server.delete(
         "/api/motorcycles/:motorcycleId",
         {
@@ -231,7 +232,7 @@ export const motorcycleRoutes: FastifyPluginCallback<
             },
         },
         async (request, reply) => {
-            // const user = await checkToken(request, "delete:motorcycles");
+            await checkToken(request, "edit:motorcycles");
 
             server.log.info(
                 `Delete motorcycle - commentId: ${request.params.motorcycleId}`,

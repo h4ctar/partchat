@@ -3,8 +3,10 @@ import { Loading } from "../Loading";
 import { PlusIcon } from "../icons/PlusIcon";
 import { ErrorMessage } from "../ui/ErrorMessage";
 import { useFetchMotorcycles } from "./motorcycle.hook";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const MotorcycleCards = () => {
+    const { isAuthenticated } = useAuth0();
     const fetchMotorcycles = useFetchMotorcycles();
 
     if (fetchMotorcycles.isLoading) {
@@ -37,13 +39,15 @@ const MotorcycleCards = () => {
                     />
                 </Link>
             ))}
-            <Link
-                href="/motorcycles/new"
-                className="dark:highlight-white/10 relative z-10 flex flex-col items-center justify-center gap-2 rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5 dark:bg-slate-800"
-            >
-                <PlusIcon />
-                Create motorcycle
-            </Link>
+            {isAuthenticated && (
+                <Link
+                    href="/motorcycles/new"
+                    className="dark:highlight-white/10 relative z-10 flex flex-col items-center justify-center gap-2 rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5 dark:bg-slate-800"
+                >
+                    <PlusIcon />
+                    Create motorcycle
+                </Link>
+            )}
         </div>
     );
 };

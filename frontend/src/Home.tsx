@@ -11,7 +11,7 @@ const Home = () => {
                 </h1>
                 <div className="flex w-full flex-row items-center justify-center gap-4 p-5">
                     <Link
-                        to="/motorcycles"
+                        href="/motorcycles"
                         className="dark:highlight-white/20 rounded-lg bg-slate-900 px-6 py-2 text-center font-semibold text-white hover:bg-slate-700 focus:outline-none dark:bg-sky-500 dark:hover:bg-sky-400"
                     >
                         Find your bike
