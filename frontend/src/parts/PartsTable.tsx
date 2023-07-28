@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Loading } from "../Loading";
 import { ErrorMessage } from "../ui/ErrorMessage";
 import { RowData, Table } from "../ui/Table";
-import { useParts } from "./part.hook";
+import { useFetchParts } from "./part.hook";
 
 type Props = {
     diagramId?: string;
@@ -18,11 +18,11 @@ export const PartsTable = ({
     selectedPart,
     setSelectedPart,
 }: Props) => {
-    const { query } = useParts({ diagramId });
+    const fetchParts = useFetchParts({ diagramId });
 
     const rows = useMemo(
         () =>
-            query.data?.map(
+            fetchParts.data?.map(
                 (part) =>
                     [
                         part.refNo || part.partNumber,
@@ -36,10 +36,10 @@ export const PartsTable = ({
                             : [part.partNumber, part.description],
                     ] as RowData,
             ) || [],
-        [query.data],
+        [fetchParts.data],
     );
 
-    if (query.isLoading) {
+    if (fetchParts.isLoading) {
         return (
             <div className="mx-auto w-full lg:w-80">
                 <Loading />
@@ -47,10 +47,10 @@ export const PartsTable = ({
         );
     }
 
-    if (query.isError) {
+    if (fetchParts.isError) {
         return (
             <div className="mx-auto max-w-7xl">
-                <ErrorMessage error={query.error} />
+                <ErrorMessage error={fetchParts.error} />
             </div>
         );
     }

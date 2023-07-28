@@ -1,8 +1,8 @@
 import _ from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { DiagramResource } from "@partchat/types";
-import { useParts } from "../parts/part.hook";
 import { ErrorMessage } from "../ui/ErrorMessage";
+import { useFetchParts, useUpdatePartReferences } from "../parts/part.hook";
 
 type Props = {
     diagram: DiagramResource;
@@ -22,7 +22,10 @@ export const PartHotspots = ({
     selectedRefNo,
     setSelectedRefNo,
 }: Props) => {
-    const { query, updatePartReference } = useParts({ diagramId: diagram.id });
+    const fetchParts = useFetchParts({ diagramId: diagram.id });
+    const updatePartReference = useUpdatePartReferences({
+        diagramId: diagram.id,
+    });
     const containerRef = useRef<HTMLDivElement | null>(null);
     const setContainerRef = useCallback((container: HTMLDivElement) => {
         containerRef.current = container;
@@ -51,11 +54,11 @@ export const PartHotspots = ({
         }
     };
 
-    if (!query.data) {
+    if (!fetchParts.data) {
         return null;
     }
 
-    const parts = query.data;
+    const parts = fetchParts.data;
 
     return (
         <>
