@@ -49,7 +49,7 @@ export const PartsTable = ({
 
     if (query.isError) {
         return (
-            <div className="mx-auto w-full lg:w-80">
+            <div className="mx-auto max-w-7xl">
                 <ErrorMessage error={query.error} />
             </div>
         );
