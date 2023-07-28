@@ -10,7 +10,7 @@ export const PictureInput = ({ setImage, defaultImage }: Props) => {
     const [imageUrl, setImageUrl] = useState<string | undefined>(defaultImage);
 
     return (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="flex flex-col gap-4">
             {imageUrl ? (
                 <img
                     className="aspect-video w-full rounded-xl"
@@ -27,7 +27,7 @@ export const PictureInput = ({ setImage, defaultImage }: Props) => {
                     setImage(file);
                     setImageUrl(URL.createObjectURL(file));
                 }}
-                className="file:dark:highlight-white/20 place-self-center file:rounded-lg file:border-0 file:bg-slate-900 file:px-6 file:py-2 file:font-semibold file:text-white file:dark:bg-sky-500 file:dark:hover:bg-sky-400"
+                className="file:dark:highlight-white/20 file:rounded-lg file:border-0 file:bg-slate-900 file:px-6 file:py-2 file:font-semibold file:text-white file:dark:bg-sky-500 file:dark:hover:bg-sky-400"
                 type="file"
                 id="picture"
             />

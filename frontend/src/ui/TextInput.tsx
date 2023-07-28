@@ -14,6 +14,7 @@ type Props<T extends FieldValues> = {
     name: Path<T>;
     type?: HTMLInputTypeAttribute;
     form: UseFormReturn<T>;
+    className?: string;
 };
 
 export const TextInput = <T extends FieldValues>({
@@ -22,9 +23,10 @@ export const TextInput = <T extends FieldValues>({
     name,
     type = "text",
     form,
+    className,
 }: Props<T>) => {
     return (
-        <label className="flex-grow">
+        <label className={className}>
             <span className="text-gray-700 dark:text-slate-400">{label}</span>
             <div className="relative">
                 <input
