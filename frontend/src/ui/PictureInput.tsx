@@ -12,10 +12,7 @@ export const PictureInput = ({ setImage, defaultImage }: Props) => {
     return (
         <div className="flex flex-col gap-4">
             {imageUrl ? (
-                <img
-                    className="aspect-video w-full rounded-xl"
-                    src={imageUrl}
-                />
+                <img className="w-full rounded-xl" src={imageUrl} />
             ) : (
                 <div className="flex aspect-video w-full items-center justify-center rounded-xl bg-slate-200 dark:bg-slate-800">
                     <span>No image</span>
