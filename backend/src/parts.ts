@@ -14,7 +14,7 @@ export const partRoutes: FastifyPluginCallback<
         {
             schema: {
                 querystring: z.object({
-                    diagramId: Id,
+                    diagramId: Id.optional(),
                 }),
             },
         },
