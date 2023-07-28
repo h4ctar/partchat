@@ -42,10 +42,10 @@ const MotorcycleCards = () => {
             {isAuthenticated && (
                 <Link
                     href="/motorcycles/new"
-                    className="dark:highlight-white/10 relative z-10 flex flex-col items-center justify-center gap-2 rounded-xl bg-white shadow-xl ring-1 ring-slate-900/5 dark:bg-slate-800"
+                    className="dark:highlight-white/10 relative z-10 flex flex-col items-center justify-center gap-2 rounded-xl bg-white p-8 text-lg shadow-xl ring-1 ring-slate-900/5 dark:bg-slate-800"
                 >
                     <PlusIcon />
-                    Create motorcycle
+                    Add motorcycle
                 </Link>
             )}
         </div>
