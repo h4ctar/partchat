@@ -52,22 +52,32 @@ export const MotorcycleForm = ({ motorcycleId }: Props) => {
                 )}
                 className="flex flex-col gap-4"
             >
-                <div className="flex flex-row gap-4">
-                    <TextInput label="Make" name="make" form={form} />
-                    <TextInput label="Model" name="model" form={form} />
-                </div>
-                <div className="flex flex-row gap-4">
+                <div className="grid grid-cols-2 gap-4">
+                    <TextInput
+                        label="Make"
+                        name="make"
+                        form={form}
+                        className="col-span-2 sm:col-span-1"
+                    />
+                    <TextInput
+                        label="Model"
+                        name="model"
+                        form={form}
+                        className="col-span-2 sm:col-span-1"
+                    />
                     <TextInput
                         label="Year from"
                         name="yearFrom"
                         type="number"
                         form={form}
+                        className="col-span-2 sm:col-span-1"
                     />
                     <TextInput
                         label="Year to"
                         name="yearTo"
                         type="number"
                         form={form}
+                        className="col-span-2 sm:col-span-1"
                     />
                 </div>
                 <PictureInput
@@ -78,20 +88,27 @@ export const MotorcycleForm = ({ motorcycleId }: Props) => {
                         `/public/motorcycles/${motorcycleId}.png`
                     }
                 />
-                <TextInput label="Engine Type" name="engineType" form={form} />
-                <div className="flex flex-row gap-4">
+                <div className="grid grid-cols-4 gap-4">
+                    <TextInput
+                        label="Engine Type"
+                        name="engineType"
+                        form={form}
+                        className="col-span-4"
+                    />
                     <TextInput
                         label="Displacement"
                         units="ccm"
                         name="displacement"
                         type="number"
                         form={form}
+                        className="col-span-4 sm:col-span-2 md:col-span-1"
                     />
                     <TextInput
                         label="Valves per cylinder"
                         name="valvesPerCylinder"
                         type="number"
                         form={form}
+                        className="col-span-4 sm:col-span-2 md:col-span-1"
                     />
                     <TextInput
                         label="Power"
@@ -99,6 +116,7 @@ export const MotorcycleForm = ({ motorcycleId }: Props) => {
                         name="power"
                         type="number"
                         form={form}
+                        className="col-span-4 sm:col-span-2 md:col-span-1"
                     />
                     <TextInput
                         label="Compression"
@@ -106,15 +124,15 @@ export const MotorcycleForm = ({ motorcycleId }: Props) => {
                         name="compression"
                         type="number"
                         form={form}
+                        className="col-span-4 sm:col-span-2 md:col-span-1"
                     />
-                </div>
-                <div className="flex flex-row gap-4">
                     <TextInput
                         label="Top Speed"
                         units="km/h"
                         name="topSpeed"
                         type="number"
                         form={form}
+                        className="col-span-4 sm:col-span-2"
                     />
                     <TextInput
                         label="Weight"
@@ -122,6 +140,7 @@ export const MotorcycleForm = ({ motorcycleId }: Props) => {
                         name="weight"
                         type="number"
                         form={form}
+                        className="col-span-4 sm:col-span-2"
                     />
                 </div>
 
