@@ -69,6 +69,7 @@ jobs:
         permissions:
             checks: write
         env:
+            TEST_BASEURL: https://staging.partchat.h4ctar.com
             TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
             TEST_USERNAME: ${{ vars.TEST_USERNAME }}
         steps:
