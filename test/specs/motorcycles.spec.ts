@@ -34,13 +34,13 @@ test.describe("Motorcycles", () => {
             // Edit comment
 
             // Delete comment
+            page.on("dialog", (dialog) => dialog.accept());
             await page
                 .getByRole("listitem")
                 .filter({
                     hasText: commentText,
                 })
                 .locator('button[name="delete"]')
-                // TODO: why doesnt this work? .getByRole("button", { name: "delete" })
                 .click();
 
             await expect(
