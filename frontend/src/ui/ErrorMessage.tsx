@@ -20,10 +20,8 @@ export const ErrorMessage = ({ error }: Props) => {
         message = error.message;
     }
 
-    console.log(error);
-
     return (
-        <div className="rounded-lg border border-red-700 bg-red-200 p-5 text-red-700">
+        <div className="mb-4 rounded-lg border border-red-700 bg-red-200 p-5 text-red-700">
             {message}
         </div>
     );

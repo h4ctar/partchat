@@ -14,7 +14,11 @@ const MotorcycleCards = () => {
     }
 
     if (fetchMotorcycles.isError) {
-        return <ErrorMessage error={fetchMotorcycles.error} />;
+        return (
+            <div className="mx-auto max-w-7xl p-5">
+                <ErrorMessage error={fetchMotorcycles.error} />
+            </div>
+        );
     }
 
     const motorcycles = fetchMotorcycles.data;
