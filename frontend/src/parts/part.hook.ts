@@ -6,15 +6,19 @@ import { CommentSearchParams } from "../comments/comment.api";
 import { queryClient } from "../query";
 import { fetchParts, updatePartReference } from "./part.api";
 
-export const useParts = (searchParams: CommentSearchParams) => {
-    const { getAccessTokenSilently } = useAuth0();
-
+export const useFetchParts = (searchParams: CommentSearchParams) => {
     const query = useQuery({
         queryKey: ["parts", searchParams],
         queryFn: fetchParts(searchParams),
     });
 
-    const updatePartReferenceMutation = useMutation({
+    return query;
+};
+
+export const useUpdatePartReferences = (searchParams: CommentSearchParams) => {
+    const { getAccessTokenSilently } = useAuth0();
+
+    const mutation = useMutation({
         mutationFn: (partReference: PartReferenceResource) =>
             updatePartReference(partReference, getAccessTokenSilently),
 
@@ -65,8 +69,5 @@ export const useParts = (searchParams: CommentSearchParams) => {
         },
     });
 
-    return {
-        query,
-        updatePartReference: updatePartReferenceMutation,
-    };
+    return mutation;
 };
