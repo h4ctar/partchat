@@ -38,8 +38,10 @@ test.describe("Motorcycles", () => {
 
         // Edit motorcycle
         await page.getByRole("link", { name: "edit" }).click();
+        await page.waitForURL(`/motorcycles/${motorcycleId}/edit`);
         await page.getByLabel("Model").fill(motorcycleModel2);
         await page.getByRole("button", { name: "Update motorcycle" }).click();
+        await page.waitForURL(`/motorcycles/${motorcycleId}`);
 
         await expect(
             page.getByRole("heading", {
