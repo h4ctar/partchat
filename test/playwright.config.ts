@@ -6,14 +6,14 @@ dotenv.config();
 export default defineConfig({
     testDir: "specs",
 
-    /* Run tests in files in parallel */
-    fullyParallel: true,
+    /* No not run in parallel */
+    fullyParallel: false,
 
     /* Fail the build on CI if you accidentally left test.only in the source code. */
     forbidOnly: !!process.env.CI,
 
-    /* Retry on CI only */
-    retries: process.env.CI ? 2 : 0,
+    /* No retries */
+    retries: 0,
 
     /* Opt out of parallel tests. */
     workers: 1,
@@ -30,12 +30,8 @@ export default defineConfig({
         trace: "on-first-retry",
     },
 
-    /* Configure projects for major browsers */
+    /* Configure projects for firefox */
     projects: [
-        {
-            name: "chromium",
-            use: { ...devices["Desktop Chrome"] },
-        },
         {
             name: "firefox",
             use: { ...devices["Desktop Firefox"] },
