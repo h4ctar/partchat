@@ -64,11 +64,11 @@ export const MotorcycleDetails = ({ motorcycleId }: Props) => {
                 {/* TODO: check if they have the edit:motorcycle scope */}
                 {isAuthenticated && (
                     <div className="flex flex-row items-center gap-4">
-                        <button onClick={onDeleteClick} name="delete">
+                        <button onClick={onDeleteClick} aria-label="delete">
                             <TrashIcon />
                         </button>
                         <Link href={`/motorcycles/${motorcycleId}/edit`}>
-                            <a>
+                            <a aria-label="edit">
                                 <PencilIcon />
                             </a>
                         </Link>

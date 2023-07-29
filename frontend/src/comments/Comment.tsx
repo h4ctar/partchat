@@ -48,7 +48,7 @@ export const Comment = ({ comment }: Props) => {
                             <button name="edit">
                                 <PencilIcon />
                             </button>
-                            <button onClick={onDeleteClick} name="delete">
+                            <button onClick={onDeleteClick} aria-label="delete">
                                 <TrashIcon />
                             </button>
                         </>
