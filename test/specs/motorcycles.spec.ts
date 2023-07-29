@@ -5,6 +5,7 @@ test.describe("Motorcycles", () => {
     test("Add, edit and delete motorcycles", async ({ page }) => {
         const motorcycleMake = `Make${Math.round(Math.random() * 100)}`;
         const motorcycleModel = `Model${Math.round(Math.random() * 100)}`;
+        const motorcycleModel2 = `Model${Math.round(Math.random() * 100)}`;
         const motorcycleId = `${motorcycleMake.toLowerCase()}-${motorcycleModel.toLowerCase()}`;
 
         await login(page);
@@ -36,10 +37,19 @@ test.describe("Motorcycles", () => {
         ).toBeVisible();
 
         // Edit motorcycle
+        await page.getByRole("link", { name: "edit" }).click();
+        await page.getByLabel("Model").fill(motorcycleModel2);
+        await page.getByRole("button", { name: "Update motorcycle" }).click();
+
+        await expect(
+            page.getByRole("heading", {
+                name: `${motorcycleMake} ${motorcycleModel2}`,
+            }),
+        ).toBeVisible();
 
         // Delete motorcycle
         page.on("dialog", (dialog) => dialog.accept());
-        await page.locator('button[name="delete"]').click();
+        await page.getByRole("button", { name: "delete" }).click();
 
         await page.waitForURL("/motorcycles");
 
@@ -73,7 +83,7 @@ test.describe("Motorcycles", () => {
                 .filter({
                     hasText: commentText,
                 })
-                .locator('button[name="delete"]')
+                .getByRole("button", { name: "delete" })
                 .click();
 
             await expect(
