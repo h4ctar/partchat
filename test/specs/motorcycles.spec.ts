@@ -39,6 +39,8 @@ test.describe("Motorcycles", () => {
         // Edit motorcycle
         await page.getByRole("link", { name: "edit" }).click();
         await page.waitForURL(`/motorcycles/${motorcycleId}/edit`);
+        await expect(page.getByLabel("Make")).toHaveValue(motorcycleMake);
+        await expect(page.getByLabel("Model")).toHaveValue(motorcycleModel);
         await page.getByLabel("Model").fill(motorcycleModel2);
         await page.getByRole("button", { name: "Update motorcycle" }).click();
         await page.waitForURL(`/motorcycles/${motorcycleId}`);
