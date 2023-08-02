@@ -81,9 +81,9 @@ export const MotorcycleForm = ({ motorcycleId }: Props) => {
                     />
                 </div>
                 <PictureInput
-                    image={image}
-                    setImage={setImage}
-                    defaultImage={
+                    imageFile={image}
+                    setImageFile={setImage}
+                    defaultImageUrl={
                         motorcycleId &&
                         `/public/motorcycles/${motorcycleId}.png`
                     }

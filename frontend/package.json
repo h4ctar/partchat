@@ -25,6 +25,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-hook-form": "^7.45.1",
+        "react-image-crop": "^10.1.5",
         "slate": "^0.94.1",
         "slate-react": "^0.97.1",
         "wouter": "^2.8.0-alpha.2",
