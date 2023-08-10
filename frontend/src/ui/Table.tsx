@@ -16,7 +16,7 @@ export const Table = ({
     setSelectedRowKey,
 }: Props) => {
     return (
-        <div className="h-full overflow-auto rounded-lg shadow-xl ring-1 ring-slate-900/5">
+        <div className="overflow-auto rounded-lg shadow-xl ring-1 ring-slate-900/5">
             <table className="w-full border-separate border-spacing-0">
                 <tbody>
                     {headings && (
