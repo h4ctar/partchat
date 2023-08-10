@@ -8,6 +8,7 @@ import { SettingsContext, useSettings } from "./settings";
 import Home from "./Home";
 import NotFound from "./NotFound";
 import { MotorcycleForm } from "./motorcycles/MotorcycleForm";
+import { DiagramForm } from "./diagrams/DiagramForm";
 
 const MotorcycleCards = lazy(() => import("./motorcycles/MotorcycleCards"));
 const Motorcycle = lazy(() => import("./motorcycles/Motorcycle"));
@@ -54,10 +55,32 @@ export const App = () => {
                                 </Suspense>
                             )}
                         </Route>
+                        <Route path="/motorcycles/:motorcycleId/diagrams/new">
+                            {(params) => (
+                                <Suspense fallback={<Loading />}>
+                                    <DiagramForm
+                                        motorcycleId={params.motorcycleId!}
+                                    />
+                                </Suspense>
+                            )}
+                        </Route>
+                        <Route path="/motorcycles/:motorcycleId/diagrams/:diagramId/edit">
+                            {(params) => (
+                                <Suspense fallback={<Loading />}>
+                                    <DiagramForm
+                                        motorcycleId={params.motorcycleId!}
+                                        diagramId={params.diagramId}
+                                    />
+                                </Suspense>
+                            )}
+                        </Route>
                         <Route path="/motorcycles/:motorcycleId/diagrams/:diagramId">
                             {(params) => (
                                 <Suspense fallback={<Loading />}>
-                                    <Diagram diagramId={params.diagramId!} />
+                                    <Diagram
+                                        motorcycleId={params.motorcycleId!}
+                                        diagramId={params.diagramId!}
+                                    />
                                 </Suspense>
                             )}
                         </Route>

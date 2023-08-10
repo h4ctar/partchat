@@ -1,7 +1,7 @@
 import { CommentResource, Id, PostComment } from "@partchat/types";
 import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import { Forbidden } from "http-errors";
+import { Forbidden, NotFound } from "http-errors";
 import { z } from "zod";
 import { checkToken } from "./auth";
 import { prisma } from "./prisma";
@@ -75,7 +75,7 @@ export const commentRoutes: FastifyPluginCallback<
             });
 
             if (!commentModel) {
-                return reply.status(404).send("Comment not found");
+                throw new NotFound("Comment not found");
             }
 
             const commentResource: CommentResource = {

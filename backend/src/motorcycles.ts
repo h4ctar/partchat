@@ -7,11 +7,12 @@ import {
 } from "@partchat/types";
 import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import { BadRequest } from "http-errors";
+import { BadRequest, NotFound } from "http-errors";
 import Jimp from "jimp";
+import slugify from "slugify";
 import { z } from "zod";
-import { prisma } from "./prisma";
 import { checkToken } from "./auth";
+import { prisma } from "./prisma";
 
 export const motorcycleRoutes: FastifyPluginCallback<
     Record<never, never>,
@@ -78,7 +79,7 @@ export const motorcycleRoutes: FastifyPluginCallback<
             });
 
             if (!motorcycleModel) {
-                return reply.status(404).send("Motorcycle not found");
+                throw new NotFound("Motorcycle not found");
             }
 
             const motorcycleResource: MotorcycleResource = {
@@ -110,9 +111,20 @@ export const motorcycleRoutes: FastifyPluginCallback<
             server.log.info("Create motorcycle");
 
             const postMotorcycle = request.body;
+            server.log.error(
+                "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx",
+            );
+            server.log.error(
+                slugify(`${postMotorcycle.make} ${postMotorcycle.model}`, {
+                    lower: true,
+                }),
+            );
             const motorcycleModel = await prisma.motorcycle.create({
                 data: {
-                    id: `${postMotorcycle.make}-${postMotorcycle.model}`.toLowerCase(),
+                    id: slugify(
+                        `${postMotorcycle.make} ${postMotorcycle.model}`,
+                        { lower: true },
+                    ),
                     make: postMotorcycle.make,
                     yearFrom: postMotorcycle.yearFrom,
                     yearTo: postMotorcycle.yearTo,
@@ -205,7 +217,7 @@ export const motorcycleRoutes: FastifyPluginCallback<
             await checkToken(request, "edit:motorcycles");
 
             server.log.info(
-                `Patch motorcycle image - commentId: ${request.params.motorcycleId}`,
+                `Patch motorcycle image - motorcycleId: ${request.params.motorcycleId}`,
             );
 
             const data = await request.file();
@@ -235,7 +247,7 @@ export const motorcycleRoutes: FastifyPluginCallback<
             await checkToken(request, "edit:motorcycles");
 
             server.log.info(
-                `Delete motorcycle - commentId: ${request.params.motorcycleId}`,
+                `Delete motorcycle - motorcycleId: ${request.params.motorcycleId}`,
             );
 
             await prisma.motorcycle.delete({

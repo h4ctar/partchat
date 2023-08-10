@@ -1,12 +1,15 @@
 import { expect, test } from "@playwright/test";
+import slugify from "slugify";
 import { login } from "./util";
 
 test.describe("Motorcycles", () => {
     test("Add, edit and delete motorcycles", async ({ page }) => {
-        const motorcycleMake = `Make${Math.round(Math.random() * 100)}`;
-        const motorcycleModel = `Model${Math.round(Math.random() * 100)}`;
-        const motorcycleModel2 = `Model${Math.round(Math.random() * 100)}`;
-        const motorcycleId = `${motorcycleMake.toLowerCase()}-${motorcycleModel.toLowerCase()}`;
+        const motorcycleMake = `Make ${Math.round(Math.random() * 100)}`;
+        const motorcycleModel = `Model ${Math.round(Math.random() * 100)}`;
+        const motorcycleModel2 = `Model ${Math.round(Math.random() * 100)}`;
+        const motorcycleId = slugify(`${motorcycleMake} ${motorcycleModel}`, {
+            lower: true,
+        });
 
         await login(page);
         await page.goto("/motorcycles");

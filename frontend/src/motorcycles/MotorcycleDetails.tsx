@@ -46,7 +46,7 @@ export const MotorcycleDetails = ({ motorcycleId }: Props) => {
         if (
             confirm(
                 `Are you sure you want to delete ${motorcycle.make} ${motorcycle.model}?`,
-            ) == true
+            )
         ) {
             deleteMotorcycle.mutate();
         }

@@ -1,8 +1,12 @@
-import { DiagramResource, Id } from "@partchat/types";
+import { DiagramResource, Id, PostDiagram } from "@partchat/types";
 import { FastifyPluginCallback, RawServerDefault } from "fastify";
-import { prisma } from "./prisma";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
+import { BadRequest, NotFound } from "http-errors";
+import slugify from "slugify";
 import { z } from "zod";
+import { checkToken } from "./auth";
+import { prisma } from "./prisma";
+import Jimp from "jimp";
 
 export const diagramRoutes: FastifyPluginCallback<
     Record<never, never>,
@@ -66,7 +70,7 @@ export const diagramRoutes: FastifyPluginCallback<
             });
 
             if (!diagramModel) {
-                return reply.status(404).send("Diagram not found");
+                throw new NotFound("Diagram not found");
             }
 
             const diagramResource: DiagramResource = {
@@ -80,6 +84,155 @@ export const diagramRoutes: FastifyPluginCallback<
             };
 
             return reply.status(200).send(diagramResource);
+        },
+    );
+
+    server.post(
+        "/api/diagrams",
+        {
+            schema: {
+                body: PostDiagram,
+            },
+        },
+        async (request, reply) => {
+            await checkToken(request, "edit:diagrams");
+
+            server.log.info("Create diagram");
+
+            const postDiagram = request.body;
+
+            const diagramModel = await prisma.diagram.create({
+                data: {
+                    id: slugify(
+                        `${postDiagram.motorcycleId} ${postDiagram.name}`,
+                        { lower: true },
+                    ),
+                    name: postDiagram.name,
+                    width: 0,
+                    height: 0,
+                    motorcycles: {
+                        connect: { id: postDiagram.motorcycleId },
+                    },
+                },
+            });
+
+            const diagramResource: DiagramResource = {
+                ...diagramModel,
+                _links: {
+                    self: {
+                        href: `/api/diagrams/${diagramModel.id}`,
+                    },
+                    parts: {
+                        href: `/api/parts?diagramId=${diagramModel.id}`,
+                    },
+                },
+            };
+
+            return reply.status(201).send(diagramResource);
+        },
+    );
+
+    server.put(
+        "/api/diagrams/:diagramId",
+        {
+            schema: {
+                params: z.object({
+                    diagramId: Id,
+                }),
+                body: PostDiagram,
+            },
+        },
+        async (request, reply) => {
+            await checkToken(request, "edit:diagrams");
+
+            server.log.info("Update diagram");
+
+            const postDiagram = request.body;
+            const diagramModel = await prisma.diagram.update({
+                where: { id: request.params.diagramId },
+                data: {
+                    name: postDiagram.name,
+                    motorcycles: {
+                        connect: { id: postDiagram.motorcycleId },
+                    },
+                },
+            });
+
+            const diagramResource: DiagramResource = {
+                ...diagramModel,
+                _links: {
+                    self: {
+                        href: `/api/diagrams/${diagramModel.id}`,
+                    },
+                    parts: {
+                        href: `/api/parts?diagramId=${diagramModel.id}`,
+                    },
+                },
+            };
+
+            return reply.status(200).send(diagramResource);
+        },
+    );
+
+    server.patch(
+        "/api/diagrams/:diagramId/image",
+        {
+            schema: {
+                params: z.object({
+                    diagramId: Id,
+                }),
+            },
+        },
+        async (request, reply) => {
+            await checkToken(request, "edit:diagrams");
+
+            server.log.info(
+                `Patch diagram image - diagramId: ${request.params.diagramId}`,
+            );
+
+            const data = await request.file();
+            if (!data) {
+                throw new BadRequest("Missing image");
+            }
+
+            const imageBuffer = await data.toBuffer();
+            const image = await Jimp.read(imageBuffer);
+            const path = `public/diagrams/${request.params.diagramId}.png`;
+            await image.writeAsync(path);
+
+            await prisma.diagram.update({
+                where: { id: request.params.diagramId },
+                data: {
+                    width: image.getWidth(),
+                    height: image.getHeight(),
+                },
+            });
+
+            return reply.status(200).send(path);
+        },
+    );
+
+    server.delete(
+        "/api/diagrams/:diagramId",
+        {
+            schema: {
+                params: z.object({
+                    diagramId: Id,
+                }),
+            },
+        },
+        async (request, reply) => {
+            await checkToken(request, "edit:diagrams");
+
+            server.log.info(
+                `Delete diagram - diagramId: ${request.params.diagramId}`,
+            );
+
+            await prisma.diagram.delete({
+                where: { id: request.params.diagramId },
+            });
+
+            return reply.status(200).send();
         },
     );
 };

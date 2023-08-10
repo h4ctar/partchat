@@ -32,7 +32,6 @@ model Motorcycle {
 model Diagram {
     id     String @id
     name   String
-    image  String
     width  Int
     height Int
 

@@ -37,13 +37,14 @@ export type MotorcycleResource = z.infer<typeof MotorcycleResource>;
 export const PostMotorcycle = Motorcycle;
 export type PostMotorcycle = z.infer<typeof PostMotorcycle>;
 
-export const DiagramResource = z.object({
-    id: Id,
+export const Diagram = z.object({
     name: z.string().nonempty(),
-    image: z.string().nonempty(),
     width: z.number(),
     height: z.number(),
+});
 
+export const DiagramResource = Diagram.extend({
+    id: Id,
     _links: z
         .object({
             self: Link,
@@ -52,6 +53,11 @@ export const DiagramResource = z.object({
         .optional(),
 });
 export type DiagramResource = z.infer<typeof DiagramResource>;
+
+export const PostDiagram = Diagram.omit({ width: true, height: true }).extend({
+    motorcycleId: Id,
+});
+export type PostDiagram = z.infer<typeof PostDiagram>;
 
 export const PartResource = z.object({
     id: Id,
