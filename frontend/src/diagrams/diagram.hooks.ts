@@ -1,4 +1,8 @@
+import { PostDiagram } from "@partchat/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useAuth } from "react-oidc-context";
+import { useLocation } from "wouter";
+import { queryClient } from "../query";
 import {
     createDiagram,
     deleteDiagram,
@@ -6,10 +10,6 @@ import {
     fetchDiagrams,
     updateDiagram,
 } from "./diagram.api";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useLocation } from "wouter";
-import { PostDiagram } from "@partchat/types";
-import { queryClient } from "../query";
 
 export const useFetchDiagrams = (motorcycleId: string) => {
     const query = useQuery({
@@ -30,7 +30,7 @@ export const useFetchDiagram = (diagramId: string) => {
 };
 
 export const useCreateDiagram = (motorcycleId: string) => {
-    const { getAccessTokenSilently } = useAuth0();
+    const { user } = useAuth();
     const [, setLocation] = useLocation();
 
     const mutation = useMutation({
@@ -40,7 +40,7 @@ export const useCreateDiagram = (motorcycleId: string) => {
         }: {
             postDiagram: PostDiagram;
             image?: File;
-        }) => createDiagram(postDiagram, image, getAccessTokenSilently),
+        }) => createDiagram(postDiagram, image, user?.access_token),
         onSuccess: async (diagram) => {
             queryClient.invalidateQueries({
                 queryKey: ["diagrams"],
@@ -53,7 +53,7 @@ export const useCreateDiagram = (motorcycleId: string) => {
 };
 
 export const useUpdateDiagram = (motorcycleId: string) => {
-    const { getAccessTokenSilently } = useAuth0();
+    const { user } = useAuth();
     const [, setLocation] = useLocation();
 
     const mutation = useMutation({
@@ -70,7 +70,7 @@ export const useUpdateDiagram = (motorcycleId: string) => {
                 diagramId,
                 postDiagram,
                 image,
-                getAccessTokenSilently,
+                user?.access_token,
             ),
         onSuccess: async (diagram) => {
             queryClient.invalidateQueries({
@@ -87,11 +87,12 @@ export const useUpdateDiagram = (motorcycleId: string) => {
 };
 
 export const useDeleteDiagram = (motorcycleId: string, diagramId: string) => {
-    const { getAccessTokenSilently } = useAuth0();
+    const { user } = useAuth();
     const [, setLocation] = useLocation();
 
     const mutation = useMutation({
-        mutationFn: () => deleteDiagram(diagramId, getAccessTokenSilently),
+        mutationFn: () => deleteDiagram(diagramId, 
+            user?.access_token),
         onSuccess: async () => {
             queryClient.removeQueries(["diagrams", diagramId]);
             queryClient.invalidateQueries({

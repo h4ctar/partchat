@@ -2,15 +2,15 @@ import { Link } from "wouter";
 import { Loading } from "../Loading";
 import { useFetchDiagrams } from "./diagram.hooks";
 import { ErrorMessage } from "../ui/ErrorMessage";
-import { useAuth0 } from "@auth0/auth0-react";
 import { PlusIcon } from "../icons/PlusIcon";
+import { useAuth } from "react-oidc-context";
 
 type Props = {
     motorcycleId: string;
 };
 
 export const DiagramCards = ({ motorcycleId }: Props) => {
-    const { isAuthenticated } = useAuth0();
+    const { isAuthenticated } = useAuth();
     const fetchDiagrams = useFetchDiagrams(motorcycleId);
 
     if (fetchDiagrams.isLoading) {

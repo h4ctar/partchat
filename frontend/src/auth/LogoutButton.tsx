@@ -1,7 +1,7 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth } from "react-oidc-context";
 
 export const LogoutButton = () => {
-    const { isAuthenticated, logout } = useAuth0();
+    const { isAuthenticated, removeUser, signoutRedirect, signoutSilent } = useAuth();
 
     if (!isAuthenticated) {
         return null;
@@ -11,12 +11,7 @@ export const LogoutButton = () => {
         <a
             href=""
             onClick={(event) => {
-                logout({
-                    logoutParams: {
-                        returnTo: window.location.origin,
-                    },
-                });
-                event.preventDefault();
+                signoutRedirect();
             }}
         >
             Log out

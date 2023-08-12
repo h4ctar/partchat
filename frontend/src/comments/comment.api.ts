@@ -33,14 +33,13 @@ export const fetchComments =
 export const postComment = async (
     searchParams: CommentSearchParams,
     nodes: Descendant[],
-    getAccessTokenSilently: () => Promise<string>,
+    token?: string,
 ) => {
     const comment: PostComment = {
         nodes,
         ...searchParams,
     };
 
-    const token = await getAccessTokenSilently();
     const search = new URLSearchParams(searchParams).toString();
 
     const response = await fetch(`/api/comments?${search}`, {
@@ -68,10 +67,8 @@ export const fetchComment = (commentId: string) => async () => {
 
 export const deleteComment = async (
     commentId: string,
-    getAccessTokenSilently: () => Promise<string>,
+    token?: string,
 ) => {
-    const token = await getAccessTokenSilently();
-
     const response = await fetch(`/api/comments/${commentId}`, {
         method: "DELETE",
         headers: {

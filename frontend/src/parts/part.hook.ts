@@ -1,7 +1,7 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import type { PartReferenceResource, PartResource } from "@partchat/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import _ from "lodash";
+import { useAuth } from "react-oidc-context";
 import { CommentSearchParams } from "../comments/comment.api";
 import { queryClient } from "../query";
 import { fetchParts, updatePartReference } from "./part.api";
@@ -16,11 +16,11 @@ export const useFetchParts = (searchParams: CommentSearchParams) => {
 };
 
 export const useUpdatePartReferences = (searchParams: CommentSearchParams) => {
-    const { getAccessTokenSilently } = useAuth0();
+    const { user } = useAuth();
 
     const mutation = useMutation({
         mutationFn: (partReference: PartReferenceResource) =>
-            updatePartReference(partReference, getAccessTokenSilently),
+            updatePartReference(partReference, user?.access_token),
 
         onMutate: async (partReference: PartReferenceResource) => {
             // Cancel any outgoing refetches

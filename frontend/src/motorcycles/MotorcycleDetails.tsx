@@ -1,4 +1,4 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { useAuth } from "react-oidc-context";
 import { Link } from "wouter";
 import { Loading } from "../Loading";
 import { PencilIcon } from "../icons/PencilIcon";
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const MotorcycleDetails = ({ motorcycleId }: Props) => {
-    const { isAuthenticated } = useAuth0();
+    const { isAuthenticated } = useAuth();
 
     const fetchMotorcycle = useFetchMotorcycle(motorcycleId);
     const deleteMotorcycle = useDeleteMotorcycle(motorcycleId);
