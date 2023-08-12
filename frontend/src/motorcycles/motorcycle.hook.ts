@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { PostMotorcycle } from "@partchat/types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
@@ -10,6 +9,7 @@ import {
     fetchMotorcycles,
     updateMotorcycle,
 } from "./motorcycle.api";
+import { useAuth } from "react-oidc-context";
 
 export const useFetchMotorcycles = () => {
     const query = useQuery({
@@ -30,7 +30,7 @@ export const useFetchMotorcycle = (motorcycleId: string) => {
 };
 
 export const useCreateMotorcycle = () => {
-    const { getAccessTokenSilently } = useAuth0();
+    const { user } = useAuth();
     const [, setLocation] = useLocation();
 
     const mutation = useMutation({
@@ -40,7 +40,7 @@ export const useCreateMotorcycle = () => {
         }: {
             postMotorcycle: PostMotorcycle;
             image?: File;
-        }) => createMotorcycle(postMotorcycle, image, getAccessTokenSilently),
+        }) => createMotorcycle(postMotorcycle, image, user?.access_token),
         onSuccess: async (motorcycle) => {
             queryClient.invalidateQueries({
                 queryKey: ["motorcycles"],
@@ -53,7 +53,7 @@ export const useCreateMotorcycle = () => {
 };
 
 export const useUpdateMotorcycle = () => {
-    const { getAccessTokenSilently } = useAuth0();
+    const { user } = useAuth();
     const [, setLocation] = useLocation();
 
     const mutation = useMutation({
@@ -70,7 +70,7 @@ export const useUpdateMotorcycle = () => {
                 motorcycleId,
                 postMotorcycle,
                 image,
-                getAccessTokenSilently,
+                user?.access_token,
             ),
         onSuccess: async (motorcycle) => {
             queryClient.invalidateQueries({
@@ -87,12 +87,12 @@ export const useUpdateMotorcycle = () => {
 };
 
 export const useDeleteMotorcycle = (motorcycleId: string) => {
-    const { getAccessTokenSilently } = useAuth0();
+    const { user } = useAuth();
     const [, setLocation] = useLocation();
 
     const mutation = useMutation({
         mutationFn: () =>
-            deleteMotorcycle(motorcycleId, getAccessTokenSilently),
+            deleteMotorcycle(motorcycleId, user?.access_token),
         onSuccess: async () => {
             queryClient.removeQueries(["motorcycles", motorcycleId]);
             queryClient.invalidateQueries({

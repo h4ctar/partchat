@@ -22,9 +22,8 @@ export const fetchParts = (searchParams: PartSearchParams) => async () => {
 
 export const updatePartReference = async (
     partReference: PartReferenceResource,
-    getAccessTokenSilently: () => Promise<string>,
+    token?: string,
 ) => {
-    const token = await getAccessTokenSilently();
     const response = await fetch(
         `/api/diagrams/${partReference.diagramId}/part-references/${partReference.partId}`,
         {

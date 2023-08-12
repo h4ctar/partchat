@@ -23,10 +23,8 @@ export const fetchMotorcycle =
 export const createMotorcycle = async (
     postMotorcycle: PostMotorcycle,
     image: File | undefined,
-    getAccessTokenSilently: () => Promise<string>,
+    token?: string,
 ): Promise<MotorcycleResource> => {
-    const token = await getAccessTokenSilently();
-
     const response = await fetch(`/api/motorcycles`, {
         method: "POST",
         headers: {
@@ -44,7 +42,7 @@ export const createMotorcycle = async (
         await updateMotorcycleImage(
             motorcycle.id,
             image,
-            getAccessTokenSilently,
+            token,
         );
     }
 
@@ -55,10 +53,8 @@ export const updateMotorcycle = async (
     motorcycleId: string,
     postMotorcycle: PostMotorcycle,
     image: File | undefined,
-    getAccessTokenSilently: () => Promise<string>,
+    token?: string,
 ): Promise<MotorcycleResource> => {
-    const token = await getAccessTokenSilently();
-
     const response = await fetch(`/api/motorcycles/${motorcycleId}`, {
         method: "PUT",
         headers: {
@@ -76,7 +72,7 @@ export const updateMotorcycle = async (
         await updateMotorcycleImage(
             motorcycle.id,
             image,
-            getAccessTokenSilently,
+            token,
         );
     }
 
@@ -85,10 +81,8 @@ export const updateMotorcycle = async (
 
 export const deleteMotorcycle = async (
     motorcycleId: string,
-    getAccessTokenSilently: () => Promise<string>,
+    token?: string,
 ) => {
-    const token = await getAccessTokenSilently();
-
     const response = await fetch(`/api/motorcycles/${motorcycleId}`, {
         method: "DELETE",
         headers: {
@@ -103,11 +97,8 @@ export const deleteMotorcycle = async (
 const updateMotorcycleImage = async (
     motorcycleId: string,
     image: File,
-    getAccessTokenSilently: () => Promise<string>,
-) => {
-    const token = await getAccessTokenSilently();
-
-    const formData = new FormData();
+    token?: string,
+) => {    const formData = new FormData();
     formData.append("image", image);
     const response = await fetch(`/api/motorcycles/${motorcycleId}/image`, {
         method: "PATCH",

@@ -1,4 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { CommentResource } from "@partchat/types";
 import Avatar from "boring-avatars";
 import { Descendant } from "slate";
@@ -9,13 +8,14 @@ import { UpArrowIcon } from "../icons/UpArrowIcon";
 import { ErrorMessage } from "../ui/ErrorMessage";
 import { RichHtml } from "../ui/rich-editor/RichHtml";
 import { useDeleteComment } from "./comment.hooks";
+import { useAuth } from "react-oidc-context";
 
 type Props = {
     comment: CommentResource;
 };
 
 export const Comment = ({ comment }: Props) => {
-    const { user } = useAuth0();
+    const { user } = useAuth();
     const deleteComment = useDeleteComment(comment.id);
 
     const onDeleteClick = () => {
@@ -42,7 +42,7 @@ export const Comment = ({ comment }: Props) => {
                     </div>
                 </div>
                 <div className="flex flex-row items-center gap-4">
-                    {comment.username === user?.preferred_username && (
+                    {comment.username === user?.profile.preferred_username && (
                         <>
                             {" "}
                             <button name="edit">
@@ -54,14 +54,14 @@ export const Comment = ({ comment }: Props) => {
                         </>
                     )}
                     <button
-                        disabled={comment.username === user?.preferred_username}
+                        disabled={comment.username === user?.profile.preferred_username}
                         name="up-vote"
                     >
                         <UpArrowIcon />
                     </button>
                     <div className="text-lg font-bold">0</div>
                     <button
-                        disabled={comment.username === user?.preferred_username}
+                        disabled={comment.username === user?.profile.preferred_username}
                         name="down-vote"
                     >
                         <DownArrowIcon />

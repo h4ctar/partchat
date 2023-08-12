@@ -1,12 +1,12 @@
+import { useAuth } from "react-oidc-context";
 import { Link } from "wouter";
 import { Loading } from "../Loading";
 import { PlusIcon } from "../icons/PlusIcon";
 import { ErrorMessage } from "../ui/ErrorMessage";
 import { useFetchMotorcycles } from "./motorcycle.hook";
-import { useAuth0 } from "@auth0/auth0-react";
 
 const MotorcycleCards = () => {
-    const { isAuthenticated } = useAuth0();
+    const { isAuthenticated } = useAuth();
     const fetchMotorcycles = useFetchMotorcycles();
 
     if (fetchMotorcycles.isLoading) {

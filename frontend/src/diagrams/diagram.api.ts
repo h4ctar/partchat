@@ -24,10 +24,8 @@ export const fetchDiagram = (diagramId: string) => async () => {
 export const createDiagram = async (
     postDiagram: PostDiagram,
     image: File | undefined,
-    getAccessTokenSilently: () => Promise<string>,
+    token?: string,
 ): Promise<DiagramResource> => {
-    const token = await getAccessTokenSilently();
-
     const response = await fetch(`/api/diagrams`, {
         method: "POST",
         headers: {
@@ -42,7 +40,7 @@ export const createDiagram = async (
     const diagram: DiagramResource = await response.json();
 
     if (image) {
-        await updateDiagramImage(diagram.id, image, getAccessTokenSilently);
+        await updateDiagramImage(diagram.id, image, token);
     }
 
     return diagram;
@@ -52,10 +50,8 @@ export const updateDiagram = async (
     diagramId: string,
     postDiagram: PostDiagram,
     image: File | undefined,
-    getAccessTokenSilently: () => Promise<string>,
+    token?: string,
 ): Promise<DiagramResource> => {
-    const token = await getAccessTokenSilently();
-
     const response = await fetch(`/api/diagrams/${diagramId}`, {
         method: "PUT",
         headers: {
@@ -70,7 +66,7 @@ export const updateDiagram = async (
     const diagram: DiagramResource = await response.json();
 
     if (image) {
-        await updateDiagramImage(diagram.id, image, getAccessTokenSilently);
+        await updateDiagramImage(diagram.id, image, token);
     }
 
     return diagram;
@@ -78,10 +74,8 @@ export const updateDiagram = async (
 
 export const deleteDiagram = async (
     diagramId: string,
-    getAccessTokenSilently: () => Promise<string>,
+    token?: string,
 ) => {
-    const token = await getAccessTokenSilently();
-
     const response = await fetch(`/api/diagrams/${diagramId}`, {
         method: "DELETE",
         headers: {
@@ -96,10 +90,8 @@ export const deleteDiagram = async (
 const updateDiagramImage = async (
     diagramId: string,
     image: File,
-    getAccessTokenSilently: () => Promise<string>,
+    token?: string,
 ) => {
-    const token = await getAccessTokenSilently();
-
     const formData = new FormData();
     formData.append("image", image);
     const response = await fetch(`/api/diagrams/${diagramId}/image`, {

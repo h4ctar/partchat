@@ -1,5 +1,5 @@
-import { useAuth0 } from "@auth0/auth0-react";
 import { useState } from "react";
+import { useAuth } from "react-oidc-context";
 import { Descendant } from "slate";
 import { ErrorMessage } from "../ui/ErrorMessage";
 import { RichEditor } from "../ui/rich-editor/RichEditor";
@@ -9,7 +9,7 @@ import { useCreateComment } from "./comment.hooks";
 type Props = CommentSearchParams;
 
 export const PostComment = (searchParams: Props) => {
-    const { isAuthenticated } = useAuth0();
+    const { isAuthenticated } = useAuth();
     const [nodes, setNodes] = useState<Descendant[]>([]);
     const createComment = useCreateComment(searchParams);
 

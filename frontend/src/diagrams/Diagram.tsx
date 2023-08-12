@@ -1,14 +1,14 @@
 import { useState } from "react";
+import { useAuth } from "react-oidc-context";
+import { Link } from "wouter";
 import { Loading } from "../Loading";
 import { Comments } from "../comments/Comments";
+import { PencilIcon } from "../icons/PencilIcon";
+import { TrashIcon } from "../icons/TrashIcon";
 import { PartsTable } from "../parts/PartsTable";
 import { ErrorMessage } from "../ui/ErrorMessage";
 import { PartHotspots } from "./PartHotspots";
 import { useDeleteDiagram, useFetchDiagram } from "./diagram.hooks";
-import { useAuth0 } from "@auth0/auth0-react";
-import { TrashIcon } from "../icons/TrashIcon";
-import { Link } from "wouter";
-import { PencilIcon } from "../icons/PencilIcon";
 
 type Props = {
     motorcycleId: string;
@@ -19,7 +19,7 @@ const Diagram = ({ motorcycleId, diagramId }: Props) => {
     const fetchDiagram = useFetchDiagram(diagramId);
     const deleteDiagram = useDeleteDiagram(motorcycleId, diagramId);
     const [selectedRefNo, setSelectedRefNo] = useState<number>();
-    const { isAuthenticated } = useAuth0();
+    const { isAuthenticated } = useAuth();
 
     if (fetchDiagram.isLoading) {
         return <Loading />;

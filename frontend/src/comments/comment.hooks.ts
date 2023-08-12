@@ -6,8 +6,8 @@ import {
     postComment,
 } from "./comment.api";
 import { queryClient } from "../query";
-import { useAuth0 } from "@auth0/auth0-react";
 import { Descendant } from "slate";
+import { useAuth } from "react-oidc-context";
 
 export const useFetchComments = (searchParams: CommentSearchParams) => {
     const query = useQuery({
@@ -19,11 +19,11 @@ export const useFetchComments = (searchParams: CommentSearchParams) => {
 };
 
 export const useCreateComment = (searchParams: CommentSearchParams) => {
-    const { getAccessTokenSilently } = useAuth0();
+    const { user } = useAuth();
 
     const mutation = useMutation({
         mutationFn: (nodes: Descendant[]) =>
-            postComment(searchParams, nodes, getAccessTokenSilently),
+            postComment(searchParams, nodes, user?.access_token),
         onSuccess: async () => {
             // TODO: clear editor on success
             queryClient.invalidateQueries({
@@ -36,10 +36,10 @@ export const useCreateComment = (searchParams: CommentSearchParams) => {
 };
 
 export const useDeleteComment = (commentId: string) => {
-    const { getAccessTokenSilently } = useAuth0();
+    const { user } = useAuth();
 
     const mutation = useMutation({
-        mutationFn: () => deleteComment(commentId, getAccessTokenSilently),
+        mutationFn: () => deleteComment(commentId, user?.access_token),
         onSuccess: async () => {
             queryClient.removeQueries(["comments", commentId]);
             queryClient.invalidateQueries({
