@@ -41,10 +41,10 @@ jobs:
         env:
             DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
             JWKS_URL: ${{ vars.JWKS_URL }}
+            ISSUER: ${{ vars.ISSUER }}
             SSH_USER: ${{ vars.SSH_USER }}
-            VITE_AUTH0_API_AUDIENCE: ${{ vars.VITE_AUTH0_API_AUDIENCE }}
-            VITE_AUTH0_CLIENT_ID: ${{ vars.VITE_AUTH0_CLIENT_ID }}
-            VITE_AUTH0_DOMAIN: ${{ vars.VITE_AUTH0_DOMAIN }}
+            VITE_AUTHORITY: ${{ vars.VITE_AUTHORITY }}
+            VITE_CLIENT_ID: ${{ vars.VITE_CLIENT_ID }}
         steps:
             - uses: actions/checkout@v3
             - name: Install pm2
@@ -116,10 +116,10 @@ jobs:
         env:
             DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
             JWKS_URL: ${{ vars.JWKS_URL }}
+            ISSUER: ${{ vars.ISSUER }}
             SSH_USER: ${{ vars.SSH_USER }}
-            VITE_AUTH0_API_AUDIENCE: ${{ vars.VITE_AUTH0_API_AUDIENCE }}
-            VITE_AUTH0_CLIENT_ID: ${{ vars.VITE_AUTH0_CLIENT_ID }}
-            VITE_AUTH0_DOMAIN: ${{ vars.VITE_AUTH0_DOMAIN }}
+            VITE_AUTHORITY: ${{ vars.VITE_AUTHORITY }}
+            VITE_CLIENT_ID: ${{ vars.VITE_CLIENT_ID }}
         steps:
             - uses: actions/checkout@v3
             - name: Install pm2
