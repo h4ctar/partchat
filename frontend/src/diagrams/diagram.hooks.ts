@@ -65,13 +65,7 @@ export const useUpdateDiagram = (motorcycleId: string) => {
             diagramId: string;
             postDiagram: PostDiagram;
             image?: File;
-        }) =>
-            updateDiagram(
-                diagramId,
-                postDiagram,
-                image,
-                user?.access_token,
-            ),
+        }) => updateDiagram(diagramId, postDiagram, image, user?.access_token),
         onSuccess: async (diagram) => {
             queryClient.invalidateQueries({
                 queryKey: ["diagrams"],
@@ -91,8 +85,7 @@ export const useDeleteDiagram = (motorcycleId: string, diagramId: string) => {
     const [, setLocation] = useLocation();
 
     const mutation = useMutation({
-        mutationFn: () => deleteDiagram(diagramId, 
-            user?.access_token),
+        mutationFn: () => deleteDiagram(diagramId, user?.access_token),
         onSuccess: async () => {
             queryClient.removeQueries(["diagrams", diagramId]);
             queryClient.invalidateQueries({

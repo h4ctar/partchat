@@ -65,10 +65,7 @@ export const fetchComment = (commentId: string) => async () => {
     return comment;
 };
 
-export const deleteComment = async (
-    commentId: string,
-    token?: string,
-) => {
+export const deleteComment = async (commentId: string, token?: string) => {
     const response = await fetch(`/api/comments/${commentId}`, {
         method: "DELETE",
         headers: {

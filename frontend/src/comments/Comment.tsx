@@ -54,14 +54,20 @@ export const Comment = ({ comment }: Props) => {
                         </>
                     )}
                     <button
-                        disabled={comment.username === user?.profile.preferred_username}
+                        disabled={
+                            comment.username ===
+                            user?.profile.preferred_username
+                        }
                         name="up-vote"
                     >
                         <UpArrowIcon />
                     </button>
                     <div className="text-lg font-bold">0</div>
                     <button
-                        disabled={comment.username === user?.profile.preferred_username}
+                        disabled={
+                            comment.username ===
+                            user?.profile.preferred_username
+                        }
                         name="down-vote"
                     >
                         <DownArrowIcon />
