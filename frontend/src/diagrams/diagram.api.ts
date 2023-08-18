@@ -72,10 +72,7 @@ export const updateDiagram = async (
     return diagram;
 };
 
-export const deleteDiagram = async (
-    diagramId: string,
-    token?: string,
-) => {
+export const deleteDiagram = async (diagramId: string, token?: string) => {
     const response = await fetch(`/api/diagrams/${diagramId}`, {
         method: "DELETE",
         headers: {

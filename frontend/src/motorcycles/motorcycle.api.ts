@@ -39,11 +39,7 @@ export const createMotorcycle = async (
     const motorcycle: MotorcycleResource = await response.json();
 
     if (image) {
-        await updateMotorcycleImage(
-            motorcycle.id,
-            image,
-            token,
-        );
+        await updateMotorcycleImage(motorcycle.id, image, token);
     }
 
     return motorcycle;
@@ -69,11 +65,7 @@ export const updateMotorcycle = async (
     const motorcycle: MotorcycleResource = await response.json();
 
     if (image) {
-        await updateMotorcycleImage(
-            motorcycle.id,
-            image,
-            token,
-        );
+        await updateMotorcycleImage(motorcycle.id, image, token);
     }
 
     return motorcycle;
@@ -98,7 +90,8 @@ const updateMotorcycleImage = async (
     motorcycleId: string,
     image: File,
     token?: string,
-) => {    const formData = new FormData();
+) => {
+    const formData = new FormData();
     formData.append("image", image);
     const response = await fetch(`/api/motorcycles/${motorcycleId}/image`, {
         method: "PATCH",

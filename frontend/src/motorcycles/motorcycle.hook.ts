@@ -91,8 +91,7 @@ export const useDeleteMotorcycle = (motorcycleId: string) => {
     const [, setLocation] = useLocation();
 
     const mutation = useMutation({
-        mutationFn: () =>
-            deleteMotorcycle(motorcycleId, user?.access_token),
+        mutationFn: () => deleteMotorcycle(motorcycleId, user?.access_token),
         onSuccess: async () => {
             queryClient.removeQueries(["motorcycles", motorcycleId]);
             queryClient.invalidateQueries({
