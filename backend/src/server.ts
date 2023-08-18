@@ -29,6 +29,7 @@ const start = async () => {
 
         await server.register(jwtVerify, {
             jwksUrl: process.env.JWKS_URL,
+            issuer: "https://auth.h4ctar.com/realms/h4ctar",
             formatUser: (payload) => payload as User,
         });
         await server.register(multipartPlugin);
