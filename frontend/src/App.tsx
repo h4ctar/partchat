@@ -1,14 +1,15 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { lazy, Suspense } from "react";
+import { useAuth } from "react-oidc-context";
 import { Route, Switch } from "wouter";
+import { DiagramForm } from "./diagrams/DiagramForm";
+import Home from "./Home";
 import { Loading } from "./Loading";
+import { MotorcycleForm } from "./motorcycles/MotorcycleForm";
 import { Navbar } from "./nav/Navbar";
+import NotFound from "./NotFound";
 import { queryClient } from "./query";
 import { SettingsContext, useSettings } from "./settings";
-import Home from "./Home";
-import NotFound from "./NotFound";
-import { MotorcycleForm } from "./motorcycles/MotorcycleForm";
-import { DiagramForm } from "./diagrams/DiagramForm";
 
 const MotorcycleCards = lazy(() => import("./motorcycles/MotorcycleCards"));
 const Motorcycle = lazy(() => import("./motorcycles/Motorcycle"));
@@ -17,6 +18,22 @@ const PartsPage = lazy(() => import("./parts/PartsPage"));
 
 export const App = () => {
     const { settings, toggleTheme } = useSettings();
+    const auth = useAuth();
+
+    switch (auth.activeNavigator) {
+        case "signinSilent":
+            return <div>Signing you in...</div>;
+        case "signoutRedirect":
+            return <div>Signing you out...</div>;
+    }
+
+    if (auth.isLoading) {
+        return <div>Loading...</div>;
+    }
+
+    if (auth.error) {
+        return <div>Oops... {auth.error.message}</div>;
+    }
 
     return (
         <QueryClientProvider client={queryClient}>

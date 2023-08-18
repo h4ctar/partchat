@@ -117,7 +117,7 @@ export const commentRoutes: FastifyPluginCallback<
                     motorcycleId: postComment.motorcycleId || null,
                     diagramId: postComment.diagramId || null,
                     partId: postComment.partId || null,
-                    username: user.username,
+                    username: user.preferred_username,
                 },
             });
 
@@ -160,7 +160,7 @@ export const commentRoutes: FastifyPluginCallback<
                 },
             });
 
-            if (commentModel?.username !== user.username) {
+            if (commentModel?.username !== user.preferred_username) {
                 throw new Forbidden("You don't own this comment");
             }
 

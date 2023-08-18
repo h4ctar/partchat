@@ -111,14 +111,6 @@ export const motorcycleRoutes: FastifyPluginCallback<
             server.log.info("Create motorcycle");
 
             const postMotorcycle = request.body;
-            server.log.error(
-                "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXxx",
-            );
-            server.log.error(
-                slugify(`${postMotorcycle.make} ${postMotorcycle.model}`, {
-                    lower: true,
-                }),
-            );
             const motorcycleModel = await prisma.motorcycle.create({
                 data: {
                     id: slugify(
