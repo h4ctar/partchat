@@ -7,6 +7,7 @@ module.exports = {
             script: "./dist/server.js",
             env: {
                 JWKS_URL: process.env.JWKS_URL,
+                ISSUER: process.env.ISSUER,
             },
             env_staging: {
                 PORT: 3001,
@@ -28,9 +29,9 @@ module.exports = {
             "post-deploy": "./post-deploy.sh production",
             env: {
                 JWKS_URL: process.env.JWKS_URL,
-                VITE_AUTH0_DOMAIN: process.env.VITE_AUTH0_DOMAIN,
-                VITE_AUTH0_CLIENT_ID: process.env.VITE_AUTH0_CLIENT_ID,
-                VITE_AUTH0_API_AUDIENCE: process.env.VITE_AUTH0_API_AUDIENCE,
+                ISSUER: process.env.ISSUER,
+                VITE_CLIENT_ID: process.env.VITE_CLIENT_ID,
+                VITE_AUTHORITY: process.env.VITE_AUTHORITY,
             },
         },
         staging: {
@@ -43,9 +44,9 @@ module.exports = {
             "post-deploy": "./post-deploy.sh staging",
             env: {
                 JWKS_URL: process.env.JWKS_URL,
-                VITE_AUTH0_DOMAIN: process.env.VITE_AUTH0_DOMAIN,
-                VITE_AUTH0_CLIENT_ID: process.env.VITE_AUTH0_CLIENT_ID,
-                VITE_AUTH0_API_AUDIENCE: process.env.VITE_AUTH0_API_AUDIENCE,
+                ISSUER: process.env.ISSUER,
+                VITE_CLIENT_ID: process.env.VITE_CLIENT_ID,
+                VITE_AUTHORITY: process.env.VITE_AUTHORITY,
             },
         },
     },
