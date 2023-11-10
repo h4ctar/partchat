@@ -60,7 +60,9 @@ export const PartsTable = ({
             headings={diagramId ? HEADINGS_DIAGRAM : HEADINGS}
             rows={rows}
             selectedRowKey={selectedPart}
-            setSelectedRowKey={(key) => setSelectedPart(key)}
+            setSelectedRowKey={(key) =>
+                setSelectedPart(key as string | number | undefined)
+            }
         />
     );
 };
