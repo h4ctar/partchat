@@ -2,9 +2,9 @@ import { z } from "zod";
 
 const Link = z.object({ href: z.string() });
 
-export const Id = z.string().nonempty();
+export const Id = z.string().min(1);
 export const Year = z.coerce.number().positive();
-export const Make = z.string().nonempty();
+export const Make = z.string().min(1);
 
 export const Motorcycle = z.object({
     make: Make,

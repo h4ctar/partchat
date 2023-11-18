@@ -1,12 +1,5 @@
 import { HTMLInputTypeAttribute } from "react";
-import {
-    FieldErrors,
-    FieldValues,
-    Path,
-    UseFormRegister,
-    UseFormReturn,
-} from "react-hook-form";
-import { ZodObject, ZodRawShape } from "zod";
+import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
 type Props<T extends FieldValues> = {
     label: string;

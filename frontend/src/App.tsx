@@ -4,10 +4,10 @@ import { useAuth } from "react-oidc-context";
 import { Route, Switch } from "wouter";
 import { DiagramForm } from "./diagrams/DiagramForm";
 import Home from "./Home";
-import { Loading } from "./Loading";
+import { Loading } from "./ui/Loading";
 import { MotorcycleForm } from "./motorcycles/MotorcycleForm";
 import { Navbar } from "./nav/Navbar";
-import NotFound from "./NotFound";
+import NotFound from "./ui/NotFound";
 import { queryClient } from "./query";
 import { SettingsContext, useSettings } from "./settings";
 

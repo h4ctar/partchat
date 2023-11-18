@@ -87,7 +87,7 @@ export const useDeleteDiagram = (motorcycleId: string, diagramId: string) => {
     const mutation = useMutation({
         mutationFn: () => deleteDiagram(diagramId, user?.access_token),
         onSuccess: async () => {
-            queryClient.removeQueries(["diagrams", diagramId]);
+            queryClient.removeQueries({ queryKey: ["diagrams", diagramId] });
             queryClient.invalidateQueries({
                 queryKey: ["diagrams"],
             });

@@ -93,7 +93,9 @@ export const useDeleteMotorcycle = (motorcycleId: string) => {
     const mutation = useMutation({
         mutationFn: () => deleteMotorcycle(motorcycleId, user?.access_token),
         onSuccess: async () => {
-            queryClient.removeQueries(["motorcycles", motorcycleId]);
+            queryClient.removeQueries({
+                queryKey: ["motorcycles", motorcycleId],
+            });
             queryClient.invalidateQueries({
                 queryKey: ["motorcycles"],
             });

@@ -1,4 +1,4 @@
-import { Loading } from "../Loading";
+import { Loading } from "../ui/Loading";
 import { ErrorMessage } from "../ui/ErrorMessage";
 import { Comment } from "./Comment";
 import { CommentSearchParams } from "./comment.api";
@@ -17,7 +17,7 @@ export const CommentsList = ({ motorcycleId, diagramId, partId }: Props) => {
         return <ErrorMessage error={fetchComments.error} />;
     }
 
-    const comments = fetchComments.data;
+    const comments = fetchComments.data!;
 
     return (
         <ol className="flex flex-col gap-4">

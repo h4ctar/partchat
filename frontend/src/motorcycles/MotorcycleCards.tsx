@@ -1,6 +1,6 @@
 import { useAuth } from "react-oidc-context";
 import { Link } from "wouter";
-import { Loading } from "../Loading";
+import { Loading } from "../ui/Loading";
 import { PlusIcon } from "../icons/PlusIcon";
 import { ErrorMessage } from "../ui/ErrorMessage";
 import { useFetchMotorcycles } from "./motorcycle.hook";
@@ -21,7 +21,7 @@ const MotorcycleCards = () => {
         );
     }
 
-    const motorcycles = fetchMotorcycles.data;
+    const motorcycles = fetchMotorcycles.data!;
 
     return (
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 p-5 sm:grid-cols-2 lg:grid-cols-4">

@@ -41,7 +41,7 @@ export const useDeleteComment = (commentId: string) => {
     const mutation = useMutation({
         mutationFn: () => deleteComment(commentId, user?.access_token),
         onSuccess: async () => {
-            queryClient.removeQueries(["comments", commentId]);
+            queryClient.removeQueries({ queryKey: ["comments", commentId] });
             queryClient.invalidateQueries({
                 queryKey: ["comments"],
             });

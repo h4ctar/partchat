@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "react-oidc-context";
 import { Link } from "wouter";
-import { Loading } from "../Loading";
+import { Loading } from "../ui/Loading";
 import { Comments } from "../comments/Comments";
 import { PencilIcon } from "../icons/PencilIcon";
 import { TrashIcon } from "../icons/TrashIcon";
@@ -33,7 +33,7 @@ const Diagram = ({ motorcycleId, diagramId }: Props) => {
         );
     }
 
-    const diagram = fetchDiagram.data;
+    const diagram = fetchDiagram.data!;
 
     const onDeleteClick = () => {
         if (confirm(`Are you sure you want to delete ${diagram.name}?`)) {

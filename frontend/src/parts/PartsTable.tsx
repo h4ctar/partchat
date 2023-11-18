@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Loading } from "../Loading";
+import { Loading } from "../ui/Loading";
 import { ErrorMessage } from "../ui/ErrorMessage";
 import { RowData, Table } from "../ui/Table";
 import { useFetchParts } from "./part.hook";

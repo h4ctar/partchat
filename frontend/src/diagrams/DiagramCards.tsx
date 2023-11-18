@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Loading } from "../Loading";
+import { Loading } from "../ui/Loading";
 import { useFetchDiagrams } from "./diagram.hooks";
 import { ErrorMessage } from "../ui/ErrorMessage";
 import { PlusIcon } from "../icons/PlusIcon";
@@ -25,7 +25,7 @@ export const DiagramCards = ({ motorcycleId }: Props) => {
         );
     }
 
-    const diagrams = fetchDiagrams.data;
+    const diagrams = fetchDiagrams.data!;
 
     return (
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 p-5 sm:grid-cols-2 lg:grid-cols-4">

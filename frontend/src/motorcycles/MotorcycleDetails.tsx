@@ -1,6 +1,6 @@
 import { useAuth } from "react-oidc-context";
 import { Link } from "wouter";
-import { Loading } from "../Loading";
+import { Loading } from "../ui/Loading";
 import { PencilIcon } from "../icons/PencilIcon";
 import { TrashIcon } from "../icons/TrashIcon";
 import { ErrorMessage } from "../ui/ErrorMessage";
@@ -29,7 +29,7 @@ export const MotorcycleDetails = ({ motorcycleId }: Props) => {
         );
     }
 
-    const motorcycle = fetchMotorcycle.data;
+    const motorcycle = fetchMotorcycle.data!;
 
     // TODO: memoize this
     const rows = [
