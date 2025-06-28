@@ -3,10 +3,10 @@ import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { BadRequest, NotFound } from "http-errors";
 import slugify from "slugify";
-import { z } from "zod";
+import { z } from "zod/v4";
 import { checkToken } from "./auth";
 import { prisma } from "./prisma";
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 
 export const diagramRoutes: FastifyPluginCallback<
     Record<never, never>,
@@ -197,14 +197,14 @@ export const diagramRoutes: FastifyPluginCallback<
 
             const imageBuffer = await data.toBuffer();
             const image = await Jimp.read(imageBuffer);
-            const path = `public/diagrams/${request.params.diagramId}.png`;
-            await image.writeAsync(path);
+            const path: `${string}.${string}` = `public/diagrams/${request.params.diagramId}.png`;
+            await image.write(path);
 
             await prisma.diagram.update({
                 where: { id: request.params.diagramId },
                 data: {
-                    width: image.getWidth(),
-                    height: image.getHeight(),
+                    width: image.width,
+                    height: image.height,
                 },
             });
 

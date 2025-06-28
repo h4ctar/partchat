@@ -2,7 +2,6 @@ import { AuthProvider } from "react-oidc-context";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { App } from "./App";
-import "./input.css";
 
 const onSigninCallback = (user: any) => {
     console.log(user);

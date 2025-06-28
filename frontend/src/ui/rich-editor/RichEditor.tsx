@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { createEditor, Descendant } from "slate";
 import { Editable, Slate, withReact, ReactEditor } from "slate-react";
 import { BoldIcon } from "../../icons/BoldIcon";
@@ -12,16 +12,13 @@ import { Leaf } from "./Leaf";
 import { LeafStyleButton } from "./LeafStyleButton";
 
 const initialValue: Descendant[] = [
-    {
-        type: "paragraph",
-        children: [{ text: "" }],
-    },
+    { type: "paragraph", children: [{ text: "" }] },
 ];
 
 type Props = {
     placeholder?: string;
     onChange: (value: Descendant[]) => void;
-    children?: JSX.Element;
+    children?: ReactNode;
     disabled?: boolean;
 };
 
@@ -63,12 +60,12 @@ export const RichEditor = ({
                         placeholder={placeholder}
                         className="prose dark:prose-invert max-w-none"
                         readOnly={disabled}
-                        onKeyDown={(event) => {
-                            if (event.code === "Enter" && event.shiftKey) {
-                                event.preventDefault();
-                                editor.insertText("\n");
-                            }
-                        }}
+                        // onKeyDown={(event) => {
+                        //     if (event.code === "Enter" && event.shiftKey) {
+                        //         event.preventDefault();
+                        //         editor.insertText("\n");
+                        //     }
+                        // }}
                     />
                 </div>
                 <div className="flex flex-row-reverse gap-4 p-4">

@@ -8,9 +8,9 @@ import {
 import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { BadRequest, NotFound } from "http-errors";
-import Jimp from "jimp";
+import { Jimp } from "jimp";
 import slugify from "slugify";
-import { z } from "zod";
+import { z } from "zod/v4";
 import { checkToken } from "./auth";
 import { prisma } from "./prisma";
 
@@ -219,8 +219,8 @@ export const motorcycleRoutes: FastifyPluginCallback<
 
             const imageBuffer = await data.toBuffer();
             const image = await Jimp.read(imageBuffer);
-            const path = `public/motorcycles/${request.params.motorcycleId}.png`;
-            await image.writeAsync(path);
+            const path: `${string}.${string}` = `public/motorcycles/${request.params.motorcycleId}.png`;
+            await image.write(path);
 
             return reply.status(200).send(path);
         },

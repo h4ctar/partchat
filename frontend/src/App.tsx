@@ -55,7 +55,7 @@ export const App = () => {
                             </Suspense>
                         </Route>
                         <Route path="/motorcycles/:motorcycleId/edit">
-                            {(params) => (
+                            {(params: any) => (
                                 <Suspense fallback={<Loading />}>
                                     <MotorcycleForm
                                         motorcycleId={params.motorcycleId!}
@@ -64,7 +64,7 @@ export const App = () => {
                             )}
                         </Route>
                         <Route path="/motorcycles/:motorcycleId">
-                            {(params) => (
+                            {(params: any) => (
                                 <Suspense fallback={<Loading />}>
                                     <Motorcycle
                                         motorcycleId={params.motorcycleId!}
@@ -73,7 +73,7 @@ export const App = () => {
                             )}
                         </Route>
                         <Route path="/motorcycles/:motorcycleId/diagrams/new">
-                            {(params) => (
+                            {(params: any) => (
                                 <Suspense fallback={<Loading />}>
                                     <DiagramForm
                                         motorcycleId={params.motorcycleId!}
@@ -82,7 +82,7 @@ export const App = () => {
                             )}
                         </Route>
                         <Route path="/motorcycles/:motorcycleId/diagrams/:diagramId/edit">
-                            {(params) => (
+                            {(params: any) => (
                                 <Suspense fallback={<Loading />}>
                                     <DiagramForm
                                         motorcycleId={params.motorcycleId!}
@@ -92,7 +92,7 @@ export const App = () => {
                             )}
                         </Route>
                         <Route path="/motorcycles/:motorcycleId/diagrams/:diagramId">
-                            {(params) => (
+                            {(params: any) => (
                                 <Suspense fallback={<Loading />}>
                                     <Diagram
                                         motorcycleId={params.motorcycleId!}

@@ -8,18 +8,14 @@ import { fetchMotorcycle } from "./motorcycle.api";
 import { useCreateMotorcycle, useUpdateMotorcycle } from "./motorcycle.hook";
 import { ErrorMessage } from "../ui/ErrorMessage";
 
-type Props = {
-    motorcycleId?: string;
-};
+type Props = { motorcycleId?: string };
 
 export const MotorcycleForm = ({ motorcycleId }: Props) => {
     const createMotorcycle = useCreateMotorcycle();
     const updateMotorcycle = useUpdateMotorcycle();
 
     const [image, setImage] = useState<File>();
-    const form = useForm<PostMotorcycle>({
-        resolver: zodResolver(PostMotorcycle),
-    });
+    const form = useForm({ resolver: zodResolver(PostMotorcycle) });
 
     useEffect(() => {
         if (motorcycleId) {

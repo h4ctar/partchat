@@ -1,11 +1,8 @@
-import { BaseSyntheticEvent } from "react";
+import { BaseSyntheticEvent, ReactNode } from "react";
 import { Editor, Transforms, Text } from "slate";
 import { useSlate } from "slate-react";
 
-type Props = {
-    style: "bold" | "italic";
-    children: JSX.Element;
-};
+type Props = { style: "bold" | "italic"; children: ReactNode };
 
 export const LeafStyleButton = ({ style, children }: Props) => {
     const editor = useSlate();

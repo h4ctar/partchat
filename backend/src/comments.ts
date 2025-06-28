@@ -2,7 +2,7 @@ import { CommentResource, Id, PostComment } from "@partchat/types";
 import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { Forbidden, NotFound } from "http-errors";
-import { z } from "zod";
+import { z } from "zod/v4";
 import { checkToken } from "./auth";
 import { prisma } from "./prisma";
 

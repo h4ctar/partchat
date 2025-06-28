@@ -1,10 +1,10 @@
-import { BaseSyntheticEvent } from "react";
+import { BaseSyntheticEvent, ReactNode } from "react";
 import { Editor, Element, Transforms } from "slate";
 import { useSlate } from "slate-react";
 
 type Props = {
     style: "paragraph" | "code" | "heading" | "quote";
-    children: JSX.Element;
+    children: ReactNode;
 };
 
 export const BlockStyleButton = ({ style, children }: Props) => {
@@ -20,9 +20,7 @@ export const BlockStyleButton = ({ style, children }: Props) => {
         Transforms.setNodes(
             editor,
             { type: active ? undefined : style },
-            {
-                match: (n) => Element.isElement(n),
-            },
+            { match: (n) => Element.isElement(n) },
         );
     };
 

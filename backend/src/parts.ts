@@ -2,7 +2,7 @@ import { Id, PartResource } from "@partchat/types";
 import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { prisma } from "./prisma";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import { z } from "zod";
+import { z } from "zod/v4";
 
 export const partRoutes: FastifyPluginCallback<
     Record<never, never>,

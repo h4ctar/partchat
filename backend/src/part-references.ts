@@ -1,7 +1,7 @@
 import { Id, PartReferenceResource } from "@partchat/types";
 import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import { z } from "zod";
+import { z } from "zod/v4";
 import { prisma } from "./prisma";
 import { User, checkToken } from "./auth";
 
