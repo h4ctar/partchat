@@ -23,7 +23,7 @@ export const TextInput = <T extends FieldValues>({
             <span className="text-gray-700 dark:text-slate-400">{label}</span>
             <div className="relative">
                 <input
-                    className="w-full rounded-lg bg-white text-slate-800 [appearance:textfield] dark:bg-slate-800 dark:text-slate-300"
+                    className="w-full [appearance:textfield] rounded-lg bg-white text-slate-800 dark:bg-slate-800 dark:text-slate-300"
                     type={type}
                     {...form.register(name, {
                         valueAsNumber: type === "number",
@@ -39,7 +39,7 @@ export const TextInput = <T extends FieldValues>({
                 )}
             </div>
             {form.formState.errors[name]?.message && (
-                <p className="mt-2 text-xs italic text-red-500">
+                <p className="mt-2 text-xs text-red-500 italic">
                     {form.formState.errors[name]?.message as string}
                 </p>
             )}

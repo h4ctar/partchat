@@ -56,7 +56,7 @@ export const MotorcycleDetails = ({ motorcycleId }: Props) => {
         <div className="mx-auto flex max-w-7xl flex-col items-center p-5">
             <div className="flex w-full flex-row">
                 <div className="flex-grow">
-                    <h1 className="mx-5 mt-5 text-4xl font-extrabold text-slate-900 dark:text-white sm:text-5xl lg:text-6xl">{`${motorcycle.make} ${motorcycle.model}`}</h1>
+                    <h1 className="mx-5 mt-5 text-4xl font-extrabold text-slate-900 sm:text-5xl lg:text-6xl dark:text-white">{`${motorcycle.make} ${motorcycle.model}`}</h1>
                     <h2 className="mx-5 mb-5 text-2xl text-slate-500">
                         {`${motorcycle.yearFrom}-${motorcycle.yearTo}`}
                     </h2>

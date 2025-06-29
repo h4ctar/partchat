@@ -24,7 +24,7 @@ export const Table = ({
                             {headings?.map((heading, colIndex) => (
                                 <th
                                     key={colIndex}
-                                    className="border-b border-slate-100 p-4 text-left text-sm font-medium text-slate-400 group-first:first:rounded-tl-lg group-first:last:rounded-tr-lg group-last:first:rounded-bl-lg group-last:last:rounded-br-lg dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200 lg:text-base"
+                                    className="border-b border-slate-100 p-4 text-left text-sm font-medium text-slate-400 group-first:first:rounded-tl-lg group-last:first:rounded-bl-lg group-first:last:rounded-tr-lg group-last:last:rounded-br-lg lg:text-base dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
                                 >
                                     {heading}
                                 </th>
@@ -46,7 +46,7 @@ export const Table = ({
                             {row.map((data, colIndex) => (
                                 <td
                                     key={colIndex}
-                                    className="border-b border-slate-100 p-4 text-sm group-first:first:rounded-tl-lg group-first:last:rounded-tr-lg group-last:first:rounded-bl-lg group-last:last:rounded-br-lg dark:border-slate-700 lg:text-base"
+                                    className="border-b border-slate-100 p-4 text-sm group-first:first:rounded-tl-lg group-last:first:rounded-bl-lg group-first:last:rounded-tr-lg group-last:last:rounded-br-lg lg:text-base dark:border-slate-700"
                                 >
                                     {data}
                                 </td>

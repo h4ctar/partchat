@@ -5,7 +5,7 @@ const Home = () => {
     return (
         <div className="p-5">
             <div className="relative mx-auto max-w-7xl pt-20 sm:pt-24 lg:pt-32">
-                <h1 className="text-center text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
+                <h1 className="text-center text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl dark:text-white">
                     Organised library of technical information to help maintain
                     old bikes and cars.
                 </h1>
@@ -20,7 +20,7 @@ const Home = () => {
                 </div>
             </div>
             <div className="relative mx-auto max-w-7xl pt-20 sm:pt-24 lg:pt-32">
-                <h1 className="text-center text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
+                <h1 className="text-center text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl dark:text-white">
                     Reddit style discussions pinned to vehicles, diagrams and
                     parts.
                 </h1>
@@ -29,7 +29,7 @@ const Home = () => {
                 </p>
             </div>
             <div className="relative mx-auto max-w-7xl pt-20 sm:pt-24 lg:pt-32">
-                <h1 className="text-center text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
+                <h1 className="text-center text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl dark:text-white">
                     Compatible part catalogue.
                 </h1>
                 <p className="mx-auto mt-6 max-w-3xl text-center text-lg text-slate-600 dark:text-slate-400">
@@ -38,7 +38,7 @@ const Home = () => {
                 </p>
             </div>
             <div className="relative mx-auto max-w-7xl p-20 sm:pt-24 lg:pt-32">
-                <h1 className="text-center text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl">
+                <h1 className="text-center text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl dark:text-white">
                     Offline mode.
                 </h1>
                 <p className="mx-auto mt-6 max-w-3xl text-center text-lg text-slate-600 dark:text-slate-400">
