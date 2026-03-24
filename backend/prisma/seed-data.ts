@@ -12,7 +12,6 @@ export const MOTORCYCLES = [
         compression: 8.5,
         topSpeed: 189,
         weight: 256,
-        image: "/assets/motorcycles/xs750d.png",
     },
     {
         id: "yamaha-xj650lj-1982-1984",
@@ -27,7 +26,6 @@ export const MOTORCYCLES = [
         compression: 8.5,
         topSpeed: 203,
         weight: 262,
-        image: "/assets/motorcycles/xj650lj.png",
     },
     {
         id: "honda-cb400f-1975-1977",
@@ -42,7 +40,6 @@ export const MOTORCYCLES = [
         compression: 9.4,
         topSpeed: 158,
         weight: 184,
-        image: "/assets/motorcycles/cb400f.png",
     },
 ];
 
@@ -50,7 +47,6 @@ export const DIAGRAMS = [
     {
         id: "yamaha-cylinder-head-1",
         name: "Cylinder Head",
-        image: "/assets/diagrams/cylinder-head-1.png",
         width: 1146,
         height: 1670,
     },
