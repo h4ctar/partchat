@@ -10,7 +10,7 @@
         "dev": "tsc --watch"
     },
     "dependencies": {
-        "zod": "^3.21.4"
+        "zod": "^4.3.6"
     },
     "devDependencies": {
         "prettier": "^3.0.0",
