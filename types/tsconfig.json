@@ -1,8 +1,10 @@
 {
     "compilerOptions": {
         "declaration": true,
+        "esModuleInterop": true,
         "lib": ["ES2015"],
         "outDir": "lib",
+        "skipLibCheck": true,
         "strict": true
     },
     "include": ["src/**/*"]
