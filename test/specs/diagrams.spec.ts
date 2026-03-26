@@ -69,7 +69,9 @@ test.describe("Diagrams", () => {
             );
 
             // Post comment
+            await page.getByRole("textbox").scrollIntoViewIfNeeded();
             await page.getByRole("textbox").fill(commentText);
+            await page.getByText("Post comment").scrollIntoViewIfNeeded();
             await page.getByText("Post comment").click();
 
             await expect(
