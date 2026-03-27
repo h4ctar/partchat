@@ -5,6 +5,7 @@
     "type": "module",
     "scripts": {
         "prettier": "prettier --check src",
+        "prettier:fix": "prettier --write src",
         "dev": "vite --strictPort",
         "build": "tsc && vite build",
         "preview": "vite preview"

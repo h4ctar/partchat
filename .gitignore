@@ -1,6 +1,7 @@
 .env
 backend/public
 dist
+frontend/public/config.js
 lib
 node_modules
 partchat.db
