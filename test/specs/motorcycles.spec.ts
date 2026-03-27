@@ -74,6 +74,7 @@ test.describe("Motorcycles", () => {
             await page.goto("/motorcycles/yamaha-xj650lj-1982-1984");
 
             // Post comment
+            await page.getByTestId("comments").scrollIntoViewIfNeeded();
             await page.getByRole("textbox").fill(commentText);
             await page.getByText("Post comment").click();
 
