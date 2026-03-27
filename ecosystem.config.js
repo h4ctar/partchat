@@ -30,8 +30,8 @@ module.exports = {
             env: {
                 JWKS_URL: process.env.JWKS_URL,
                 ISSUER: process.env.ISSUER,
-                VITE_CLIENT_ID: process.env.VITE_CLIENT_ID,
-                VITE_AUTHORITY: process.env.VITE_AUTHORITY,
+                CLIENT_ID: process.env.CLIENT_ID,
+                AUTHORITY: process.env.AUTHORITY,
             },
         },
         staging: {
@@ -45,8 +45,8 @@ module.exports = {
             env: {
                 JWKS_URL: process.env.JWKS_URL,
                 ISSUER: process.env.ISSUER,
-                VITE_CLIENT_ID: process.env.VITE_CLIENT_ID,
-                VITE_AUTHORITY: process.env.VITE_AUTHORITY,
+                CLIENT_ID: process.env.CLIENT_ID,
+                AUTHORITY: process.env.AUTHORITY,
             },
         },
     },

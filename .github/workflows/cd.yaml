@@ -49,8 +49,8 @@ jobs:
             JWKS_URL: ${{ vars.JWKS_URL }}
             ISSUER: ${{ vars.ISSUER }}
             SSH_USER: ${{ vars.SSH_USER }}
-            VITE_AUTHORITY: ${{ vars.VITE_AUTHORITY }}
-            VITE_CLIENT_ID: ${{ vars.VITE_CLIENT_ID }}
+            AUTHORITY: ${{ vars.AUTHORITY }}
+            CLIENT_ID: ${{ vars.CLIENT_ID }}
         steps:
             - uses: actions/checkout@v4
             - uses: actions/download-artifact@v4
@@ -68,7 +68,6 @@ jobs:
                   echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
             - name: Copy dist to staging server
               run: |
-                  ssh -i ~/.ssh/github_rsa $SSH_USER@$DEPLOY_HOST "mkdir -p /opt/partchat-staging/current/backend /opt/partchat-staging/current/frontend"
                   scp -i ~/.ssh/github_rsa -r backend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat-staging/current/backend/
                   scp -i ~/.ssh/github_rsa -r frontend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat-staging/current/frontend/
             - name: Deploy to staging
@@ -131,8 +130,8 @@ jobs:
             JWKS_URL: ${{ vars.JWKS_URL }}
             ISSUER: ${{ vars.ISSUER }}
             SSH_USER: ${{ vars.SSH_USER }}
-            VITE_AUTHORITY: ${{ vars.VITE_AUTHORITY }}
-            VITE_CLIENT_ID: ${{ vars.VITE_CLIENT_ID }}
+            AUTHORITY: ${{ vars.AUTHORITY }}
+            CLIENT_ID: ${{ vars.CLIENT_ID }}
         steps:
             - uses: actions/checkout@v4
             - uses: actions/download-artifact@v4
@@ -150,7 +149,6 @@ jobs:
                   echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
             - name: Copy dist to production server
               run: |
-                  ssh -i ~/.ssh/github_rsa $SSH_USER@$DEPLOY_HOST "mkdir -p /opt/partchat-production/current/backend /opt/partchat-production/current/frontend"
                   scp -i ~/.ssh/github_rsa -r backend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat-production/current/backend/
                   scp -i ~/.ssh/github_rsa -r frontend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat-production/current/frontend/
             - name: Deploy to production
