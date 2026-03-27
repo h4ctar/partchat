@@ -7,7 +7,7 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
-npm ci
+npm ci --omit=dev
 npm run dbpush --workspace backend
 
 pm2 startOrRestart ecosystem.config.js --env $1
