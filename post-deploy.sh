@@ -8,7 +8,6 @@ if [ $# -ne 1 ]; then
 fi
 
 npm ci
-npm run build --workspaces --if-present
 npm run dbpush --workspace backend
 
 pm2 startOrRestart ecosystem.config.js --env $1

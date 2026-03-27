@@ -28,6 +28,12 @@ jobs:
               run: npm ci
             - name: Build
               run: npm run build --workspaces --if-present
+            - uses: actions/upload-artifact@v4
+              with:
+                  name: dist
+                  path: |
+                      backend/dist
+                      frontend/dist
 
     staging-deploy:
         name: Staging Deploy
@@ -47,6 +53,9 @@ jobs:
             VITE_CLIENT_ID: ${{ vars.VITE_CLIENT_ID }}
         steps:
             - uses: actions/checkout@v4
+            - uses: actions/download-artifact@v4
+              with:
+                  name: dist
             - name: Install pm2
               run: npm install --global pm2@latest
             - name: Setup SSH
@@ -57,6 +66,11 @@ jobs:
                   mkdir -m 700 -p ~/.ssh &&
                   echo "$SSH_PRIVATE_KEY" > ~/.ssh/github_rsa && chmod 600 ~/.ssh/github_rsa &&
                   echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
+            - name: Copy dist to staging server
+              run: |
+                  ssh -i ~/.ssh/github_rsa $SSH_USER@$DEPLOY_HOST "mkdir -p /opt/partchat-staging/current/backend /opt/partchat-staging/current/frontend"
+                  scp -i ~/.ssh/github_rsa -r backend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat-staging/current/backend/
+                  scp -i ~/.ssh/github_rsa -r frontend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat-staging/current/frontend/
             - name: Deploy to staging
               run: pm2 deploy staging
 
@@ -121,6 +135,9 @@ jobs:
             VITE_CLIENT_ID: ${{ vars.VITE_CLIENT_ID }}
         steps:
             - uses: actions/checkout@v4
+            - uses: actions/download-artifact@v4
+              with:
+                  name: dist
             - name: Install pm2
               run: npm install --global pm2@latest
             - name: Setup SSH
@@ -131,5 +148,10 @@ jobs:
                   mkdir -m 700 -p ~/.ssh &&
                   echo "$SSH_PRIVATE_KEY" > ~/.ssh/github_rsa && chmod 600 ~/.ssh/github_rsa &&
                   echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
+            - name: Copy dist to production server
+              run: |
+                  ssh -i ~/.ssh/github_rsa $SSH_USER@$DEPLOY_HOST "mkdir -p /opt/partchat-production/current/backend /opt/partchat-production/current/frontend"
+                  scp -i ~/.ssh/github_rsa -r backend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat-production/current/backend/
+                  scp -i ~/.ssh/github_rsa -r frontend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat-production/current/frontend/
             - name: Deploy to production
               run: pm2 deploy production
