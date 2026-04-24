@@ -46,7 +46,13 @@ The REST API has these resources:
     npm install
     ```
 
-2. Run the backend:
+2. Build everything:
+
+    ```
+    npm run build --workspaces
+    ```
+
+3. Run the backend:
 
     ```
     cd backend
@@ -55,7 +61,7 @@ The REST API has these resources:
     npm run dev
     ```
 
-3. Run the frontend:
+4. Run the frontend:
 
     ```zsh
     cd frontend

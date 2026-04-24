@@ -15,8 +15,6 @@ import { diagramRoutes } from "./diagrams";
 import { motorcycleRoutes } from "./motorcycles";
 import { partReferenceRoutes } from "./part-references";
 import { partRoutes } from "./parts";
-import { z } from "zod/v4";
-import { Id } from "@partchat/types";
 
 export const server = fastify({
     logger: true,

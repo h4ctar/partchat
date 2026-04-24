@@ -1,5 +1,8 @@
 {
     "compilerOptions": {
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "target": "ES2023",
         "esModuleInterop": true,
         "outDir": "dist",
         "skipLibCheck": true,

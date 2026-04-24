@@ -32,6 +32,7 @@ module.exports = {
                 ISSUER: process.env.ISSUER,
                 CLIENT_ID: process.env.CLIENT_ID,
                 AUTHORITY: process.env.AUTHORITY,
+                DATABASE_URL: "./partchat.db",
             },
         },
         staging: {
@@ -47,6 +48,7 @@ module.exports = {
                 ISSUER: process.env.ISSUER,
                 CLIENT_ID: process.env.CLIENT_ID,
                 AUTHORITY: process.env.AUTHORITY,
+                DATABASE_URL: "./partchat.db",
             },
         },
     },
