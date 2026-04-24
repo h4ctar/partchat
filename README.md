@@ -56,8 +56,8 @@ The REST API has these resources:
 
     ```
     cd backend
-    npm run dbpush
-    npm run dbseed
+    npm run db:push
+    npm run db:seed
     npm run dev
     ```
 

@@ -8,7 +8,7 @@ if [ $# -ne 1 ]; then
 fi
 
 npm ci --omit=dev
-npm run dbpush --workspace backend
+npm run db:push --workspace backend
 
 cat > frontend/dist/config.js << EOF
 window.ENV = {
