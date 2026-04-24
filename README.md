@@ -49,7 +49,7 @@ The REST API has these resources:
 2. Build everything:
 
     ```
-    npm run build --workspaces
+    npm run build --workspaces --if-present
     ```
 
 3. Run the backend:
