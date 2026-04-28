@@ -4,7 +4,7 @@ module.exports = {
             name: "partchat",
             append_env_to_name: true,
             cwd: "backend",
-            script: "./dist/server.js",
+            script: "./dist/src/server.js",
             env: {
                 JWKS_URL: process.env.JWKS_URL,
                 ISSUER: process.env.ISSUER,

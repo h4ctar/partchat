@@ -9,12 +9,12 @@ import {
     validatorCompiler,
 } from "fastify-type-provider-zod";
 import path from "path";
-import { User } from "./auth";
-import { commentRoutes } from "./comments";
-import { diagramRoutes } from "./diagrams";
-import { motorcycleRoutes } from "./motorcycles";
-import { partReferenceRoutes } from "./part-references";
-import { partRoutes } from "./parts";
+import { User } from "./auth.js";
+import { commentRoutes } from "./comments.js";
+import { diagramRoutes } from "./diagrams.js";
+import { motorcycleRoutes } from "./motorcycles.js";
+import { partReferenceRoutes } from "./part-references.js";
+import { partRoutes } from "./parts.js";
 
 export const server = fastify({
     logger: true,

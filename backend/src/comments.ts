@@ -3,8 +3,8 @@ import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import createError from "http-errors";
 import { z } from "zod/v4";
-import { checkToken } from "./auth";
-import { prisma } from "./prisma";
+import { checkToken } from "./auth.js";
+import { prisma } from "./prisma.js";
 
 export const commentRoutes: FastifyPluginCallback<
     Record<never, never>,

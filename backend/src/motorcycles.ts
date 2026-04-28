@@ -11,8 +11,8 @@ import createError from "http-errors";
 import { Jimp } from "jimp";
 import slugify from "slugify";
 import { z } from "zod/v4";
-import { checkToken } from "./auth";
-import { prisma } from "./prisma";
+import { checkToken } from "./auth.js";
+import { prisma } from "./prisma.js";
 
 export const motorcycleRoutes: FastifyPluginCallback<
     Record<never, never>,

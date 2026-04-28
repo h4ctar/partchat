@@ -4,8 +4,8 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import createError from "http-errors";
 import slugify from "slugify";
 import { z } from "zod/v4";
-import { checkToken } from "./auth";
-import { prisma } from "./prisma";
+import { checkToken } from "./auth.js";
+import { prisma } from "./prisma.js";
 import { Jimp } from "jimp";
 
 export const diagramRoutes: FastifyPluginCallback<
