@@ -1,6 +1,6 @@
 .env
 backend/public
-backend/generated
+backend/src/generated
 dist
 frontend/public/config.js
 lib
