@@ -69,10 +69,12 @@ jobs:
                   echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
             - name: Copy dist
               run: |
-                  scp -i ~/.ssh/github_rsa package-lock.json $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/backend/
+                  scp -i ~/.ssh/github_rsa package*.json $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/
+                  scp -i ~/.ssh/github_rsa types/package.json $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/types/
                   scp -i ~/.ssh/github_rsa backend/package.json $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/backend/
                   scp -i ~/.ssh/github_rsa -r backend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/backend/
                   scp -i ~/.ssh/github_rsa -r frontend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/frontend/
+                  scp -i ~/.ssh/github_rsa -r types/lib $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/types/
             - name: Install dependencies
               run: ssh -i ~/.ssh/github_rsa $SSH_USER@$DEPLOY_HOST "cd /opt/partchat/staging/backend && npm ci --omit=dev"
             - name: Configure frontend
