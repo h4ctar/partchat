@@ -69,6 +69,8 @@ jobs:
                   echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
             - name: Copy dist
               run: |
+                  ssh -i ~/.ssh/github_rsa $SSH_USER@$DEPLOY_HOST \
+                      "mkdir -p /opt/partchat/staging/types /opt/partchat/staging/backend /opt/partchat/staging/frontend"
                   scp -i ~/.ssh/github_rsa package*.json $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/
                   scp -i ~/.ssh/github_rsa types/package.json $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/types/
                   scp -i ~/.ssh/github_rsa backend/package.json $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/backend/
