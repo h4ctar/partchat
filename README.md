@@ -67,3 +67,24 @@ The REST API has these resources:
     cd frontend
     npm run dev
     ```
+
+## Deploy
+
+```
+[Unit]
+Description=Partchat
+Documentation=https://github.com/h4ctar/partchat
+After=network.target
+
+[Service]
+Environment=JWKS_URL=<JWKS_URL>
+Environment=ISSUER=<ISSUER>
+Environment=PORT=<PORT>
+Type=simple
+User=<USER>
+ExecStart=/usr/bin/node /opt/partchat/backend/dist/src/server.js
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```

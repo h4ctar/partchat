@@ -35,13 +35,14 @@ jobs:
               with:
                   name: dist
                   path: |
-                      package.json
-                      package-lock.json
                       backend/dist
+                      backend/prisma
                       backend/package.json
                       frontend/dist
                       types/lib
                       types/package.json
+                      package-lock.json
+                      package.json
 
     staging-deploy:
         name: Staging Deploy
