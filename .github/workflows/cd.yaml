@@ -59,8 +59,6 @@ jobs:
             - uses: actions/download-artifact@v6
               with:
                   name: dist
-            - name: Install pm2
-              run: npm install --global pm2@latest
             - name: Setup SSH
               env:
                   SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
@@ -69,12 +67,17 @@ jobs:
                   mkdir -m 700 -p ~/.ssh &&
                   echo "$SSH_PRIVATE_KEY" > ~/.ssh/github_rsa && chmod 600 ~/.ssh/github_rsa &&
                   echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
-            - name: Copy dist to staging server
+            - name: Copy dist
               run: |
-                  scp -i ~/.ssh/github_rsa -r backend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat-staging/current/backend/
-                  scp -i ~/.ssh/github_rsa -r frontend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat-staging/current/frontend/
-            - name: Deploy to staging
-              run: pm2 deploy staging
+                  scp -i ~/.ssh/github_rsa -r backend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/backend/
+                  scp -i ~/.ssh/github_rsa -r frontend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/frontend/
+            - name: Configure frontend
+                  cat > frontend/dist/config.js << EOF
+                  window.ENV = {
+                      AUTHORITY: "$AUTHORITY",
+                      CLIENT_ID: "$CLIENT_ID"
+                  };
+                  EOF
 
     end-2-end-test:
         name: End-to-End Test

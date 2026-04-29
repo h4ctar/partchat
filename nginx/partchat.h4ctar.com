@@ -11,7 +11,7 @@ server {
     }
 
     location / {
-        root /opt/partchat/current/frontend/dist;
+        root /opt/partchat/staging/frontend/dist;
         try_files $uri /index.html;
     }
 
