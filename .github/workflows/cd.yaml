@@ -37,6 +37,7 @@ jobs:
                   path: |
                       backend/dist
                       backend/prisma
+                      backend/prisma.config.ts
                       backend/package.json
                       frontend/dist
                       types/lib
