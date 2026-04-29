@@ -37,6 +37,7 @@ jobs:
                   path: |
                       backend/dist
                       frontend/dist
+                      types/lib
 
     staging-deploy:
         name: Staging Deploy
