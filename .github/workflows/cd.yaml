@@ -35,9 +35,13 @@ jobs:
               with:
                   name: dist
                   path: |
+                      package.json
+                      package-lock.json
                       backend/dist
+                      backend/package.json
                       frontend/dist
                       types/lib
+                      types/package.json
 
     staging-deploy:
         name: Staging Deploy
@@ -56,7 +60,6 @@ jobs:
             AUTHORITY: ${{ vars.AUTHORITY }}
             CLIENT_ID: ${{ vars.CLIENT_ID }}
         steps:
-            - uses: actions/checkout@v6
             - uses: actions/download-artifact@v6
               with:
                   name: dist
@@ -70,14 +73,8 @@ jobs:
                   echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
             - name: Copy dist
               run: |
-                  ssh -i ~/.ssh/github_rsa $SSH_USER@$DEPLOY_HOST \
-                      "mkdir -p /opt/partchat/staging/types /opt/partchat/staging/backend /opt/partchat/staging/frontend"
-                  scp -i ~/.ssh/github_rsa package*.json $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/
-                  scp -i ~/.ssh/github_rsa types/package.json $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/types/
-                  scp -i ~/.ssh/github_rsa backend/package.json $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/backend/
-                  scp -i ~/.ssh/github_rsa -r backend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/backend/
-                  scp -i ~/.ssh/github_rsa -r frontend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/frontend/
-                  scp -i ~/.ssh/github_rsa -r types/lib $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/types/
+                  ssh -i ~/.ssh/github_rsa $SSH_USER@$DEPLOY_HOST "mkdir -p /opt/partchat/staging"
+                  scp -i ~/.ssh/github_rsa -r . $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/
             - name: Install dependencies
               run: ssh -i ~/.ssh/github_rsa $SSH_USER@$DEPLOY_HOST "cd /opt/partchat/staging/backend && npm ci --omit=dev"
             - name: Configure frontend
@@ -85,6 +82,11 @@ jobs:
                   ssh -i ~/.ssh/github_rsa $SSH_USER@$DEPLOY_HOST \
                       "echo 'window.ENV = { AUTHORITY: \"$AUTHORITY\", CLIENT_ID: \"$CLIENT_ID\" };' \
                       > /opt/partchat/staging/frontend/dist/config.js"
+            - name: Configure backend
+              run: |
+                  ssh -i ~/.ssh/github_rsa $SSH_USER@$DEPLOY_HOST \
+                      "echo 'JWKS_URL=$JWKS_URL ISSUER=$ISSUER CLIENT_ID=$CLIENT_ID AUTHORITY=$AUTHORITY' \
+                       > /opt/partchat/staging/backend/env"
 
     end-2-end-test:
         name: End-to-End Test
