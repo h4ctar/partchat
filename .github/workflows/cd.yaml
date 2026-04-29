@@ -72,6 +72,7 @@ jobs:
                   scp -i ~/.ssh/github_rsa -r backend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/backend/
                   scp -i ~/.ssh/github_rsa -r frontend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/frontend/
             - name: Configure frontend
+              run: |
                   cat > frontend/dist/config.js << EOF
                   window.ENV = {
                       AUTHORITY: "$AUTHORITY",
