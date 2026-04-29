@@ -69,16 +69,17 @@ jobs:
                   echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts && chmod 600 ~/.ssh/known_hosts
             - name: Copy dist
               run: |
+                  scp -i ~/.ssh/github_rsa package-lock.json $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/backend/
+                  scp -i ~/.ssh/github_rsa backend/package.json $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/backend/
                   scp -i ~/.ssh/github_rsa -r backend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/backend/
                   scp -i ~/.ssh/github_rsa -r frontend/dist $SSH_USER@$DEPLOY_HOST:/opt/partchat/staging/frontend/
+            - name: Install dependencies
+              run: ssh -i ~/.ssh/github_rsa $SSH_USER@$DEPLOY_HOST "cd /opt/partchat/staging/backend && npm ci --omit=dev"
             - name: Configure frontend
               run: |
-                  cat > frontend/dist/config.js << EOF
-                  window.ENV = {
-                      AUTHORITY: "$AUTHORITY",
-                      CLIENT_ID: "$CLIENT_ID"
-                  };
-                  EOF
+                  ssh -i ~/.ssh/github_rsa $SSH_USER@$DEPLOY_HOST \
+                      "echo 'window.ENV = { AUTHORITY: \"$AUTHORITY\", CLIENT_ID: \"$CLIENT_ID\" };' \
+                      > /opt/partchat/staging/frontend/dist/config.js"
 
     end-2-end-test:
         name: End-to-End Test
