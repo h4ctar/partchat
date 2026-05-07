@@ -1,12 +1,18 @@
-import {
-    DIAGRAMS,
-    DIAGRAM_TO_PARTS,
-    MOTORCYCLES,
-    PARTS,
-} from "./seed-data";
+import { DIAGRAMS, DIAGRAM_TO_PARTS, MOTORCYCLES, PARTS } from "./seed-data";
 import { prisma } from "../src/prisma";
+import { cpSync } from "fs";
+import { join } from "path";
 
 async function main() {
+    console.log(`BEN ${__dirname}`);
+    cpSync(
+        join(__dirname, "../../prisma/public"),
+        join(__dirname, "../../public"),
+        {
+            recursive: true,
+        },
+    );
+
     for (const part of PARTS) {
         await prisma.part.upsert({
             where: { id: part.id },
