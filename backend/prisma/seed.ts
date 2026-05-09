@@ -1,50 +1,39 @@
-import { PrismaClient } from "@prisma/client";
-import {
-    DIAGRAMS,
-    DIAGRAM_TO_PARTS,
-    MOTORCYCLES,
-    MOTORCYCLE_TO_DIAGRAMS,
-    PARTS,
-} from "./seed-data";
-
-const prisma = new PrismaClient();
+import { DIAGRAMS, DIAGRAM_TO_PARTS, MOTORCYCLES, PARTS } from "./seed-data";
+import { prisma } from "../src/prisma";
+import { cpSync } from "fs";
+import { join } from "path";
 
 async function main() {
-    for (const motorcycle of MOTORCYCLES) {
-        await prisma.motorcycle.upsert({
-            where: { id: motorcycle.id },
-            update: motorcycle,
-            create: motorcycle,
-        });
-    }
-
-    for (const diagram of DIAGRAMS) {
-        const motorcycle = MOTORCYCLE_TO_DIAGRAMS.find(
-            (motorcycleToDiagram) =>
-                motorcycleToDiagram.diagramId === diagram.id,
-        );
-        const diagramModel = {
-            ...diagram,
-            ...(motorcycle
-                ? {
-                      motorcycles: {
-                          connect: { id: motorcycle?.motorcycleId },
-                      },
-                  }
-                : {}),
-        };
-        await prisma.diagram.upsert({
-            where: { id: diagram.id },
-            update: diagramModel,
-            create: diagramModel,
-        });
-    }
+    console.log(`BEN ${__dirname}`);
+    cpSync(
+        join(__dirname, "../../prisma/public"),
+        join(__dirname, "../../public"),
+        {
+            recursive: true,
+        },
+    );
 
     for (const part of PARTS) {
         await prisma.part.upsert({
             where: { id: part.id },
-            update: part,
+            update: {},
             create: part,
+        });
+    }
+
+    for (const diagram of DIAGRAMS) {
+        await prisma.diagram.upsert({
+            where: { id: diagram.id },
+            update: {},
+            create: diagram,
+        });
+    }
+
+    for (const motorcycle of MOTORCYCLES) {
+        await prisma.motorcycle.upsert({
+            where: { id: motorcycle.id },
+            update: {},
+            create: motorcycle,
         });
     }
 
@@ -60,16 +49,6 @@ async function main() {
             create: diagramToPart,
         });
     }
-
-    // for (const comment of COMMENTS) {
-    //     await prisma.comment.upsert({
-    //         where: {
-    //             id: comment.id,
-    //         },
-    //         update: comment,
-    //         create: comment,
-    //     });
-    // }
 }
 
 main()

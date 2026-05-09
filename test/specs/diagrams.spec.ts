@@ -65,10 +65,11 @@ test.describe("Diagrams", () => {
 
             await login(page);
             await page.goto(
-                "/motorcycles/yamaha-xj650lj-1982-1984/diagrams/yamaha-xj650lj-1982-1984-camshaft-chain",
+                "/motorcycles/yamaha-xj650lj-1982-1984/diagrams/yamaha-cylinder-head-1",
             );
 
             // Post comment
+            await page.getByTestId("comments").scrollIntoViewIfNeeded();
             await page.getByRole("textbox").fill(commentText);
             await page.getByText("Post comment").click();
 

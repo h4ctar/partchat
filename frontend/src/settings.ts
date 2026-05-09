@@ -7,25 +7,22 @@ type Settings = {
 export const SettingsContext = createContext<Settings>({ theme: "dark" });
 
 export const useSettings = () => {
-    const [settings, setSettings] = useState<Settings>({ theme: "dark" });
+    const [settings, setSettings] = useState<Settings>({
+        theme: (localStorage.theme as "dark" | "light") ?? "dark",
+    });
 
     useEffect(() => {
-        setSettings({ ...settings, theme: localStorage.theme });
-        updateThemeClass();
-    }, []);
-
-    const toggleTheme = () => {
-        localStorage.theme = settings.theme === "dark" ? "light" : "dark";
-        setSettings({ ...settings, theme: localStorage.theme });
-        updateThemeClass();
-    };
-
-    const updateThemeClass = () => {
-        if (localStorage.theme === "dark") {
+        if (settings.theme === "dark") {
             document.documentElement.classList.add("dark");
         } else {
             document.documentElement.classList.remove("dark");
         }
+    }, [settings.theme]);
+
+    const toggleTheme = () => {
+        const newTheme = settings.theme === "dark" ? "light" : "dark";
+        localStorage.theme = newTheme;
+        setSettings({ theme: newTheme });
     };
 
     return {

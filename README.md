@@ -46,18 +46,93 @@ The REST API has these resources:
     npm install
     ```
 
-2. Run the backend:
+2. Build everything:
+
+    ```
+    npm run build --workspaces --if-present
+    ```
+
+3. Run the backend:
 
     ```
     cd backend
-    npm run dbpush
-    npm run dbseed
+    npm run db:push
+    npm run db:seed
     npm run dev
     ```
 
-3. Run the frontend:
+4. Run the frontend:
 
     ```zsh
     cd frontend
     npm run dev
     ```
+
+## Deploy
+
+`partchat@.service`
+
+```
+[Unit]
+Description=Partchat (%i environment)
+Documentation=https://github.com/h4ctar/partchat
+After=network.target
+[Service]
+EnvironmentFile=/etc/partchat/%i.env
+Type=simple
+User=partchat
+WorkingDirectory=/opt/partchat/%i/backend
+ExecStart=/usr/bin/node dist/src/server.js
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target
+```
+
+`/etc/partchat/staging/env`
+
+```
+JWKS_URL=https://auth.h4ctar.com/realms/h4ctar/protocol/openid-connect/certs
+ISSUER=https://auth.h4ctar.com/realms/h4ctar
+PORT=3001
+```
+
+`/etc/nginx/sites-available/staging.partchat.h4ctar`
+
+```
+server {
+    server_name    staging.partchat.h4ctar.com;
+
+    location ~ /(api|public) {
+        proxy_pass http://localhost:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+    location / {
+        root /opt/partchat/staging/frontend/dist;
+        try_files $uri /index.html;
+    }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/staging.partchat.h4ctar.com/fullchain.pem; # managed
+ by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/staging.partchat.h4ctar.com/privkey.pem; # manag
+ed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+}
+
+server {
+    if ($host = staging.partchat.h4ctar.com) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+    server_name    staging.partchat.h4ctar.com;
+    listen 80;
+    return 404; # managed by Certbot
+}
+```
+

@@ -7,12 +7,12 @@ import {
 } from "@partchat/types";
 import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import { BadRequest, NotFound } from "http-errors";
+import createError from "http-errors";
 import { Jimp } from "jimp";
 import slugify from "slugify";
 import { z } from "zod/v4";
-import { checkToken } from "./auth";
-import { prisma } from "./prisma";
+import { checkToken } from "./auth.js";
+import { prisma } from "./prisma.js";
 
 export const motorcycleRoutes: FastifyPluginCallback<
     Record<never, never>,
@@ -79,7 +79,7 @@ export const motorcycleRoutes: FastifyPluginCallback<
             });
 
             if (!motorcycleModel) {
-                throw new NotFound("Motorcycle not found");
+                throw new createError.NotFound("Motorcycle not found");
             }
 
             const motorcycleResource: MotorcycleResource = {
@@ -214,7 +214,7 @@ export const motorcycleRoutes: FastifyPluginCallback<
 
             const data = await request.file();
             if (!data) {
-                throw new BadRequest("Missing image");
+                throw new createError.BadRequest("Missing image");
             }
 
             const imageBuffer = await data.toBuffer();

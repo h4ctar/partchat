@@ -11,8 +11,8 @@ const onSigninCallback = (user: any) => {
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
         <AuthProvider
-            authority={import.meta.env.VITE_AUTHORITY}
-            client_id={import.meta.env.VITE_CLIENT_ID}
+            authority={(window as any).ENV?.AUTHORITY}
+            client_id={(window as any).ENV?.CLIENT_ID}
             redirect_uri={window.location.origin}
             onSigninCallback={onSigninCallback}
         >

@@ -5,39 +5,40 @@
     "type": "module",
     "scripts": {
         "prettier": "prettier --check src",
+        "prettier:fix": "prettier --write src",
         "dev": "vite --strictPort",
         "build": "tsc && vite build",
         "preview": "vite preview"
     },
     "dependencies": {
-        "@hookform/resolvers": "^5.1.1",
+        "@hookform/resolvers": "^5.2.2",
         "@partchat/types": "0.0.0",
         "@tanstack/react-query": "^5.8.4",
-        "boring-avatars": "^1.7.0",
+        "boring-avatars": "^2.0.4",
         "lodash": "^4.17.21",
         "oidc-client-ts": "^3.3.0",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
         "react-hook-form": "^7.45.1",
         "react-oidc-context": "^3.3.0",
-        "slate": "^0.117.2",
-        "slate-react": "^0.117.2",
+        "slate": "^0.124.0",
+        "slate-react": "^0.124.0",
         "wouter": "^3.7.1",
-        "zod": "^3.21.4"
+        "zod": "^4.3.6"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.5.3",
         "@tailwindcss/typography": "^0.5.9",
-        "@tailwindcss/vite": "^4.1.11",
+        "@tailwindcss/vite": "^4.2.2",
         "@types/lodash": "^4.14.192",
         "@types/react": "^19.1.8",
         "@types/react-dom": "^19.1.6",
-        "@vitejs/plugin-react": "^4.0.1",
+        "@vitejs/plugin-react": "^6.0.1",
         "autoprefixer": "^10.4.14",
         "prettier": "^3.0.0",
-        "prettier-plugin-tailwindcss": "^0.6.13",
-        "tailwindcss": "^4.1.11",
-        "typescript": "^5.0.3",
-        "vite": "^7.0.0"
+        "prettier-plugin-tailwindcss": "^0.8.0",
+        "tailwindcss": "^4.2.2",
+        "typescript": "^6.0.3",
+        "vite": "^8.0.10"
     }
 }

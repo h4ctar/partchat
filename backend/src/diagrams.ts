@@ -1,11 +1,11 @@
 import { DiagramResource, Id, PostDiagram } from "@partchat/types";
 import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import { BadRequest, NotFound } from "http-errors";
+import createError from "http-errors";
 import slugify from "slugify";
 import { z } from "zod/v4";
-import { checkToken } from "./auth";
-import { prisma } from "./prisma";
+import { checkToken } from "./auth.js";
+import { prisma } from "./prisma.js";
 import { Jimp } from "jimp";
 
 export const diagramRoutes: FastifyPluginCallback<
@@ -70,7 +70,7 @@ export const diagramRoutes: FastifyPluginCallback<
             });
 
             if (!diagramModel) {
-                throw new NotFound("Diagram not found");
+                throw new createError.NotFound("Diagram not found");
             }
 
             const diagramResource: DiagramResource = {
@@ -192,7 +192,7 @@ export const diagramRoutes: FastifyPluginCallback<
 
             const data = await request.file();
             if (!data) {
-                throw new BadRequest("Missing image");
+                throw new createError.BadRequest("Missing image");
             }
 
             const imageBuffer = await data.toBuffer();

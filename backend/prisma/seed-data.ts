@@ -1,4 +1,16 @@
-export const MOTORCYCLES = [
+import { Diagram, Motorcycle, Part, PartToDiagram } from "../generated/prisma/client";
+import { MotorcycleCreateInput } from "../generated/prisma/models";
+
+export const DIAGRAMS: Diagram[] = [
+    {
+        id: "yamaha-cylinder-head-1",
+        name: "Cylinder Head",
+        width: 1146,
+        height: 1670,
+    },
+];
+
+export const MOTORCYCLES: MotorcycleCreateInput[] = [
     {
         id: "yamaha-xs750-1976-1981",
         make: "Yamaha",
@@ -12,7 +24,11 @@ export const MOTORCYCLES = [
         compression: 8.5,
         topSpeed: 189,
         weight: 256,
-        image: "/assets/motorcycles/xs750d.png",
+        diagrams: {
+            connect: {
+                id: "yamaha-cylinder-head-1",
+            },
+        },
     },
     {
         id: "yamaha-xj650lj-1982-1984",
@@ -27,7 +43,6 @@ export const MOTORCYCLES = [
         compression: 8.5,
         topSpeed: 203,
         weight: 262,
-        image: "/assets/motorcycles/xj650lj.png",
     },
     {
         id: "honda-cb400f-1975-1977",
@@ -42,28 +57,10 @@ export const MOTORCYCLES = [
         compression: 9.4,
         topSpeed: 158,
         weight: 184,
-        image: "/assets/motorcycles/cb400f.png",
     },
 ];
 
-export const DIAGRAMS = [
-    {
-        id: "yamaha-cylinder-head-1",
-        name: "Cylinder Head",
-        image: "/assets/diagrams/cylinder-head-1.png",
-        width: 1146,
-        height: 1670,
-    },
-];
-
-export const MOTORCYCLE_TO_DIAGRAMS = [
-    {
-        motorcycleId: "yamaha-xj650lj-1982-1984",
-        diagramId: "yamaha-cylinder-head-1",
-    },
-];
-
-export const PARTS = [
+export const PARTS: Part[] = [
     {
         id: "16G-11101-00",
         partNumber: "16G-11101-00",
@@ -186,7 +183,7 @@ export const PARTS = [
     },
 ];
 
-export const DIAGRAM_TO_PARTS = [
+export const DIAGRAM_TO_PARTS: PartToDiagram[] = [
     {
         diagramId: "yamaha-cylinder-head-1",
         partId: "91316-06035",
@@ -428,23 +425,3 @@ export const DIAGRAM_TO_PARTS = [
     },
 ];
 
-// export const COMMENTS = [
-//     {
-//         id: 1,
-//         username: "Ben",
-//         diagramId: "yamaha-cylinder-head-1",
-//         text: "First!",
-//     },
-//     {
-//         id: 2,
-//         username: "Ben",
-//         diagramId: "yamaha-cylinder-head-1",
-//         text: "Second",
-//     },
-//     {
-//         id: 3,
-//         username: "Ben",
-//         diagramId: "yamaha-cylinder-head-1",
-//         text: "Third :(",
-//     },
-// ];

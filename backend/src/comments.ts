@@ -1,10 +1,10 @@
 import { CommentResource, Id, PostComment } from "@partchat/types";
 import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
-import { Forbidden, NotFound } from "http-errors";
+import createError from "http-errors";
 import { z } from "zod/v4";
-import { checkToken } from "./auth";
-import { prisma } from "./prisma";
+import { checkToken } from "./auth.js";
+import { prisma } from "./prisma.js";
 
 export const commentRoutes: FastifyPluginCallback<
     Record<never, never>,
@@ -75,7 +75,7 @@ export const commentRoutes: FastifyPluginCallback<
             });
 
             if (!commentModel) {
-                throw new NotFound("Comment not found");
+                throw new createError.NotFound("Comment not found");
             }
 
             const commentResource: CommentResource = {
@@ -161,7 +161,7 @@ export const commentRoutes: FastifyPluginCallback<
             });
 
             if (commentModel?.username !== user.preferred_username) {
-                throw new Forbidden("You don't own this comment");
+                throw new createError.Forbidden("You don't own this comment");
             }
 
             await prisma.comment.delete({
