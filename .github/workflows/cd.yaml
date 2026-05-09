@@ -62,7 +62,7 @@ jobs:
             AUTHORITY: ${{ vars.AUTHORITY }}
             CLIENT_ID: ${{ vars.CLIENT_ID }}
         steps:
-            - uses: actions/download-artifact@v6
+            - uses: actions/download-artifact@v7
               with:
                   name: dist
             - name: Setup SSH
@@ -111,7 +111,7 @@ jobs:
               id: playwright-version
               run: echo "playwright_version=$(jq -r .packages.\"node_modules/@playwright/test\".version package-lock.json)" >> $GITHUB_OUTPUT
             - name: Cache Playwright binaries
-              uses: actions/cache@v4
+              uses: actions/cache@v5
               id: playwright-cache
               with:
                   path: ~/.cache/ms-playwright
@@ -151,7 +151,7 @@ jobs:
             CLIENT_ID: ${{ vars.CLIENT_ID }}
         steps:
             - uses: actions/checkout@v6
-            - uses: actions/download-artifact@v6
+            - uses: actions/download-artifact@v7
               with:
                   name: dist
             - name: Install pm2
